@@ -26,3 +26,249 @@ ggplot(data = exam_data,
        aes(x = RACE)) + 
   geom_bar()
 ```
+
+------------------------------------------------------------------------
+
+# ggplot vs R Graphics
+
+## R Graphics
+
+```{R}
+hist(exam_data$MATHS)
+```
+
+## ggplot
+
+```{R}
+ggplot(data=exam_data, aes(x = MATHS)) +
+  geom_histogram(bins=10, 
+                 boundary = 100,
+                 color="black", 
+                 fill="grey") +
+  ggtitle("Distribution of Maths scores")
+```
+
+# **Geometric Objects**
+
+## **geom_bar**
+
+```{R}
+ggplot(data = exam_data,
+       aes(x = RACE)) + 
+    geom_bar()
+```
+
+## **geom_dotplot**
+
+```{R}
+ggplot(data=exam_data, 
+       aes(x = MATHS)) +
+  geom_dotplot(binwidth=2.5,         
+               dotsize = 0.5) +      
+  scale_y_continuous(NULL,           
+                     breaks = NULL)  
+```
+
+## geom_histogram
+
+```{R}
+ggplot(data = exam_data,
+       aes(x = MATHS)) + 
+  geom_histogram()
+```
+
+## geom_density
+
+```{R}
+ggplot(data=exam_data, 
+       aes(x = MATHS)) +
+  geom_density()           
+```
+
+## geom_boxplot
+
+```{R}
+ggplot(data=exam_data, 
+       aes(y = MATHS,       
+           x= GENDER)) +    
+  geom_boxplot(notch = TRUE)            
+```
+
+## geom_violin
+
+```{R}
+ggplot(data=exam_data, 
+       aes(y = MATHS, 
+           x= GENDER)) +
+  geom_violin()
+```
+
+## geom_point
+
+```{R}
+ggplot(data=exam_data, 
+       aes(x= MATHS, 
+           y=ENGLISH)) +
+  geom_point()            
+```
+
+## Combined geom objects
+
+```{R}
+ggplot(data=exam_data, 
+       aes(y = MATHS, 
+           x= GENDER)) +
+  geom_boxplot() +                    
+  geom_point(position="jitter", 
+             size = 0.5)        
+```
+
+# **Modifying a geometric object**
+
+## Changing geom()
+
+```{R}
+ggplot(data=exam_data, 
+       aes(x= MATHS)) +
+  geom_histogram(bins=20,            
+                 color="black",      
+                 fill="light blue")  
+```
+
+## Changing aes()
+
+```{R}
+ggplot(data=exam_data, 
+       aes(x= MATHS, 
+           fill = GENDER)) +
+  geom_histogram(bins=20, 
+                 color="grey30")
+```
+
+```{R}
+ggplot(data=exam_data, 
+       aes(x = MATHS, 
+           colour = GENDER)) +
+  geom_density()
+```
+
+# **Stat**
+
+## stat_summary()
+
+```{R}
+ggplot(data=exam_data, 
+       aes(y = MATHS, x= GENDER)) +
+  geom_boxplot() +
+  stat_summary(geom = "point",       
+               fun = "mean",         
+               colour ="red",        
+               size=4)               
+```
+
+## geom()
+
+```{R}
+ggplot(data=exam_data, 
+       aes(y = MATHS, x= GENDER)) +
+  geom_boxplot() +
+  geom_point(stat="summary",        
+             fun="mean",           
+             colour="red",          
+             size=4)          
+```
+
+## best fit line
+
+```{R}
+ggplot(data=exam_data, 
+       aes(x= MATHS, 
+           y=ENGLISH)) +
+  geom_point() +
+  geom_smooth(method=lm, 
+              linewidth=0.5)
+```
+
+# Facets
+
+## Facet_wrap()
+
+```{R}
+ggplot(data=exam_data, 
+       aes(x= MATHS)) +
+  geom_histogram(bins=20) +
+    facet_wrap(~ CLASS)
+```
+
+
+## Facet_grid()
+
+```{R}
+ggplot(data=exam_data, 
+       aes(x= MATHS)) +
+  geom_histogram(bins=20) +
+    facet_grid(~ CLASS)
+```
+
+
+# Coordinates
+
+## coord_flip()
+
+```{R}
+ggplot(data=exam_data, 
+       aes(x=RACE)) +
+  geom_bar() +
+  coord_flip()
+```
+
+
+## coord_cartesian()
+
+```{R}
+ggplot(data=exam_data, 
+       aes(x= MATHS, y=ENGLISH)) +
+  geom_point() +
+  geom_smooth(method=lm, 
+              size=0.5) +  
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+```
+
+# Themes
+
+```{R}
+ggplot(data=exam_data, 
+       aes(x=RACE)) +
+  geom_bar() +
+  coord_flip() +
+  theme_gray()
+```
+
+```{R}
+ggplot(data=exam_data, 
+       aes(x=RACE)) +
+  geom_bar() +
+  coord_flip() +
+  theme_classic()
+```
+
+```{R}
+ggplot(data=exam_data, 
+       aes(x=RACE)) +
+  geom_bar() +
+  coord_flip() +
+  theme_minimal()
+```
+
+
+
+
+
+
+
+
+
+
+
+

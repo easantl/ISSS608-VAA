@@ -33,5 +33,138 @@
     "title": "Hands-on Exercise 1",
     "section": "",
     "text": "exam_data &lt;- read_csv(\"data/Exam_data.csv\")\n\nRows: 322 Columns: 7\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (4): ID, CLASS, GENDER, RACE\ndbl (3): ENGLISH, MATHS, SCIENCE\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#r-graphics",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#r-graphics",
+    "title": "Hands-on Exercise 1",
+    "section": "R Graphics",
+    "text": "R Graphics\n\nhist(exam_data$MATHS)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#ggplot",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#ggplot",
+    "title": "Hands-on Exercise 1",
+    "section": "ggplot",
+    "text": "ggplot\n\nggplot(data=exam_data, aes(x = MATHS)) +\n  geom_histogram(bins=10, \n                 boundary = 100,\n                 color=\"black\", \n                 fill=\"grey\") +\n  ggtitle(\"Distribution of Maths scores\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_bar",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_bar",
+    "title": "Hands-on Exercise 1",
+    "section": "geom_bar",
+    "text": "geom_bar\n\nggplot(data = exam_data,\n       aes(x = RACE)) + \n    geom_bar()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_dotplot",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_dotplot",
+    "title": "Hands-on Exercise 1",
+    "section": "geom_dotplot",
+    "text": "geom_dotplot\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot(binwidth=2.5,         \n               dotsize = 0.5) +      \n  scale_y_continuous(NULL,           \n                     breaks = NULL)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_histogram",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_histogram",
+    "title": "Hands-on Exercise 1",
+    "section": "geom_histogram",
+    "text": "geom_histogram\n\nggplot(data = exam_data,\n       aes(x = MATHS)) + \n  geom_histogram()\n\n`stat_bin()` using `bins = 30`. Pick better value with `binwidth`."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_density",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_density",
+    "title": "Hands-on Exercise 1",
+    "section": "geom_density",
+    "text": "geom_density\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_density()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#changing-geom",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#changing-geom",
+    "title": "Hands-on Exercise 1",
+    "section": "Changing geom()",
+    "text": "Changing geom()\n\nggplot(data=exam_data, \n       aes(x= MATHS)) +\n  geom_histogram(bins=20,            \n                 color=\"black\",      \n                 fill=\"light blue\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#changing-aes",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#changing-aes",
+    "title": "Hands-on Exercise 1",
+    "section": "Changing aes()",
+    "text": "Changing aes()\n\nggplot(data=exam_data, \n       aes(x= MATHS, \n           fill = GENDER)) +\n  geom_histogram(bins=20, \n                 color=\"grey30\")\n\n\n\n\n\n\n\n\n\nggplot(data=exam_data, \n       aes(x = MATHS, \n           colour = GENDER)) +\n  geom_density()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_boxplot",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_boxplot",
+    "title": "Hands-on Exercise 1",
+    "section": "geom_boxplot",
+    "text": "geom_boxplot\n\nggplot(data=exam_data, \n       aes(y = MATHS,       \n           x= GENDER)) +    \n  geom_boxplot(notch = TRUE)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_violin",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_violin",
+    "title": "Hands-on Exercise 1",
+    "section": "geom_violin",
+    "text": "geom_violin\n\nggplot(data=exam_data, \n       aes(y = MATHS, \n           x= GENDER)) +\n  geom_violin()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_point",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_point",
+    "title": "Hands-on Exercise 1",
+    "section": "geom_point",
+    "text": "geom_point\n\nggplot(data=exam_data, \n       aes(x= MATHS, \n           y=ENGLISH)) +\n  geom_point()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#combined-geom-objects",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#combined-geom-objects",
+    "title": "Hands-on Exercise 1",
+    "section": "Combined geom objects",
+    "text": "Combined geom objects\n\nggplot(data=exam_data, \n       aes(y = MATHS, \n           x= GENDER)) +\n  geom_boxplot() +                    \n  geom_point(position=\"jitter\", \n             size = 0.5)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#stat_summary",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#stat_summary",
+    "title": "Hands-on Exercise 1",
+    "section": "stat_summary()",
+    "text": "stat_summary()\n\nggplot(data=exam_data, \n       aes(y = MATHS, x= GENDER)) +\n  geom_boxplot() +\n  stat_summary(geom = \"point\",       \n               fun = \"mean\",         \n               colour =\"red\",        \n               size=4)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom",
+    "title": "Hands-on Exercise 1",
+    "section": "geom()",
+    "text": "geom()\n\nggplot(data=exam_data, \n       aes(y = MATHS, x= GENDER)) +\n  geom_boxplot() +\n  geom_point(stat=\"summary\",        \n             fun=\"mean\",           \n             colour=\"red\",          \n             size=4)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#best-fit-line",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#best-fit-line",
+    "title": "Hands-on Exercise 1",
+    "section": "best fit line",
+    "text": "best fit line\n\nggplot(data=exam_data, \n       aes(x= MATHS, \n           y=ENGLISH)) +\n  geom_point() +\n  geom_smooth(method=lm, \n              linewidth=0.5)\n\n`geom_smooth()` using formula = 'y ~ x'"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#facet_wrap",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#facet_wrap",
+    "title": "Hands-on Exercise 1",
+    "section": "Facet_wrap()",
+    "text": "Facet_wrap()\n\nggplot(data=exam_data, \n       aes(x= MATHS)) +\n  geom_histogram(bins=20) +\n    facet_wrap(~ CLASS)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#facet_grid",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#facet_grid",
+    "title": "Hands-on Exercise 1",
+    "section": "Facet_grid()",
+    "text": "Facet_grid()\n\nggplot(data=exam_data, \n       aes(x= MATHS)) +\n  geom_histogram(bins=20) +\n    facet_grid(~ CLASS)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#coord_flip",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#coord_flip",
+    "title": "Hands-on Exercise 1",
+    "section": "coord_flip()",
+    "text": "coord_flip()\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar() +\n  coord_flip()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#coord_cartesian",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#coord_cartesian",
+    "title": "Hands-on Exercise 1",
+    "section": "coord_cartesian()",
+    "text": "coord_cartesian()\n\nggplot(data=exam_data, \n       aes(x= MATHS, y=ENGLISH)) +\n  geom_point() +\n  geom_smooth(method=lm, \n              size=0.5) +  \n  coord_cartesian(xlim=c(0,100),\n                  ylim=c(0,100))\n\nWarning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.\nℹ Please use `linewidth` instead.\n\n\n`geom_smooth()` using formula = 'y ~ x'"
   }
 ]
