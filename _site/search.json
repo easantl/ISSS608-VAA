@@ -2,7 +2,7 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "ISSS608-VAA",
+    "title": "ISSS608-Visual Analytics and Application",
     "section": "",
     "text": "Welcome to ISSS608 Visual Analytics and Application homepage. In this website, you will find my coursework prepared for this course."
   },
@@ -264,5 +264,33 @@
     "title": "Hands-on_Ex02",
     "section": "Creating a composite figure by using patchwork and ggtheme",
     "text": "Creating a composite figure by using patchwork and ggtheme\n\npatchwork &lt;- (p1 / p2) | p3\npatchwork & theme_economist()\n\n`geom_smooth()` using formula = 'y ~ x'"
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Exercise.html",
+    "href": "In-class_Ex/In-class_Exercise.html",
+    "title": "In-class_Exercise",
+    "section": "",
+    "text": "Please view my in-class exercises on www.linsen.com"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html",
+    "title": "Take-home_Ex01",
+    "section": "",
+    "text": "xxx1"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex03/Take-home_Ex03.html",
+    "href": "Take-home_Ex/Take-home_Ex03/Take-home_Ex03.html",
+    "title": "Take-home_Ex03",
+    "section": "",
+    "text": "xxx3"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html",
+    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html",
+    "title": "Take-home_Ex02",
+    "section": "",
+    "text": "xxx2"
   }
 ]
