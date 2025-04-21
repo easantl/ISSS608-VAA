@@ -2,3 +2,171 @@
 title: "Hands-on_Ex02"
 author: "Linsen Lu"
 ---
+
+# Getting start
+
+## **Installing and loading the required libraries**
+
+```{R}
+pacman::p_load(ggrepel, patchwork, 
+               ggthemes, hrbrthemes,
+               tidyverse) 
+```
+
+## Importing data
+
+```{R}
+exam_data2 <- read_csv("data02/Exam_data_02.csv")
+```
+
+# Beyond ggplot2 Annotation: ggrepel
+
+## ggplot2 Annotation
+
+```{R, warning=FALSE}
+ggplot(data=exam_data2, 
+       aes(x= MATHS, 
+           y=ENGLISH)) +
+  geom_point() +
+  geom_smooth(method=lm, 
+              size=0.5) +  
+  geom_label(aes(label = ID), 
+             hjust = .5, 
+             vjust = -.5) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100)) +
+  ggtitle("English scores versus Maths scores for Primary 3")
+```
+
+## ggrepel Annotation
+
+```{R, warning=FALSE}
+ggplot(data=exam_data2, 
+       aes(x= MATHS, 
+           y=ENGLISH)) +
+  geom_point() +
+  geom_smooth(method=lm, 
+              size=0.5) +  
+  geom_label_repel(aes(label = ID), 
+                   fontface = "bold") +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100)) +
+  ggtitle("English scores versus Maths scores for Primary 3")
+```
+
+# **Beyond ggplot2 Themes**
+
+## ggplot2 Themes
+
+```{R}
+ggplot(data=exam_data2, 
+             aes(x = MATHS)) +
+  geom_histogram(bins=20, 
+                 boundary = 100,
+                 color="grey25", 
+                 fill="grey90") +
+  theme_gray() +
+  ggtitle("Distribution of Maths scores") 
+```
+
+## **ggtheme package**
+
+```{R}
+ggplot(data=exam_data2, 
+             aes(x = MATHS)) +
+  geom_histogram(bins=20, 
+                 boundary = 100,
+                 color="grey25", 
+                 fill="grey90") +
+  ggtitle("Distribution of Maths scores") +
+  theme_economist()
+```
+
+## hrbthems package
+
+```{R, warning = FALSE}
+ggplot(data=exam_data2, 
+             aes(x = MATHS)) +
+  geom_histogram(bins=20, 
+                 boundary = 100,
+                 color="grey25", 
+                 fill="grey90") +
+  ggtitle("Distribution of Maths scores") +
+  theme_ipsum(axis_title_size = 18,
+              base_size = 15,
+              grid = "Y")
+```
+
+# **Beyond Single Graph**
+
+## Single plots
+
+```{R}
+p1 <- ggplot(data=exam_data2, 
+             aes(x = MATHS)) +
+  geom_histogram(bins=20, 
+                 boundary = 100,
+                 color="grey25", 
+                 fill="grey90") + 
+  coord_cartesian(xlim=c(0,100)) +
+  ggtitle("Distribution of Maths scores")
+```
+
+```{R}
+p2 <- ggplot(data=exam_data2, 
+             aes(x = ENGLISH)) +
+  geom_histogram(bins=20, 
+                 boundary = 100,
+                 color="grey25", 
+                 fill="grey90") +
+  coord_cartesian(xlim=c(0,100)) +
+  ggtitle("Distribution of English scores")
+```
+
+```{R}
+p3 <- ggplot(data=exam_data2, 
+             aes(x= MATHS, 
+                 y=ENGLISH)) +
+  geom_point() +
+  geom_smooth(method=lm, 
+              size=0.5) +  
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100)) +
+  ggtitle("English scores vs Maths scores for P3")
+```
+
+## Combining two graphs
+
+```{R}
+p1 + p2
+```
+
+## Combining three graphs
+
+```{r, fig.width=12, fig.height=6}
+(p1 / p2) | p3
+```
+
+## **Creating a composite figure with tag**
+
+```{R,fig.width=12, fig.height=6}
+((p1 / p2) | p3) + 
+  plot_annotation(tag_levels = 'I')
+```
+
+## **Creating figure with insert**
+
+```{R}
+p3 + inset_element(p2, 
+                   left = 0.02, 
+                   bottom = 0.7, 
+                   right = 0.5, 
+                   top = 1)
+```
+
+## **Creating a composite figure by using patchwork and ggtheme**
+
+```{R, fig.width=12, fig.height=6}
+patchwork <- (p1 / p2) | p3
+patchwork & theme_economist()
+```
