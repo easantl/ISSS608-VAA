@@ -1,0 +1,46 @@
+::: {.columns}
+
+::: {.column style="width: 32%;"}
+![](lls1.jpg){width=83%}
+
+### **Linsen (Easant) Lu**
+
+*Data Analyst* | *BI Specialist*
+*Supply Chain Specialist*  
+
+
+[LinkedIn](https://www.linkedin.com/in/linsen-easant-lu-ab1119251){.btn .btn-outline-dark}
+:::
+
+::: {.column style="width: 68%;"}
+
+My name is Linsen, you may also call me Easant.
+
+I have a background in supply chain and business IT, with hands-on experience in data analytics, operations, and both B2B and B2C business contexts. Through multiple internships and entrepreneurial projects, I’ve worked across different industries to support data-driven decision-making in areas like supply chain, sales, and process improvement.
+
+---
+
+### Education
+
+**Singapore Management University** | 2024.01-2025.08   
+Masters of IT in Business (Data science and Analytics) 
+
+**Curtin University** | 2021.04-2023.08  
+B.Com.in Logistics and Supply Chain Management
+
+---
+
+### Experience
+
+**Bosch APAC** |
+Data Analyst Intern
+
+**TTG Asia** |
+Procurement Intern
+
+**Shanghai Markting Pte Ltd.** |
+Business Development Intern
+
+
+:::
+:::

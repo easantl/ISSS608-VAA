@@ -1,30 +1,73 @@
-/* css styles */
-
+/* ===== 导航栏样式 ===== */
 .navbar {
-  font-size: 2rem;      
+  font-size: 1.2rem;      
   padding-top: 0.9rem;  
   padding-bottom: 0.9rem;
   height: 60px;          
 }
-
 
 .navbar-brand {
   font-size: 1.4rem;
   font-weight: bold;
 }
 
-
 .navbar-nav > li > a {
-  font-size: 20rem;
+  font-size: 1.1rem;
 }
 
-
+/* ===== 页面标题（例如 h1）样式 ===== */
 h1 {
   font-size: 2.3rem;      
   font-weight: 800;
 }
 
-
+/* ===== 正文段落（全站 p 标签）样式 ===== */
 p {
-  font-size: 1.2rem;   
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ===== About 页面专属优化：左右栏字体 ===== */
+
+/* 左栏（图片+简介）字体略小 */
+.column:nth-child(1) {
+  font-size: 0.9rem;
+}
+
+/* 右栏（正文）字体略大一些，段落更舒适 */
+.column:nth-child(2) {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* 小标题（Hello, Education, Experience） */
+h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* LinkedIn 按钮样式 */
+.btn-outline-dark {
+  font-size: 0.85rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 5px;
+}
+/* 设置左右栏容器的整体布局 */
+.columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  border-left: none;
+}
+
+/* 左侧栏设置右边框作为分割线 */
+.columns > .column:nth-child(1) {
+  border-right: 1px solid #ddd;  /* 灰色分割线 */
+  padding-right: 1.5rem;
+}
+
+/* 右侧栏左边留出间距 */
+.columns > .column:nth-child(2) {
+  padding-left: 1.5rem;
 }

@@ -9,9 +9,9 @@
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About",
+    "title": "ISSS608-VAA",
     "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
+    "text": "My Photo\n\n\n\nLinsen (Easant) Lu\nData Analyst\nSupply Chain Specialist\nExploring Digital Transformation in Supply Chains\nLinkedIn\n\n\n\n\nHello!\nI am a master’s student passionate about data analytics and supply chain innovation…\n\n\n\nEducation\nSingapore Management University\nMasters of IT in Business | Expected Dec 2025\n\n\n\nExperience\nMultiple MNCs\nIntern / Training Instructor | Singapore"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html",
@@ -292,5 +292,12 @@
     "title": "Take-home_Ex02",
     "section": "",
     "text": "xxx2"
+  },
+  {
+    "objectID": "about/about.html",
+    "href": "about/about.html",
+    "title": "ISSS608-VAA",
+    "section": "",
+    "text": "Linsen (Easant) Lu\nData Analyst | BI Specialist Supply Chain Specialist\nLinkedIn\n\n\nMy name is Linsen, you may also call me Easant.\nI have a background in supply chain and business IT, with hands-on experience in data analytics, operations, and both B2B and B2C business contexts. Through multiple internships and entrepreneurial projects, I’ve worked across different industries to support data-driven decision-making in areas like supply chain, sales, and process improvement.\n\n\nEducation\nSingapore Management University | 2024.01-2025.08\nMasters of IT in Business (Data science and Analytics)\nCurtin University | 2021.04-2023.08\nB.Com.in Logistics and Supply Chain Management\n\n\n\nExperience\nBosch APAC | Data Analyst Intern\nTTG Asia | Procurement Intern\nShanghai Markting Pte Ltd. | Business Development Intern"
   }
 ]
