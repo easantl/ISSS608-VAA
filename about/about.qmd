@@ -1,6 +1,6 @@
 ::: {.columns}
 
-::: {.column style="width: 32%;"}
+::: {.column style="width: 31%;"}
 ![](lls1.jpg){width=83%}
 
 ### **Linsen (Easant) Lu**
@@ -12,7 +12,7 @@
 [LinkedIn](https://www.linkedin.com/in/linsen-easant-lu-ab1119251){.btn .btn-outline-dark}
 :::
 
-::: {.column style="width: 68%;"}
+::: {.column style="width: 69%;"}
 
 My name is Linsen, you may also call me Easant.
 
