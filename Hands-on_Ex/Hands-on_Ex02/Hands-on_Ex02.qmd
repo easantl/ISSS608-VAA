@@ -1,6 +1,10 @@
 ---
 title: "Hands-on_Ex02"
 author: "Linsen Lu"
+execute: 
+  eval: true
+  echo: true
+  warning: false
 ---
 
 # Getting start
