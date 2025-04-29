@@ -200,7 +200,6 @@ ggplot(data=exam_data,
     facet_wrap(~ CLASS)
 ```
 
-
 ## Facet_grid()
 
 ```{R}
@@ -209,7 +208,6 @@ ggplot(data=exam_data,
   geom_histogram(bins=20) +
     facet_grid(~ CLASS)
 ```
-
 
 # Coordinates
 
@@ -221,7 +219,6 @@ ggplot(data=exam_data,
   geom_bar() +
   coord_flip()
 ```
-
 
 ## coord_cartesian()
 
@@ -260,15 +257,3 @@ ggplot(data=exam_data,
   coord_flip() +
   theme_minimal()
 ```
-
-
-
-
-
-
-
-
-
-
-
-
