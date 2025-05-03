@@ -224,7 +224,6 @@ elderly_data <- popdata %>%
 
 total_elderly <- sum(elderly_data$ElderlyPop)
 
-# P1: Top 5 Planning Areas
 elderly_by_PA <- elderly_data %>%
   group_by(PA) %>%
   summarise(TotalElderly = sum(ElderlyPop)) %>%
@@ -248,7 +247,6 @@ P1 <- ggplot(elderly_by_PA, aes(x = PA, y = TotalElderly)) +
     x = "Planning Area", y = "Population") +
   theme_minimal(base_size = 12)
 
-# P2: Top 10 Subzones
 top_sz <- elderly_data %>%
   arrange(desc(ElderlyPop)) %>%
   slice_max(order_by = ElderlyPop, n = 10) %>%
@@ -269,7 +267,6 @@ P2 <- ggplot(top_sz, aes(x = SZ, y = ElderlyPop)) +
     x = "Subzone", y = "Population") +
   theme_minimal(base_size = 12)
 
-# 交互合并输出
 girafe(
   ggobj = P1 + P2,
   width_svg = 10,
