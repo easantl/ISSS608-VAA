@@ -3,4 +3,4 @@ title: "ISSS608-Visual Analytics and Application"
 ---
 
 Welcome to **ISSS608 Visual Analytics and Application** homepage. 
-In this website, you will find my coursework prepared for this course.
+In this website, you will find my coursework prepared for this course!

@@ -1,171 +1,59 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "ISSS608-Visual Analytics and Application",
+    "objectID": "Take-home_Ex/Take-home_Ex03/Take-home_Ex03.html",
+    "href": "Take-home_Ex/Take-home_Ex03/Take-home_Ex03.html",
+    "title": "Take-home_Ex03",
     "section": "",
-    "text": "Welcome to ISSS608 Visual Analytics and Application homepage. In this website, you will find my coursework prepared for this course."
+    "text": "xxx3"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "ISSS608-VAA",
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html",
+    "title": "Demographic structures and distribution of Singapore in 2024",
     "section": "",
-    "text": "My Photo\n\n\n\nLinsen (Easant) Lu\nData Analyst\nSupply Chain Specialist\nExploring Digital Transformation in Supply Chains\nLinkedIn\n\n\n\n\nHello!\nI am a master’s student passionate about data analytics and supply chain innovation…\n\n\n\nEducation\nSingapore Management University\nMasters of IT in Business | Expected Dec 2025\n\n\n\nExperience\nMultiple MNCs\nIntern / Training Instructor | Singapore"
+    "text": "pacman::p_load(ggrepel, patchwork, \n               ggthemes, hrbrthemes,\n               tidyverse, ggiraph, plotly, \n                DT, readxl, gifski, gapminder,\n               gganimate) \n\n\n\n\n\nPopdata &lt;- read.csv(\"data/respopagesex2024.csv\")"
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html",
-    "title": "Hands-on Exercise 1",
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#getting-start",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#getting-start",
+    "title": "Demographic structures and distribution of Singapore in 2024",
     "section": "",
-    "text": "The code chunk below uses p_load() of pacman package to check if tidyverse packages are installed in the computer. If they are, then they will be launched into R.\n\npacman::p_load(tidyverse)\n\n\n\n\n\nexam_data &lt;- read_csv(\"data/Exam_data.csv\")\n\nRows: 322 Columns: 7\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (4): ID, CLASS, GENDER, RACE\ndbl (3): ENGLISH, MATHS, SCIENCE\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
+    "text": "pacman::p_load(ggrepel, patchwork, \n               ggthemes, hrbrthemes,\n               tidyverse, ggiraph, plotly, \n                DT, readxl, gifski, gapminder,\n               gganimate) \n\n\n\n\n\nPopdata &lt;- read.csv(\"data/respopagesex2024.csv\")"
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#install-and-launching-r-packages",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#install-and-launching-r-packages",
-    "title": "Hands-on Exercise 1",
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#setting-the-sense",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#setting-the-sense",
+    "title": "Demographic structures and distribution of Singapore in 2024",
+    "section": "1. Setting the sense",
+    "text": "1. Setting the sense\nSingapore’s changing demographics have become a pressing topic, especially in the context of an aging population. Understanding the composition and spatial distribution of residents is increasingly important to both policymakers and the public. This report aims to offer a clear, data-driven overview of Singapore’s demographic landscape in 2024, with a particular focus on differences across planning areas and subzones, as well as variations by age and gender. Drawing on the latest official statistics, this analysis provides insights into the trends shaping Singapore’s communities today."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#dataset",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#dataset",
+    "title": "Demographic structures and distribution of Singapore in 2024",
+    "section": "2. Dataset",
+    "text": "2. Dataset\nThe dataset used in this report was obtained from the Singapore Department of Statistics (DOS) and provides population counts as of June 2024. It contains detailed information on Singapore residents, broken down by Planning Area, Subzone, single year of age, and sex. This high-resolution demographic data enables granular analysis of population structures and spatial distribution across the city. The dataset comprises a total of 60,424 records. For more details, please refer to the metadata below.\n\n\n\nVariables\nDefinition\n\n\n\n\nPA\nPlanning Area\n\n\nSZ\nSubzone\n\n\nAge\nSingle Year of Age\n\n\nSex\nSex\n\n\nPop\nResident Count\n\n\nTime\nTime/Period"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#data-processing",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#data-processing",
+    "title": "Demographic structures and distribution of Singapore in 2024",
+    "section": "3. Data processing",
+    "text": "3. Data processing\nTo ensure the validity and reliability of this report, it is essential to preprocess the dataset and assess its quality. This includes checking for completeness, consistency, and potential anomalies that may affect the accuracy of our analysis.\n\n3.1. Checking for missing values\n\ncolSums(is.na(Popdata))\n\n  PA   SZ  Age  Sex  Pop Time \n   0    0    0    0    0    0 \n\n\nAs observed from output of code-chunk above, there’s no missing value in this dataset.\n\n\n3.2. Checking for duplicates\n\nPopdata[duplicated(Popdata)]\n\ndata frame with 0 columns and 60424 rows\n\n\nAs observed from output of code-chunk above, there’s no duplicates in this dataset.\n\n\n3.2. Checking for datatype\n\nstr(Popdata)\n\n'data.frame':   60424 obs. of  6 variables:\n $ PA  : chr  \"Ang Mo Kio\" \"Ang Mo Kio\" \"Ang Mo Kio\" \"Ang Mo Kio\" ...\n $ SZ  : chr  \"Ang Mo Kio Town Centre\" \"Ang Mo Kio Town Centre\" \"Ang Mo Kio Town Centre\" \"Ang Mo Kio Town Centre\" ...\n $ Age : chr  \"0\" \"0\" \"1\" \"1\" ...\n $ Sex : chr  \"Males\" \"Females\" \"Males\" \"Females\" ...\n $ Pop : int  10 10 10 10 10 10 10 10 30 10 ...\n $ Time: int  2024 2024 2024 2024 2024 2024 2024 2024 2024 2024 ...\n\n\nAs observed from the output of the code-chunk above, all column data types are appropriate. One point to note is that the datatype of the variable Age is character instead of integer. This is because the dataset does not provide age-specific breakdowns beyond 90 years old; instead, individuals aged 90 and above are grouped under the label “90_and_Over”. This classification is reasonable and consistent with common demographic reporting practices.\n\n\n3.3. Removing unnecessary columns\nSince the dataset has already been clearly defined as representing statistics from the year 2024, and upon inspection the variable Time contains only a single unique value (2024), this column is no longer necessary and can be safely removed.\n\nunique(Popdata$Time)\n\n[1] 2024\n\n\n\npopdata &lt;- subset(Popdata, select = -Time)"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#key-findings",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#key-findings",
+    "title": "Demographic structures and distribution of Singapore in 2024",
+    "section": "4. Key Findings",
+    "text": "4. Key Findings\n\n4.1. Interactive Population Plot\n\npa_sz_summary &lt;- popdata %&gt;%\n  group_by(PA, SZ) %&gt;%\n  summarise(Pop = sum(Pop), .groups = \"drop\") %&gt;%\n  mutate(\n    Pop_thousand = Pop / 1000,\n    tooltip_text = str_replace_all(\n      paste0(\"Planning Area: \", PA,\n             \"\\nSubzone: \", SZ,\n             \"\\nPopulation: \", Pop),\n      \"'\", \"\"))\n\npa_order &lt;- pa_sz_summary %&gt;%\n  group_by(PA) %&gt;%\n  summarise(TotalPop = sum(Pop_thousand)) %&gt;%\n  filter(TotalPop &gt; 0) %&gt;%                         \n  arrange(desc(TotalPop)) %&gt;%\n  pull(PA)\n\npa_sz_summary &lt;- pa_sz_summary %&gt;%\n  filter(PA %in% pa_order) %&gt;%\n  mutate(PA = factor(PA, levels = pa_order))\n\ncolor_palette &lt;- c(\"#E76F51\", \"#457B9D\", \"#F4A261\", \"#2A9D8F\")\nn_subzones &lt;- length(unique(pa_sz_summary$SZ))\ncolor_values &lt;- rep(color_palette, length.out = n_subzones)\nsz_levels &lt;- sort(unique(pa_sz_summary$SZ))\nnames(color_values) &lt;- sz_levels\n\np &lt;- ggplot(pa_sz_summary, aes(x = PA, y = Pop_thousand, fill = SZ)) +\n  geom_bar_interactive(\n    aes(tooltip = tooltip_text, data_id = tooltip_text),\n    stat = \"identity\", show.legend = FALSE\n  ) +\n  scale_fill_manual(values = color_values) +\n  scale_y_continuous(\n  breaks = seq(0, 250, by = 50),\n  labels = function(x) paste0(x, \"K\")) +\n  labs(title = \"Population by Planning Area and Subzone (2024)\",\n    x = \"Planning Area\", y = \"Population (in thousands)\") +\n  theme_minimal() +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))\n\ngirafe(\n  ggobj = p,\n  width_svg = 8,\n  height_svg = 8 * 0.618,\n  options = list(\n    opts_hover(\"fill-opacity:1;stroke:black;stroke-width:0.5px;cursor:pointer;\"),\n    \n    opts_hover_inv(css = \"opacity:0.2;\"),  \n    opts_tooltip()\n  ))\n\n\n\n\n\nThis chart provides a comprehensive overview of the population distribution across Singapore’s planning areas and subzones in 2024.\nFrom the planning area angle, it shows that population is heavily concentrated in areas such as Tampines, Bedok, and Sengkang. Notably, seven planning areas—Tampines, Bedok, Sengkang, Jurong West, Woodlands, Yishun, and Hougang—have populations exceeding 200,000, indicating high residential density. In contrast, areas such as Seletar and Museum have very low or near-zero populations, suggesting they may be non-residential or under development.\nFrom the subzone angle, Tampines East is the most inhabited subzone, with 128,320 residents, compared to subzones such as Boon lay’s Shipyard which is completely uninhabited.\n\n\n4.2. Distribution of elderly population in Singapore\nIn Singapore, people aged 65 and above are defined as aging people, directly translated from mandarin, this group of people are expected to have a A happy, joyful and enjoyable retirement life. At this stage of life, they are no longer burdened by raising children or dealing with intense job competition, and instead experience an unprecedented sense of freedom and ease. However, from a societal perspective, an excessive number of seniors can inevitably impact the overall dynamism of society, leading to issues such as labour shortages and increased fiscal pressure.\n\npopdata_agegroup &lt;- popdata %&gt;%\n  mutate(\n    AgeGroup = case_when(\n      Age &lt;= 21 ~ \"0–21 (Children & Teens)\",\n      Age &lt;= 35 ~ \"22–35 (Young Adults)\",\n      Age &lt;= 64 ~ \"36–64 (Middle-aged)\",\n      TRUE      ~ \"65+ (Aging)\")) %&gt;%\n  \n  group_by(AgeGroup) %&gt;%\n  summarise(TotalPop = sum(Pop), .groups = \"drop\") %&gt;%\n  mutate(Percentage = TotalPop / sum(TotalPop),\n        tooltip = paste0(\n      AgeGroup, \"\\nPopulation: \", formatC(TotalPop, format = \"d\", big.mark = \",\")),\n    AgeGroup = factor(AgeGroup, levels = c(\n      \"0–21 (Children & Teens)\", \n      \"22–35 (Young Adults)\", \n      \"36–64 (Middle-aged)\", \n      \"65+ (Aging)\")))\n\np &lt;- ggplot(popdata_agegroup, aes(x = AgeGroup, y = TotalPop)) +\n  geom_col_interactive(\n    aes(tooltip = tooltip, data_id = AgeGroup),\n    fill = \"#457B9D\") +\n  geom_text_interactive(\n    aes(\n      label = paste0(round(Percentage * 100, 1), \"%\"),\n      tooltip = tooltip,\n      data_id = AgeGroup),\n    vjust = -0.5,\n    size = 4,\n    color = \"black\") +\n  scale_y_continuous(labels = function(x) formatC(x, format = \"d\", big.mark = \",\")) +\n  labs(\n    title = \"Singapore Resident Population by Age Group\",\n    x = \"Age Group\",\n    y = \"Population\") +\n  theme_minimal()\n\n\ngirafe(\n  ggobj = p,\n  width_svg = 8,\n  height_svg = 8 * 0.618,\n  options = list(\n    opts_hover(\"fill-opacity:1;stroke:black;stroke-width:0.5px;cursor:pointer;\"),\n    \n    opts_hover_inv(css = \"opacity:0.2;\"),  \n    opts_tooltip()\n  ))\n\n\n\n\n\nAs observed from the chart above, 44.7% of Singapore’s resident population will be in the middle-aged group (36-64 years old), indicating a mature or even aging demographic structure. The children and adolescents (0-21 years old) and the youth (22-35 years old) together account for only 34.3% of the population, resulting in a relatively limited labor supply in the future. The elderly population (65 years old and above) has already reached 21%, a proportion that should not be ignored.\nAccording to international standards, when the proportion of people aged 65 and above in a country or region exceeds 7%, it is considered an aging society; and when it exceeds 14%, it is an aged society. Singapore’s current 21% has clearly entered the “aging society” stage. This means that there are multiple challenges ahead in terms of labor force constraints, rising healthcare needs, and increasing pressure on public finances. The structural trends shown in the charts highlight the need for the government to take effective measures to encourage childbearing, extend the working life and improve the pension system.\n\nelderly_data &lt;- popdata %&gt;%\n  filter(Age &gt;= 65) %&gt;%\n  group_by(PA, SZ) %&gt;%\n  summarise(ElderlyPop = sum(Pop), .groups = \"drop\")\n\ntotal_elderly &lt;- sum(elderly_data$ElderlyPop)\n\nelderly_by_PA &lt;- elderly_data %&gt;%\n  group_by(PA) %&gt;%\n  summarise(TotalElderly = sum(ElderlyPop)) %&gt;%\n  arrange(desc(TotalElderly)) %&gt;%\n  slice_max(order_by = TotalElderly, n = 5) %&gt;%\n  mutate(\n    PA = factor(PA, levels = rev(PA)),\n    Percent = TotalElderly / total_elderly,\n    tooltip = paste0(\"Planning Area: \", PA,\n                     \"\\nPopulation: \", TotalElderly))\n\nP1 &lt;- ggplot(elderly_by_PA, aes(x = PA, y = TotalElderly)) +\n  geom_col_interactive(aes(tooltip = tooltip, data_id = PA), fill = \"#264653\") +\n  geom_text_interactive(\n    aes(label = paste0(round(Percent * 100, 1), \"%\"),\n        tooltip = tooltip, data_id = PA),\n    hjust = 1.02, color = \"white\", size = 4) +\n  coord_flip() +\n  labs(\n    title = \"Top 5 Planning Areas by Elderly Population\",\n    x = \"Planning Area\", y = \"Population\") +\n  theme_minimal(base_size = 12)\n\ntop_sz &lt;- elderly_data %&gt;%\n  arrange(desc(ElderlyPop)) %&gt;%\n  slice_max(order_by = ElderlyPop, n = 10) %&gt;%\n  mutate(\n    SZ = reorder(SZ, ElderlyPop),\n    Percent = ElderlyPop / total_elderly,\n    tooltip = paste0(\"Subzone: \", SZ,\n                     \"\\nPopulation: \", ElderlyPop))\n\nP2 &lt;- ggplot(top_sz, aes(x = SZ, y = ElderlyPop)) +\n  geom_col_interactive(aes(tooltip = tooltip, data_id = SZ), fill = \"#264653\") +\n  geom_text_interactive(\n    aes(label = paste0(round(Percent * 100, 1), \"%\"),\n        tooltip = tooltip, data_id = SZ),\n    hjust = 1.02, color = \"white\", size = 4) +\n  coord_flip() +\n  labs(title = \"Top 10 Subzones by Elderly Population\",\n    x = \"Subzone\", y = \"Population\") +\n  theme_minimal(base_size = 12)\n\ngirafe(\n  ggobj = P1 + P2,\n  width_svg = 10,\n  height_svg = 6,\n  options = list(\n    opts_hover(\"fill-opacity:1;stroke:black;stroke-width:0.5px;cursor:pointer;\"),\n    opts_hover_inv(css = \"opacity:0.2;\"),\n    opts_tooltip()))\n\n\n\n\n\nAs observed from charts above, planning areas such as Bedok, Tampines, and Hougang have some of the highest elderly populations in Singapore, with Bedok accounting for 8% of the national elderly population, Tampines 6.7%, and Tampines East alone reaching 3.3%. These figures indicate a high concentration of elderly residents in specific mature residential areas. In response to this trend, these regions need to accelerate the development of age-friendly communities, optimize the allocation of care resources, and strengthen neighborhood support systems to address the rapidly growing challenges of an ageing population."
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Exercise.html",
+    "href": "In-class_Ex/In-class_Exercise.html",
+    "title": "In-class_Exercise",
     "section": "",
-    "text": "The code chunk below uses p_load() of pacman package to check if tidyverse packages are installed in the computer. If they are, then they will be launched into R.\n\npacman::p_load(tidyverse)"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#importing-the-data",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#importing-the-data",
-    "title": "Hands-on Exercise 1",
-    "section": "",
-    "text": "exam_data &lt;- read_csv(\"data/Exam_data.csv\")\n\nRows: 322 Columns: 7\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (4): ID, CLASS, GENDER, RACE\ndbl (3): ENGLISH, MATHS, SCIENCE\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#r-graphics",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#r-graphics",
-    "title": "Hands-on Exercise 1",
-    "section": "R Graphics",
-    "text": "R Graphics\n\nhist(exam_data$MATHS)"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#ggplot",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#ggplot",
-    "title": "Hands-on Exercise 1",
-    "section": "ggplot",
-    "text": "ggplot\n\nggplot(data=exam_data, aes(x = MATHS)) +\n  geom_histogram(bins=10, \n                 boundary = 100,\n                 color=\"black\", \n                 fill=\"grey\") +\n  ggtitle(\"Distribution of Maths scores\")"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_bar",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_bar",
-    "title": "Hands-on Exercise 1",
-    "section": "geom_bar",
-    "text": "geom_bar\n\nggplot(data = exam_data,\n       aes(x = RACE)) + \n    geom_bar()"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_dotplot",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_dotplot",
-    "title": "Hands-on Exercise 1",
-    "section": "geom_dotplot",
-    "text": "geom_dotplot\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot(binwidth=2.5,         \n               dotsize = 0.5) +      \n  scale_y_continuous(NULL,           \n                     breaks = NULL)"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_histogram",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_histogram",
-    "title": "Hands-on Exercise 1",
-    "section": "geom_histogram",
-    "text": "geom_histogram\n\nggplot(data = exam_data,\n       aes(x = MATHS)) + \n  geom_histogram()\n\n`stat_bin()` using `bins = 30`. Pick better value with `binwidth`."
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_density",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_density",
-    "title": "Hands-on Exercise 1",
-    "section": "geom_density",
-    "text": "geom_density\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_density()"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#changing-geom",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#changing-geom",
-    "title": "Hands-on Exercise 1",
-    "section": "Changing geom()",
-    "text": "Changing geom()\n\nggplot(data=exam_data, \n       aes(x= MATHS)) +\n  geom_histogram(bins=20,            \n                 color=\"black\",      \n                 fill=\"light blue\")"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#changing-aes",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#changing-aes",
-    "title": "Hands-on Exercise 1",
-    "section": "Changing aes()",
-    "text": "Changing aes()\n\nggplot(data=exam_data, \n       aes(x= MATHS, \n           fill = GENDER)) +\n  geom_histogram(bins=20, \n                 color=\"grey30\")\n\n\n\n\n\n\n\n\n\nggplot(data=exam_data, \n       aes(x = MATHS, \n           colour = GENDER)) +\n  geom_density()"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_boxplot",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_boxplot",
-    "title": "Hands-on Exercise 1",
-    "section": "geom_boxplot",
-    "text": "geom_boxplot\n\nggplot(data=exam_data, \n       aes(y = MATHS,       \n           x= GENDER)) +    \n  geom_boxplot(notch = TRUE)"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_violin",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_violin",
-    "title": "Hands-on Exercise 1",
-    "section": "geom_violin",
-    "text": "geom_violin\n\nggplot(data=exam_data, \n       aes(y = MATHS, \n           x= GENDER)) +\n  geom_violin()"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_point",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_point",
-    "title": "Hands-on Exercise 1",
-    "section": "geom_point",
-    "text": "geom_point\n\nggplot(data=exam_data, \n       aes(x= MATHS, \n           y=ENGLISH)) +\n  geom_point()"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#combined-geom-objects",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#combined-geom-objects",
-    "title": "Hands-on Exercise 1",
-    "section": "Combined geom objects",
-    "text": "Combined geom objects\n\nggplot(data=exam_data, \n       aes(y = MATHS, \n           x= GENDER)) +\n  geom_boxplot() +                    \n  geom_point(position=\"jitter\", \n             size = 0.5)"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#stat_summary",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#stat_summary",
-    "title": "Hands-on Exercise 1",
-    "section": "stat_summary()",
-    "text": "stat_summary()\n\nggplot(data=exam_data, \n       aes(y = MATHS, x= GENDER)) +\n  geom_boxplot() +\n  stat_summary(geom = \"point\",       \n               fun = \"mean\",         \n               colour =\"red\",        \n               size=4)"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom",
-    "title": "Hands-on Exercise 1",
-    "section": "geom()",
-    "text": "geom()\n\nggplot(data=exam_data, \n       aes(y = MATHS, x= GENDER)) +\n  geom_boxplot() +\n  geom_point(stat=\"summary\",        \n             fun=\"mean\",           \n             colour=\"red\",          \n             size=4)"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#best-fit-line",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#best-fit-line",
-    "title": "Hands-on Exercise 1",
-    "section": "best fit line",
-    "text": "best fit line\n\nggplot(data=exam_data, \n       aes(x= MATHS, \n           y=ENGLISH)) +\n  geom_point() +\n  geom_smooth(method=lm, \n              linewidth=0.5)\n\n`geom_smooth()` using formula = 'y ~ x'"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#facet_wrap",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#facet_wrap",
-    "title": "Hands-on Exercise 1",
-    "section": "Facet_wrap()",
-    "text": "Facet_wrap()\n\nggplot(data=exam_data, \n       aes(x= MATHS)) +\n  geom_histogram(bins=20) +\n    facet_wrap(~ CLASS)"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#facet_grid",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#facet_grid",
-    "title": "Hands-on Exercise 1",
-    "section": "Facet_grid()",
-    "text": "Facet_grid()\n\nggplot(data=exam_data, \n       aes(x= MATHS)) +\n  geom_histogram(bins=20) +\n    facet_grid(~ CLASS)"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#coord_flip",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#coord_flip",
-    "title": "Hands-on Exercise 1",
-    "section": "coord_flip()",
-    "text": "coord_flip()\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar() +\n  coord_flip()"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#coord_cartesian",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#coord_cartesian",
-    "title": "Hands-on Exercise 1",
-    "section": "coord_cartesian()",
-    "text": "coord_cartesian()\n\nggplot(data=exam_data, \n       aes(x= MATHS, y=ENGLISH)) +\n  geom_point() +\n  geom_smooth(method=lm, \n              size=0.5) +  \n  coord_cartesian(xlim=c(0,100),\n                  ylim=c(0,100))\n\nWarning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.\nℹ Please use `linewidth` instead.\n\n\n`geom_smooth()` using formula = 'y ~ x'"
+    "text": "Please view my in-class exercises on www.linsen.com"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html",
@@ -266,39 +154,165 @@
     "text": "Creating a composite figure by using patchwork and ggtheme\n\npatchwork &lt;- (p1 / p2) | p3\npatchwork & theme_economist()"
   },
   {
-    "objectID": "In-class_Ex/In-class_Exercise.html",
-    "href": "In-class_Ex/In-class_Exercise.html",
-    "title": "In-class_Exercise",
-    "section": "",
-    "text": "Please view my in-class exercises on www.linsen.com"
-  },
-  {
-    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html",
-    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html",
-    "title": "Demographic structures and distribution of Singapore in 2024",
-    "section": "",
-    "text": "pacman::p_load(ggrepel, patchwork, \n               ggthemes, hrbrthemes,\n               tidyverse, ggiraph, plotly, \n                DT, readxl, gifski, gapminder,\n               gganimate) \n\n\n\n\n\nPopdata &lt;- read.csv(\"data/respopagesex2024.csv\")"
-  },
-  {
-    "objectID": "Take-home_Ex/Take-home_Ex03/Take-home_Ex03.html",
-    "href": "Take-home_Ex/Take-home_Ex03/Take-home_Ex03.html",
-    "title": "Take-home_Ex03",
-    "section": "",
-    "text": "xxx3"
-  },
-  {
-    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html",
-    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html",
-    "title": "Take-home_Ex02",
-    "section": "",
-    "text": "xxx2"
-  },
-  {
     "objectID": "about/about.html",
     "href": "about/about.html",
     "title": "ISSS608-VAA",
     "section": "",
     "text": "Linsen (Easant) Lu\nData Analyst | BI Specialist Supply Chain Specialist\nLinkedIn\n\n\nMy name is Linsen, you may also call me Easant.\nI have a background in supply chain and business IT, with hands-on experience in data analytics, operations, and both B2B and B2C business contexts. Through multiple internships and entrepreneurial projects, I’ve worked across different industries to support data-driven decision-making in areas like supply chain, sales, and process improvement.\n\n\nEducation\nSingapore Management University | 2024.01-2025.08\nMasters of IT in Business (Data science and Analytics)\nCurtin University | 2021.04-2023.08\nB.Com.in Logistics and Supply Chain Management\n\n\n\nExperience\nBosch APAC | Data Analyst Intern\nTTG Asia | Procurement Intern\nShanghai Markting Pte Ltd. | Business Development Intern"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html",
+    "title": "Hands-on Exercise 1",
+    "section": "",
+    "text": "The code chunk below uses p_load() of pacman package to check if tidyverse packages are installed in the computer. If they are, then they will be launched into R.\n\npacman::p_load(tidyverse)\n\n\n\n\n\nexam_data &lt;- read_csv(\"data/Exam_data.csv\")\n\nRows: 322 Columns: 7\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (4): ID, CLASS, GENDER, RACE\ndbl (3): ENGLISH, MATHS, SCIENCE\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#install-and-launching-r-packages",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#install-and-launching-r-packages",
+    "title": "Hands-on Exercise 1",
+    "section": "",
+    "text": "The code chunk below uses p_load() of pacman package to check if tidyverse packages are installed in the computer. If they are, then they will be launched into R.\n\npacman::p_load(tidyverse)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#importing-the-data",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#importing-the-data",
+    "title": "Hands-on Exercise 1",
+    "section": "",
+    "text": "exam_data &lt;- read_csv(\"data/Exam_data.csv\")\n\nRows: 322 Columns: 7\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (4): ID, CLASS, GENDER, RACE\ndbl (3): ENGLISH, MATHS, SCIENCE\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#r-graphics",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#r-graphics",
+    "title": "Hands-on Exercise 1",
+    "section": "R Graphics",
+    "text": "R Graphics\n\nhist(exam_data$MATHS)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#ggplot",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#ggplot",
+    "title": "Hands-on Exercise 1",
+    "section": "ggplot",
+    "text": "ggplot\n\nggplot(data=exam_data, aes(x = MATHS)) +\n  geom_histogram(bins=10, \n                 boundary = 100,\n                 color=\"black\", \n                 fill=\"grey\") +\n  ggtitle(\"Distribution of Maths scores\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_bar",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_bar",
+    "title": "Hands-on Exercise 1",
+    "section": "geom_bar",
+    "text": "geom_bar\n\nggplot(data = exam_data,\n       aes(x = RACE)) + \n    geom_bar()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_dotplot",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_dotplot",
+    "title": "Hands-on Exercise 1",
+    "section": "geom_dotplot",
+    "text": "geom_dotplot\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot(binwidth=2.5,         \n               dotsize = 0.5) +      \n  scale_y_continuous(NULL,           \n                     breaks = NULL)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_histogram",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_histogram",
+    "title": "Hands-on Exercise 1",
+    "section": "geom_histogram",
+    "text": "geom_histogram\n\nggplot(data = exam_data,\n       aes(x = MATHS)) + \n  geom_histogram()\n\n`stat_bin()` using `bins = 30`. Pick better value with `binwidth`."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_density",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_density",
+    "title": "Hands-on Exercise 1",
+    "section": "geom_density",
+    "text": "geom_density\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_density()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_boxplot",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_boxplot",
+    "title": "Hands-on Exercise 1",
+    "section": "geom_boxplot",
+    "text": "geom_boxplot\n\nggplot(data=exam_data, \n       aes(y = MATHS,       \n           x= GENDER)) +    \n  geom_boxplot(notch = TRUE)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_violin",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_violin",
+    "title": "Hands-on Exercise 1",
+    "section": "geom_violin",
+    "text": "geom_violin\n\nggplot(data=exam_data, \n       aes(y = MATHS, \n           x= GENDER)) +\n  geom_violin()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_point",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom_point",
+    "title": "Hands-on Exercise 1",
+    "section": "geom_point",
+    "text": "geom_point\n\nggplot(data=exam_data, \n       aes(x= MATHS, \n           y=ENGLISH)) +\n  geom_point()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#combined-geom-objects",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#combined-geom-objects",
+    "title": "Hands-on Exercise 1",
+    "section": "Combined geom objects",
+    "text": "Combined geom objects\n\nggplot(data=exam_data, \n       aes(y = MATHS, \n           x= GENDER)) +\n  geom_boxplot() +                    \n  geom_point(position=\"jitter\", \n             size = 0.5)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#changing-geom",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#changing-geom",
+    "title": "Hands-on Exercise 1",
+    "section": "Changing geom()",
+    "text": "Changing geom()\n\nggplot(data=exam_data, \n       aes(x= MATHS)) +\n  geom_histogram(bins=20,            \n                 color=\"black\",      \n                 fill=\"light blue\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#changing-aes",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#changing-aes",
+    "title": "Hands-on Exercise 1",
+    "section": "Changing aes()",
+    "text": "Changing aes()\n\nggplot(data=exam_data, \n       aes(x= MATHS, \n           fill = GENDER)) +\n  geom_histogram(bins=20, \n                 color=\"grey30\")\n\n\n\n\n\n\n\n\n\nggplot(data=exam_data, \n       aes(x = MATHS, \n           colour = GENDER)) +\n  geom_density()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#stat_summary",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#stat_summary",
+    "title": "Hands-on Exercise 1",
+    "section": "stat_summary()",
+    "text": "stat_summary()\n\nggplot(data=exam_data, \n       aes(y = MATHS, x= GENDER)) +\n  geom_boxplot() +\n  stat_summary(geom = \"point\",       \n               fun = \"mean\",         \n               colour =\"red\",        \n               size=4)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom",
+    "title": "Hands-on Exercise 1",
+    "section": "geom()",
+    "text": "geom()\n\nggplot(data=exam_data, \n       aes(y = MATHS, x= GENDER)) +\n  geom_boxplot() +\n  geom_point(stat=\"summary\",        \n             fun=\"mean\",           \n             colour=\"red\",          \n             size=4)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#best-fit-line",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#best-fit-line",
+    "title": "Hands-on Exercise 1",
+    "section": "best fit line",
+    "text": "best fit line\n\nggplot(data=exam_data, \n       aes(x= MATHS, \n           y=ENGLISH)) +\n  geom_point() +\n  geom_smooth(method=lm, \n              linewidth=0.5)\n\n`geom_smooth()` using formula = 'y ~ x'"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#facet_wrap",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#facet_wrap",
+    "title": "Hands-on Exercise 1",
+    "section": "Facet_wrap()",
+    "text": "Facet_wrap()\n\nggplot(data=exam_data, \n       aes(x= MATHS)) +\n  geom_histogram(bins=20) +\n    facet_wrap(~ CLASS)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#facet_grid",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#facet_grid",
+    "title": "Hands-on Exercise 1",
+    "section": "Facet_grid()",
+    "text": "Facet_grid()\n\nggplot(data=exam_data, \n       aes(x= MATHS)) +\n  geom_histogram(bins=20) +\n    facet_grid(~ CLASS)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#coord_flip",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#coord_flip",
+    "title": "Hands-on Exercise 1",
+    "section": "coord_flip()",
+    "text": "coord_flip()\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar() +\n  coord_flip()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#coord_cartesian",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#coord_cartesian",
+    "title": "Hands-on Exercise 1",
+    "section": "coord_cartesian()",
+    "text": "coord_cartesian()\n\nggplot(data=exam_data, \n       aes(x= MATHS, y=ENGLISH)) +\n  geom_point() +\n  geom_smooth(method=lm, \n              size=0.5) +  \n  coord_cartesian(xlim=c(0,100),\n                  ylim=c(0,100))\n\nWarning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.\nℹ Please use `linewidth` instead.\n\n\n`geom_smooth()` using formula = 'y ~ x'"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html",
@@ -455,45 +469,17 @@
     "text": "Building an animated bubble plot: plot_ly() method\n\nbp &lt;- globalPop %&gt;%\n  plot_ly(x = ~Old, \n          y = ~Young, \n          size = ~Population, \n          color = ~Continent,\n          sizes = c(2, 100),\n          frame = ~Year, \n          text = ~Country, \n          hoverinfo = \"text\",\n          type = 'scatter',\n          mode = 'markers'\n          ) %&gt;%\n  layout(showlegend = FALSE)\nbp"
   },
   {
-    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#setting-the-sense",
-    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#setting-the-sense",
-    "title": "Demographic structures and distribution of Singapore in 2024",
-    "section": "1. Setting the sense",
-    "text": "1. Setting the sense\nSingapore’s changing demographics have become a pressing topic, especially in the context of an aging population. Understanding the composition and spatial distribution of residents is increasingly important to both policymakers and the public. This report aims to offer a clear, data-driven overview of Singapore’s demographic landscape in 2024, with a particular focus on differences across planning areas and subzones, as well as variations by age and gender. Drawing on the latest official statistics, this analysis provides insights into the trends shaping Singapore’s communities today."
-  },
-  {
-    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#dataset",
-    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#dataset",
-    "title": "Demographic structures and distribution of Singapore in 2024",
-    "section": "2. Dataset",
-    "text": "2. Dataset\nThe dataset used in this report was obtained from the Singapore Department of Statistics (DOS) and provides population counts as of June 2024. It contains detailed information on Singapore residents, broken down by Planning Area, Subzone, single year of age, and sex. This high-resolution demographic data enables granular analysis of population structures and spatial distribution across the city. The dataset comprises a total of 60,424 records. For more details, please refer to the metadata below.\n\n\n\nVariables\nDefinition\n\n\n\n\nPA\nPlanning Area\n\n\nSZ\nSubzone\n\n\nAge\nSingle Year of Age\n\n\nSex\nSex\n\n\nPop\nResident Count\n\n\nTime\nTime/Period"
-  },
-  {
-    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#getting-start",
-    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#getting-start",
-    "title": "Demographic structures and distribution of Singapore in 2024",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "ISSS608-Visual Analytics and Application",
     "section": "",
-    "text": "pacman::p_load(ggrepel, patchwork, \n               ggthemes, hrbrthemes,\n               tidyverse, ggiraph, plotly, \n                DT, readxl, gifski, gapminder,\n               gganimate) \n\n\n\n\n\nPopdata &lt;- read.csv(\"data/respopagesex2024.csv\")"
+    "text": "Welcome to ISSS608 Visual Analytics and Application homepage. In this website, you will find my coursework prepared for this course!"
   },
   {
-    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#data-processing",
-    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#data-processing",
-    "title": "Demographic structures and distribution of Singapore in 2024",
-    "section": "3. Data processing",
-    "text": "3. Data processing\nTo ensure the validity and reliability of this report, it is essential to preprocess the dataset and assess its quality. This includes checking for completeness, consistency, and potential anomalies that may affect the accuracy of our analysis.\n\n3.1. Checking for missing values\n\ncolSums(is.na(Popdata))\n\n  PA   SZ  Age  Sex  Pop Time \n   0    0    0    0    0    0 \n\n\nAs observed from output of code-chunk above, there’s no missing value in this dataset.\n\n\n3.2. Checking for duplicates\n\nPopdata[duplicated(Popdata)]\n\ndata frame with 0 columns and 60424 rows\n\n\nAs observed from output of code-chunk above, there’s no duplicates in this dataset.\n\n\n3.2. Checking for datatype\n\nstr(Popdata)\n\n'data.frame':   60424 obs. of  6 variables:\n $ PA  : chr  \"Ang Mo Kio\" \"Ang Mo Kio\" \"Ang Mo Kio\" \"Ang Mo Kio\" ...\n $ SZ  : chr  \"Ang Mo Kio Town Centre\" \"Ang Mo Kio Town Centre\" \"Ang Mo Kio Town Centre\" \"Ang Mo Kio Town Centre\" ...\n $ Age : chr  \"0\" \"0\" \"1\" \"1\" ...\n $ Sex : chr  \"Males\" \"Females\" \"Males\" \"Females\" ...\n $ Pop : int  10 10 10 10 10 10 10 10 30 10 ...\n $ Time: int  2024 2024 2024 2024 2024 2024 2024 2024 2024 2024 ...\n\n\nAs observed from the output of the code-chunk above, all column data types are appropriate. One point to note is that the datatype of the variable Age is character instead of integer. This is because the dataset does not provide age-specific breakdowns beyond 90 years old; instead, individuals aged 90 and above are grouped under the label “90_and_Over”. This classification is reasonable and consistent with common demographic reporting practices.\n\n\n3.3. Removing unnecessary columns\nSince the dataset has already been clearly defined as representing statistics from the year 2024, and upon inspection the variable Time contains only a single unique value (2024), this column is no longer necessary and can be safely removed.\n\nunique(Popdata$Time)\n\n[1] 2024\n\n\n\npopdata &lt;- subset(Popdata, select = -Time)"
-  },
-  {
-    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#key-findings",
-    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#key-findings",
-    "title": "Demographic structures and distribution of Singapore in 2024",
-    "section": "4. Key Findings",
-    "text": "4. Key Findings\n\n4.1. Interactive Population Plot\n\npa_sz_summary &lt;- popdata %&gt;%\n  group_by(PA, SZ) %&gt;%\n  summarise(Pop = sum(Pop), .groups = \"drop\") %&gt;%\n  mutate(\n    Pop_thousand = Pop / 1000,\n    tooltip_text = str_replace_all(\n      paste0(\"Planning Area: \", PA,\n             \"\\nSubzone: \", SZ,\n             \"\\nPopulation: \", Pop),\n      \"'\", \"\"))\n\npa_order &lt;- pa_sz_summary %&gt;%\n  group_by(PA) %&gt;%\n  summarise(TotalPop = sum(Pop_thousand)) %&gt;%\n  filter(TotalPop &gt; 0) %&gt;%                         \n  arrange(desc(TotalPop)) %&gt;%\n  pull(PA)\n\npa_sz_summary &lt;- pa_sz_summary %&gt;%\n  filter(PA %in% pa_order) %&gt;%\n  mutate(PA = factor(PA, levels = pa_order))\n\ncolor_palette &lt;- c(\"#E76F51\", \"#457B9D\", \"#F4A261\", \"#2A9D8F\")\nn_subzones &lt;- length(unique(pa_sz_summary$SZ))\ncolor_values &lt;- rep(color_palette, length.out = n_subzones)\nsz_levels &lt;- sort(unique(pa_sz_summary$SZ))\nnames(color_values) &lt;- sz_levels\n\np &lt;- ggplot(pa_sz_summary, aes(x = PA, y = Pop_thousand, fill = SZ)) +\n  geom_bar_interactive(\n    aes(tooltip = tooltip_text, data_id = tooltip_text),\n    stat = \"identity\", show.legend = FALSE\n  ) +\n  scale_fill_manual(values = color_values) +\n  scale_y_continuous(\n  breaks = seq(0, 250, by = 50),\n  labels = function(x) paste0(x, \"K\")) +\n  labs(title = \"Population by Planning Area and Subzone (2024)\",\n    x = \"Planning Area\", y = \"Population (in thousands)\") +\n  theme_minimal() +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))\n\ngirafe(\n  ggobj = p,\n  width_svg = 8,\n  height_svg = 8 * 0.618,\n  options = list(\n    opts_hover(\"fill-opacity:1;stroke:black;stroke-width:0.5px;cursor:pointer;\"),\n    \n    opts_hover_inv(css = \"opacity:0.2;\"),  \n    opts_tooltip()\n  ))\n\n\n\n\n\nThis chart provides a comprehensive overview of the population distribution across Singapore’s planning areas and subzones in 2024.\nFrom the planning area angle, it shows that population is heavily concentrated in areas such as Tampines, Bedok, and Sengkang. Notably, seven planning areas—Tampines, Bedok, Sengkang, Jurong West, Woodlands, Yishun, and Hougang—have populations exceeding 200,000, indicating high residential density. In contrast, areas such as Seletar and Museum have very low or near-zero populations, suggesting they may be non-residential or under development.\nFrom the subzone angle, Tampines East is the most inhabited subzone, with 128,320 residents, compared to subzones such as Boon lay’s Shipyard which is completely uninhabited.\n\n\n4.2. Distribution of elderly population in Singapore\nIn Singapore, people aged 65 and above are defined as aging people, directly translated from mandarin, this group of people are expected to have a A happy, joyful and enjoyable retirement life. At this stage of life, they are no longer burdened by raising children or dealing with intense job competition, and instead experience an unprecedented sense of freedom and ease. However, from a societal perspective, an excessive number of seniors can inevitably impact the overall dynamism of society, leading to issues such as labour shortages and increased fiscal pressure.\n\npopdata_agegroup &lt;- popdata %&gt;%\n  mutate(\n    AgeGroup = case_when(\n      Age &lt;= 21 ~ \"0–21 (Children & Teens)\",\n      Age &lt;= 35 ~ \"22–35 (Young Adults)\",\n      Age &lt;= 64 ~ \"36–64 (Middle-aged)\",\n      TRUE      ~ \"65+ (Aging)\")) %&gt;%\n  \n  group_by(AgeGroup) %&gt;%\n  summarise(TotalPop = sum(Pop), .groups = \"drop\") %&gt;%\n  mutate(Percentage = TotalPop / sum(TotalPop),\n        tooltip = paste0(\n      AgeGroup, \"\\nPopulation: \", formatC(TotalPop, format = \"d\", big.mark = \",\")),\n    AgeGroup = factor(AgeGroup, levels = c(\n      \"0–21 (Children & Teens)\", \n      \"22–35 (Young Adults)\", \n      \"36–64 (Middle-aged)\", \n      \"65+ (Aging)\")))\n\np &lt;- ggplot(popdata_agegroup, aes(x = AgeGroup, y = TotalPop)) +\n  geom_col_interactive(\n    aes(tooltip = tooltip, data_id = AgeGroup),\n    fill = \"#457B9D\") +\n  geom_text_interactive(\n    aes(\n      label = paste0(round(Percentage * 100, 1), \"%\"),\n      tooltip = tooltip,\n      data_id = AgeGroup),\n    vjust = -0.5,\n    size = 4,\n    color = \"black\") +\n  scale_y_continuous(labels = function(x) formatC(x, format = \"d\", big.mark = \",\")) +\n  labs(\n    title = \"Singapore Resident Population by Age Group\",\n    x = \"Age Group\",\n    y = \"Population\") +\n  theme_minimal()\n\n\ngirafe(\n  ggobj = p,\n  width_svg = 8,\n  height_svg = 8 * 0.618,\n  options = list(\n    opts_hover(\"fill-opacity:1;stroke:black;stroke-width:0.5px;cursor:pointer;\"),\n    \n    opts_hover_inv(css = \"opacity:0.2;\"),  \n    opts_tooltip()\n  ))\n\n\n\n\n\nAs observed from the chart above, 44.7% of Singapore’s resident population will be in the middle-aged group (36-64 years old), indicating a mature or even aging demographic structure. The children and adolescents (0-21 years old) and the youth (22-35 years old) together account for only 34.3% of the population, resulting in a relatively limited labor supply in the future. The elderly population (65 years old and above) has already reached 21%, a proportion that should not be ignored.\nAccording to international standards, when the proportion of people aged 65 and above in a country or region exceeds 7%, it is considered an aging society; and when it exceeds 14%, it is an aged society. Singapore’s current 21% has clearly entered the “aging society” stage. This means that there are multiple challenges ahead in terms of labor force constraints, rising healthcare needs, and increasing pressure on public finances. The structural trends shown in the charts highlight the need for the government to take effective measures to encourage childbearing, extend the working life and improve the pension system.\n\nelderly_data &lt;- popdata %&gt;%\n  filter(Age &gt;= 65) %&gt;%\n  group_by(PA, SZ) %&gt;%\n  summarise(ElderlyPop = sum(Pop), .groups = \"drop\")\n\ntotal_elderly &lt;- sum(elderly_data$ElderlyPop)\n\nelderly_by_PA &lt;- elderly_data %&gt;%\n  group_by(PA) %&gt;%\n  summarise(TotalElderly = sum(ElderlyPop)) %&gt;%\n  arrange(desc(TotalElderly)) %&gt;%\n  slice_max(order_by = TotalElderly, n = 5) %&gt;%\n  mutate(\n    PA = factor(PA, levels = rev(PA)),\n    Percent = TotalElderly / total_elderly,\n    tooltip = paste0(\"Planning Area: \", PA,\n                     \"\\nPopulation: \", TotalElderly))\n\nP1 &lt;- ggplot(elderly_by_PA, aes(x = PA, y = TotalElderly)) +\n  geom_col_interactive(aes(tooltip = tooltip, data_id = PA), fill = \"#264653\") +\n  geom_text_interactive(\n    aes(label = paste0(round(Percent * 100, 1), \"%\"),\n        tooltip = tooltip, data_id = PA),\n    hjust = 1.02, color = \"white\", size = 4) +\n  coord_flip() +\n  labs(\n    title = \"Top 5 Planning Areas by Elderly Population\",\n    x = \"Planning Area\", y = \"Population\") +\n  theme_minimal(base_size = 12)\n\ntop_sz &lt;- elderly_data %&gt;%\n  arrange(desc(ElderlyPop)) %&gt;%\n  slice_max(order_by = ElderlyPop, n = 10) %&gt;%\n  mutate(\n    SZ = reorder(SZ, ElderlyPop),\n    Percent = ElderlyPop / total_elderly,\n    tooltip = paste0(\"Subzone: \", SZ,\n                     \"\\nPopulation: \", ElderlyPop))\n\nP2 &lt;- ggplot(top_sz, aes(x = SZ, y = ElderlyPop)) +\n  geom_col_interactive(aes(tooltip = tooltip, data_id = SZ), fill = \"#264653\") +\n  geom_text_interactive(\n    aes(label = paste0(round(Percent * 100, 1), \"%\"),\n        tooltip = tooltip, data_id = SZ),\n    hjust = 1.02, color = \"white\", size = 4) +\n  coord_flip() +\n  labs(title = \"Top 10 Subzones by Elderly Population\",\n    x = \"Subzone\", y = \"Population\") +\n  theme_minimal(base_size = 12)\n\ngirafe(\n  ggobj = P1 + P2,\n  width_svg = 10,\n  height_svg = 6,\n  options = list(\n    opts_hover(\"fill-opacity:1;stroke:black;stroke-width:0.5px;cursor:pointer;\"),\n    opts_hover_inv(css = \"opacity:0.2;\"),\n    opts_tooltip()))\n\n\n\n\n\nAs observed from charts above, planning areas such as Bedok, Tampines, and Hougang have some of the highest elderly populations in Singapore, with Bedok accounting for 8% of the national elderly population, Tampines 6.7%, and Tampines East alone reaching 3.3%. These figures indicate a high concentration of elderly residents in specific mature residential areas. In response to this trend, these regions need to accelerate the development of age-friendly communities, optimize the allocation of care resources, and strengthen neighborhood support systems to address the rapidly growing challenges of an ageing population."
-  },
-  {
-    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#interactive-population-plot-2024",
-    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#interactive-population-plot-2024",
-    "title": "Demographic structures and distribution of Singapore in 2024",
-    "section": "Interactive Population Plot (2024)",
-    "text": "Interactive Population Plot (2024)\n\nThe plotThe code\n\n\n\npa_sz_summary &lt;- popdata %&gt;%\n  group_by(PA, SZ) %&gt;%\n  summarise(Pop = sum(Pop), .groups = \"drop\") %&gt;%\n  mutate(\n    Pop_thousand = Pop / 1000,\n    tooltip_text = str_replace_all(\n      paste0(\"Planning Area: \", PA,\n             \"\\nSubzone: \", SZ,\n             \"\\nPopulation: \", Pop),\n      \"'\", \"\"  \n    )\n  )\n\npa_order &lt;- pa_sz_summary %&gt;%\n  group_by(PA) %&gt;%\n  summarise(TotalPop = sum(Pop_thousand)) %&gt;%\n  filter(TotalPop &gt; 0) %&gt;%\n  arrange(desc(TotalPop)) %&gt;%\n  pull(PA)\n\npa_sz_summary &lt;- pa_sz_summary %&gt;%\n  filter(PA %in% pa_order) %&gt;%\n  mutate(PA = factor(PA, levels = pa_order))\n\ncolor_palette &lt;- c(\"#E76F51\", \"#457B9D\", \"#F4A261\", \"#2A9D8F\")\nn_subzones &lt;- length(unique(pa_sz_summary$SZ))\ncolor_values &lt;- rep(color_palette, length.out = n_subzones)\nsz_levels &lt;- sort(unique(pa_sz_summary$SZ))\nnames(color_values) &lt;- sz_levels\n\np &lt;- ggplot(pa_sz_summary, aes(x = PA, y = Pop_thousand, fill = SZ)) +\n  geom_bar_interactive(\n    aes(tooltip = tooltip_text, data_id = tooltip_text),\n    stat = \"identity\", show.legend = FALSE\n  ) +\n  scale_fill_manual(values = color_values) +\n  scale_y_continuous(labels = function(x) paste0(x, \"K\")) +\n  labs(\n    title = \"Population by Planning Area and Subzone (2024)\",\n    x = \"Planning Area\", y = \"Population (in thousands)\"\n  ) +\n  theme_minimal() +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))\n\ngirafe(\n  ggobj = p,\n  width_svg = 8,\n  height_svg = 8 * 0.618,\n  options = list(\n    opts_hover(css = \"fill-opacity:1;stroke:black;stroke-width:0.5px;cursor:pointer;\"),\n    opts_hover_inv(css = \"opacity:0.2;\"),\n    opts_tooltip()\n  )\n)\n\n\n\n\n\n\n\n\npa_sz_summary &lt;- popdata %&gt;%\n  group_by(PA, SZ) %&gt;%\n  summarise(Pop = sum(Pop), .groups = \"drop\") %&gt;%\n  mutate(\n    Pop_thousand = Pop / 1000,\n    tooltip_text = str_replace_all(\n      paste0(\"Planning Area: \", PA,\n             \"\\nSubzone: \", SZ,\n             \"\\nPopulation: \", Pop),\n      \"'\", \"\"  \n    )\n  )\n\npa_order &lt;- pa_sz_summary %&gt;%\n  group_by(PA) %&gt;%\n  summarise(TotalPop = sum(Pop_thousand)) %&gt;%\n  filter(TotalPop &gt; 0) %&gt;%\n  arrange(desc(TotalPop)) %&gt;%\n  pull(PA)\n\npa_sz_summary &lt;- pa_sz_summary %&gt;%\n  filter(PA %in% pa_order) %&gt;%\n  mutate(PA = factor(PA, levels = pa_order))\n\ncolor_palette &lt;- c(\"#E76F51\", \"#457B9D\", \"#F4A261\", \"#2A9D8F\")\nn_subzones &lt;- length(unique(pa_sz_summary$SZ))\ncolor_values &lt;- rep(color_palette, length.out = n_subzones)\nsz_levels &lt;- sort(unique(pa_sz_summary$SZ))\nnames(color_values) &lt;- sz_levels\n\np &lt;- ggplot(pa_sz_summary, aes(x = PA, y = Pop_thousand, fill = SZ)) +\n  geom_bar_interactive(\n    aes(tooltip = tooltip_text, data_id = tooltip_text),\n    stat = \"identity\", show.legend = FALSE\n  ) +\n  scale_fill_manual(values = color_values) +\n  scale_y_continuous(labels = function(x) paste0(x, \"K\")) +\n  labs(\n    title = \"Population by Planning Area and Subzone (2024)\",\n    x = \"Planning Area\", y = \"Population (in thousands)\"\n  ) +\n  theme_minimal() +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))\n\ngirafe(\n  ggobj = p,\n  width_svg = 8,\n  height_svg = 8 * 0.618,\n  options = list(\n    opts_hover(css = \"fill-opacity:1;stroke:black;stroke-width:0.5px;cursor:pointer;\"),\n    opts_hover_inv(css = \"opacity:0.2;\"),\n    opts_tooltip()\n  )\n)"
+    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html",
+    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html",
+    "title": "Take-home_Ex02",
+    "section": "",
+    "text": "xxx2"
   }
 ]
