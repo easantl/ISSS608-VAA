@@ -157,7 +157,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-take-home-exercise">    
         <li>
-    <a class="dropdown-item" href="../../../Take-home_Ex/Take-home_Ex01/Phase_1/Take-home_Ex01.html">
+    <a class="dropdown-item" href="../../../Take-home_Ex/Take-home_Ex01/Phase_1/Take-home_Ex01.docx">
  <span class="dropdown-text">Take-home Exercise 1 Phase_1</span></a>
   </li>  
         <li>
@@ -552,7 +552,7 @@ Caused by warning:
 </div>
 </div>
 <ol start="3" type="1">
-<li>For Visualization 3, I noticed that while median lines for both the EDR and YDR are present, they are not labeled, which may cause confusion. I would recommend adding clear labels to these reference lines. Additionally, it would be helpful to highlight planning areas where EDR exceed the median values, as these zones may warrant closer attention.</li>
+<li>For Visualization 3, I noticed that a): Median lines for both the EDR and YDR are presented, they are not labeled, which may cause confusion. I would recommend adding clear labels to these reference lines. b): It would be helpful to highlight planning areas where EDR exceed the median values, as these zones may warrant closer attention. c): It’s good to show the median EDR and YDR in value so that readers can understand the situation more clearly.</li>
 </ol>
 <p>My shot:</p>
 <div class="cell">
@@ -572,32 +572,32 @@ Caused by warning:
 <span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">YouthRatio =</span> Youth <span class="sc">/</span> WorkingAge</span>
 <span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Reshape to long format for stacked bar chart</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Reshape to long format for stacked bar chart</span></span>
 <span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>df_age_long <span class="ot">&lt;-</span> df_agegroup <span class="sc">%&gt;%</span></span>
 <span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"Youth"</span>, <span class="st">"WorkingAge"</span>, <span class="st">"Elderly"</span>),</span>
 <span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"AgeGroup"</span>, <span class="at">values_to =</span> <span class="st">"Pop"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">PA =</span> <span class="fu">fct_reorder</span>(PA, <span class="sc">-</span>Pop, <span class="at">.fun =</span> sum))</span>
 <span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Compute median values and max population</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Compute median values and max population</span></span>
 <span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>median_edr <span class="ot">&lt;-</span> <span class="fu">median</span>(df_agegroup<span class="sc">$</span>ElderlyRatio, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>median_ydr <span class="ot">&lt;-</span> <span class="fu">median</span>(df_agegroup<span class="sc">$</span>YouthRatio, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>max_pop    <span class="ot">&lt;-</span> <span class="fu">max</span>(df_agegroup<span class="sc">$</span>TotalPop, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Add star marker to EDR above median</span></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Add star marker to EDR above median</span></span>
 <span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>df_agegroup <span class="ot">&lt;-</span> df_agegroup <span class="sc">%&gt;%</span></span>
 <span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">EDR_star =</span> <span class="fu">if_else</span>(ElderlyRatio <span class="sc">&gt;</span> median_edr, <span class="st">"*"</span>, <span class="st">""</span>))</span>
 <span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Define color palette</span></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Define color palette</span></span>
 <span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>custom_colors <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
 <span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Youth"</span> <span class="ot">=</span> <span class="st">"#FFD700"</span>,        <span class="co"># Gold</span></span>
 <span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>  <span class="st">"WorkingAge"</span> <span class="ot">=</span> <span class="st">"#B0B0B0"</span>,   <span class="co"># Gray</span></span>
 <span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Elderly"</span> <span class="ot">=</span> <span class="st">"#800080"</span>       <span class="co"># Purple</span></span>
 <span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Get rightmost x position</span></span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Get rightmost x position</span></span>
 <span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>last_x <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">unique</span>(df_age_long<span class="sc">$</span>PA))</span>
 <span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Create the plot</span></span>
+<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a><span class="co"># 7. Create the plot</span></span>
 <span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_age_long, <span class="fu">aes</span>(<span class="at">x =</span> PA, <span class="at">y =</span> Pop, <span class="at">fill =</span> AgeGroup)) <span class="sc">+</span></span>
 <span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="fl">0.95</span>) <span class="sc">+</span></span>
 <span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a></span>
@@ -634,24 +634,33 @@ Caused by warning:
 <span id="cb16-76"><a href="#cb16-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> last_x, <span class="at">y =</span> median_ydr <span class="sc">*</span> max_pop <span class="sc">/</span> <span class="dv">2</span>,</span>
 <span id="cb16-77"><a href="#cb16-77" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"Median YDR"</span>, <span class="at">vjust =</span> <span class="fl">1.5</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
 <span id="cb16-78"><a href="#cb16-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-79"><a href="#cb16-79" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Final touches</span></span>
-<span id="cb16-80"><a href="#cb16-80" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> custom_colors) <span class="sc">+</span></span>
-<span id="cb16-81"><a href="#cb16-81" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
-<span id="cb16-82"><a href="#cb16-82" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Population Count"</span>,</span>
-<span id="cb16-83"><a href="#cb16-83" aria-hidden="true" tabindex="-1"></a>    <span class="at">sec.axis =</span> <span class="fu">sec_axis</span>(<span class="sc">~</span> . <span class="sc">*</span> <span class="dv">2</span> <span class="sc">/</span> max_pop, <span class="at">name =</span> <span class="st">"Dependency Ratio"</span>),</span>
-<span id="cb16-84"><a href="#cb16-84" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">label_number</span>(<span class="at">scale_cut =</span> <span class="fu">cut_short_scale</span>())</span>
-<span id="cb16-85"><a href="#cb16-85" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb16-86"><a href="#cb16-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb16-87"><a href="#cb16-87" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Population by Planning Area with Youth &amp; Elderly Dependency Ratios"</span>,</span>
-<span id="cb16-88"><a href="#cb16-88" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"* indicates Planning Areas with Elderly Dependency Ratio above the national median"</span>,</span>
-<span id="cb16-89"><a href="#cb16-89" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Planning Area"</span>,</span>
-<span id="cb16-90"><a href="#cb16-90" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Age Group"</span></span>
-<span id="cb16-91"><a href="#cb16-91" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb16-92"><a href="#cb16-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb16-93"><a href="#cb16-93" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb16-94"><a href="#cb16-94" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
-<span id="cb16-95"><a href="#cb16-95" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"right"</span></span>
-<span id="cb16-96"><a href="#cb16-96" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-79"><a href="#cb16-79" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ➕ EDR/YDR values in red box area</span></span>
+<span id="cb16-80"><a href="#cb16-80" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> last_x <span class="sc">-</span> <span class="dv">10</span>, <span class="at">y =</span> max_pop <span class="sc">*</span> <span class="fl">0.9</span>,</span>
+<span id="cb16-81"><a href="#cb16-81" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"Median EDR = "</span>, <span class="fu">round</span>(median_edr, <span class="dv">2</span>)),</span>
+<span id="cb16-82"><a href="#cb16-82" aria-hidden="true" tabindex="-1"></a>           <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">"#9932CC"</span>) <span class="sc">+</span></span>
+<span id="cb16-83"><a href="#cb16-83" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> last_x <span class="sc">-</span> <span class="dv">10</span>, <span class="at">y =</span> max_pop <span class="sc">*</span> <span class="fl">0.8</span>,</span>
+<span id="cb16-84"><a href="#cb16-84" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"Median YDR = "</span>, <span class="fu">round</span>(median_ydr, <span class="dv">2</span>)),</span>
+<span id="cb16-85"><a href="#cb16-85" aria-hidden="true" tabindex="-1"></a>           <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">"#E67E22"</span>) <span class="sc">+</span></span>
+<span id="cb16-86"><a href="#cb16-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-87"><a href="#cb16-87" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Final touches</span></span>
+<span id="cb16-88"><a href="#cb16-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> custom_colors) <span class="sc">+</span></span>
+<span id="cb16-89"><a href="#cb16-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb16-90"><a href="#cb16-90" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Population Count"</span>,</span>
+<span id="cb16-91"><a href="#cb16-91" aria-hidden="true" tabindex="-1"></a>    <span class="at">sec.axis =</span> <span class="fu">sec_axis</span>(<span class="sc">~</span> . <span class="sc">*</span> <span class="dv">2</span> <span class="sc">/</span> max_pop, <span class="at">name =</span> <span class="st">"Dependency Ratio"</span>),</span>
+<span id="cb16-92"><a href="#cb16-92" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">label_number</span>(<span class="at">scale_cut =</span> <span class="fu">cut_short_scale</span>())</span>
+<span id="cb16-93"><a href="#cb16-93" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb16-94"><a href="#cb16-94" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb16-95"><a href="#cb16-95" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Population by Planning Area with Youth &amp; Elderly Dependency Ratios"</span>,</span>
+<span id="cb16-96"><a href="#cb16-96" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"* indicates Planning Areas with Elderly Dependency Ratio above the national median"</span>,</span>
+<span id="cb16-97"><a href="#cb16-97" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Planning Area"</span>,</span>
+<span id="cb16-98"><a href="#cb16-98" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Age Group"</span></span>
+<span id="cb16-99"><a href="#cb16-99" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb16-100"><a href="#cb16-100" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-101"><a href="#cb16-101" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb16-102"><a href="#cb16-102" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb16-103"><a href="#cb16-103" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb16-104"><a href="#cb16-104" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"right"</span></span>
+<span id="cb16-105"><a href="#cb16-105" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
 ℹ Please use `linewidth` instead.</code></pre>

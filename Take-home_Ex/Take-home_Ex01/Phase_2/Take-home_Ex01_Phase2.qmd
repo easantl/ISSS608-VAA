@@ -281,7 +281,7 @@ ggplot(dep_plot, aes(YDR_pct, EDR_pct)) +
   )
 ```
 
-3.  For Visualization 3, I noticed that while median lines for both the EDR and YDR are present, they are not labeled, which may cause confusion. I would recommend adding clear labels to these reference lines. Additionally, it would be helpful to highlight planning areas where EDR exceed the median values, as these zones may warrant closer attention.
+3.  For Visualization 3, I noticed that a): Median lines for both the EDR and YDR are presented, they are not labeled, which may cause confusion. I would recommend adding clear labels to these reference lines. b): It would be helpful to highlight planning areas where EDR exceed the median values, as these zones may warrant closer attention. c): It's good to show the median EDR and YDR in value so that readers can understand the situation more clearly.
 
 My shot:
 
@@ -304,32 +304,32 @@ df_agegroup <- sgresidence %>%
     YouthRatio = Youth / WorkingAge
   )
 
-# 1. Reshape to long format for stacked bar chart
+# 2. Reshape to long format for stacked bar chart
 df_age_long <- df_agegroup %>%
   pivot_longer(cols = c("Youth", "WorkingAge", "Elderly"),
                names_to = "AgeGroup", values_to = "Pop") %>%
   mutate(PA = fct_reorder(PA, -Pop, .fun = sum))
 
-# 2. Compute median values and max population
+# 3. Compute median values and max population
 median_edr <- median(df_agegroup$ElderlyRatio, na.rm = TRUE)
 median_ydr <- median(df_agegroup$YouthRatio, na.rm = TRUE)
 max_pop    <- max(df_agegroup$TotalPop, na.rm = TRUE)
 
-# 3. Add star marker to EDR above median
+# 4. Add star marker to EDR above median
 df_agegroup <- df_agegroup %>%
   mutate(EDR_star = if_else(ElderlyRatio > median_edr, "*", ""))
 
-# 4. Define color palette
+# 5. Define color palette
 custom_colors <- c(
   "Youth" = "#FFD700",        # Gold
   "WorkingAge" = "#B0B0B0",   # Gray
   "Elderly" = "#800080"       # Purple
 )
 
-# 5. Get rightmost x position
+# 6. Get rightmost x position
 last_x <- length(unique(df_age_long$PA))
 
-# 6. Create the plot
+# 7. Create the plot
 ggplot(df_age_long, aes(x = PA, y = Pop, fill = AgeGroup)) +
   geom_bar(stat = "identity", width = 0.95) +
 
@@ -366,6 +366,14 @@ ggplot(df_age_long, aes(x = PA, y = Pop, fill = AgeGroup)) +
   annotate("text", x = last_x, y = median_ydr * max_pop / 2,
            label = "Median YDR", vjust = 1.5, hjust = 1, size = 3, color = "black") +
 
+  # ➕ EDR/YDR values in red box area
+  annotate("text", x = last_x - 10, y = max_pop * 0.9,
+           label = paste0("Median EDR = ", round(median_edr, 2)),
+           hjust = 0, size = 2, color = "#9932CC") +
+  annotate("text", x = last_x - 10, y = max_pop * 0.8,
+           label = paste0("Median YDR = ", round(median_ydr, 2)),
+           hjust = 0, size = 2, color = "#E67E22") +
+
   # Final touches
   scale_fill_manual(values = custom_colors) +
   scale_y_continuous(
@@ -378,10 +386,12 @@ ggplot(df_age_long, aes(x = PA, y = Pop, fill = AgeGroup)) +
     subtitle = "* indicates Planning Areas with Elderly Dependency Ratio above the national median",
     x = "Planning Area",
     fill = "Age Group"
-  ) +
+  ) + 
+  
   theme_minimal() +
   theme(
     axis.text.x = element_text(angle = 45, hjust = 1),
     legend.position = "right"
   )
+
 ```
