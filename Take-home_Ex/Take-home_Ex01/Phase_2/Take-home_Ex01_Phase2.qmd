@@ -29,7 +29,7 @@ sgresidence  <- read.csv("data/respopagesex2024.csv")
 
 ## Good design principles
 
-Here are the areas where she did very well and I should learn from:
+Here are the areas across **all three visuals** where she did very well and I should learn from:
 
 1.  Her insights into the data were very profound, and she did a great job transforming the data to uncover more observations. For example, she derived the Youth Dependency Ratio (YDR) and the Elderly Dependency Ratio (EDR) to provide deeper insights into the issue of population aging. In comparison, my own assignment, which only compared population distributions, was not as insightful.
 2.  She used colors very skillfully in her visualization—not just to make her work more visually appealing, but more importantly, to highlight contrasts between different groups. For example, she used red and blue to distinguish between male and female groups, and orange and purple to differentiate between younger and older age groups. These thoughtful color choices made her entire visualization much clearer and easier to understand.
