@@ -1,7 +1,6 @@
 ---
 title: "Demographic structures and distribution of Singapore in 2024"
 format: html
-
 ---
 
 ## Getting start

@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Linsen Lu">
 
-<title>Take-home_Ex02 – ISSS608-VAA</title>
+<title>Sailor Shift: Rise and Resonance – ISSS608-VAA</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -164,21 +200,44 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#getting-start" id="toc-getting-start" class="nav-link active" data-scroll-target="#getting-start">Getting Start</a>
+  <ul class="collapse">
+  <li><a href="#installing-and-loading-the-required-libraries" id="toc-installing-and-loading-the-required-libraries" class="nav-link" data-scroll-target="#installing-and-loading-the-required-libraries"><strong>Installing and loading the required libraries</strong></a></li>
+  <li><a href="#importing-data" id="toc-importing-data" class="nav-link" data-scroll-target="#importing-data"><strong>Importing data</strong></a></li>
+  </ul></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">1. Introduction</a></li>
+  <li><a href="#data-processing" id="toc-data-processing" class="nav-link" data-scroll-target="#data-processing">2. Data processing</a>
+  <ul class="collapse">
+  <li><a href="#reviewing-the-imported-data" id="toc-reviewing-the-imported-data" class="nav-link" data-scroll-target="#reviewing-the-imported-data">2.1. Reviewing the imported data</a></li>
+  <li><a href="#capturing-edges-and-nodes" id="toc-capturing-edges-and-nodes" class="nav-link" data-scroll-target="#capturing-edges-and-nodes">2.2. Capturing Edges and Nodes</a></li>
+  <li><a href="#get-closer-to-data" id="toc-get-closer-to-data" class="nav-link" data-scroll-target="#get-closer-to-data">2.3. Get closer to data</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Take-home_Ex02</h1>
+<h1 class="title">Sailor Shift: Rise and Resonance</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Linsen Lu </p>
+          </div>
+  </div>
     
   
     
@@ -189,9 +248,126 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>xxx2</p>
+<section id="getting-start" class="level2">
+<h2 class="anchored" data-anchor-id="getting-start">Getting Start</h2>
+<section id="installing-and-loading-the-required-libraries" class="level3">
+<h3 class="anchored" data-anchor-id="installing-and-loading-the-required-libraries"><strong>Installing and loading the required libraries</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(igraph, tidygraph, ggraph, </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               visNetwork, lubridate, clock,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               tidyverse, graphlayouts, </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>               concaveman, ggforce, jsonlite, dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="importing-data" class="level3">
+<h3 class="anchored" data-anchor-id="importing-data"><strong>Importing data</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>t_data <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="st">"data/MC1_graph.json"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">1. Introduction</h2>
+<p>Sailor Shift is one of the most influential figures in the development of “Oceans Folk” music. From her humble beginnings as a singer on Oceanus Island to her current status as a global superstar, she has grown to represent not only her own personal success, but has also propelled this niche genre into the world. This project uses data analysis and visualization to delve deeper into her network of collaborations, musical influences, and her importance in the overall music ecosystem. We will reveal how she has influenced others and been shaped by the zeitgeist, and further reflect on what her rise reveals about the new generation of musicians.</p>
+</section>
+<section id="data-processing" class="level2">
+<h2 class="anchored" data-anchor-id="data-processing">2. Data processing</h2>
+<section id="reviewing-the-imported-data" class="level3">
+<h3 class="anchored" data-anchor-id="reviewing-the-imported-data">2.1. Reviewing the imported data</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(t_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 5
+ $ directed  : logi TRUE
+ $ multigraph: logi TRUE
+ $ graph     :List of 2
+  ..$ node_default: Named list()
+  ..$ edge_default: Named list()
+ $ nodes     :'data.frame': 17412 obs. of  10 variables:
+  ..$ Node Type     : chr [1:17412] "Song" "Person" "Person" "Person" ...
+  ..$ name          : chr [1:17412] "Breaking These Chains" "Carlos Duffy" "Min Qin" "Xiuying Xie" ...
+  ..$ single        : logi [1:17412] TRUE NA NA NA NA FALSE ...
+  ..$ release_date  : chr [1:17412] "2017" NA NA NA ...
+  ..$ genre         : chr [1:17412] "Oceanus Folk" NA NA NA ...
+  ..$ notable       : logi [1:17412] TRUE NA NA NA NA TRUE ...
+  ..$ id            : int [1:17412] 0 1 2 3 4 5 6 7 8 9 ...
+  ..$ written_date  : chr [1:17412] NA NA NA NA ...
+  ..$ stage_name    : chr [1:17412] NA NA NA NA ...
+  ..$ notoriety_date: chr [1:17412] NA NA NA NA ...
+ $ links     :'data.frame': 37857 obs. of  4 variables:
+  ..$ Edge Type: chr [1:37857] "InterpolatesFrom" "RecordedBy" "PerformerOf" "ComposerOf" ...
+  ..$ source   : int [1:37857] 0 0 1 1 2 2 3 5 5 5 ...
+  ..$ target   : int [1:37857] 1841 4 0 16180 0 16180 0 5088 14332 11677 ...
+  ..$ key      : int [1:37857] 0 0 0 0 0 0 0 0 0 0 ...</code></pre>
+</div>
+</div>
+<p>The imported network graph data consists of 17,412 nodes and 37,857 edges. Nodes represent entities such as people, songs, albums, and record labels, each containing attributes like name, genre, and release year. Edges are directed and describe various relationship types—including “PerformerOf,” “ComposerOf,” and “RecordedBy”—with corresponding <code>source</code>, <code>target</code>, and <code>Edge Type</code> fields.</p>
+</section>
+<section id="capturing-edges-and-nodes" class="level3">
+<h3 class="anchored" data-anchor-id="capturing-edges-and-nodes">2.2. Capturing Edges and Nodes</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>nodes <span class="ot">&lt;-</span> t_data<span class="sc">$</span>nodes</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>edges <span class="ot">&lt;-</span> t_data<span class="sc">$</span>links</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="get-closer-to-data" class="level3">
+<h3 class="anchored" data-anchor-id="get-closer-to-data">2.3. Get closer to data</h3>
+<section id="edges" class="level4">
+<h4 class="anchored" data-anchor-id="edges">2.3.1. Edges</h4>
+<p><img src="Pics/Edges.png" class="img-fluid" width="298"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(edges)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 37,857
+Columns: 4
+$ `Edge Type` &lt;chr&gt; "InterpolatesFrom", "RecordedBy", "PerformerOf", "Composer…
+$ source      &lt;int&gt; 0, 0, 1, 1, 2, 2, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5…
+$ target      &lt;int&gt; 1841, 4, 0, 16180, 0, 16180, 0, 5088, 14332, 11677, 2479, …
+$ key         &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(edges<span class="sc">$</span><span class="st">`</span><span class="at">Edge Type</span><span class="st">`</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(edges<span class="sc">$</span><span class="st">`</span><span class="at">Edge Type</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "InterpolatesFrom"   "RecordedBy"         "PerformerOf"       
+ [4] "ComposerOf"         "ProducerOf"         "InStyleOf"         
+ [7] "LyricalReferenceTo" "CoverOf"            "DistributedBy"     
+[10] "MemberOf"           "LyricistOf"         "DirectlySamples"   </code></pre>
+</div>
+</div>
+<p>The edges dataset contains 37,857 records and 4 fields to represent the various relationships between entities in the network. Each edge contains the node IDs (source and target) of the starting and ending points, as well as 12 Edge Types describing the nature of the relationship, such as “PerformerOf”, ‘ComposerOf’ or “RecordedBy”. Meanwhile, the key field is used to distinguish between multiple connections between the same node pair, but all values are currently 0, indicating that only unique connections exist between most node pairs.</p>
+</section>
+<section id="nodes" class="level4">
+<h4 class="anchored" data-anchor-id="nodes">2.3.2. Nodes</h4>
+<p><img src="Pics/Nodes.jpg" class="img-fluid" width="542"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(nodes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 17,412
+Columns: 10
+$ `Node Type`    &lt;chr&gt; "Song", "Person", "Person", "Person", "RecordLabel", "S…
+$ name           &lt;chr&gt; "Breaking These Chains", "Carlos Duffy", "Min Qin", "Xi…
+$ single         &lt;lgl&gt; TRUE, NA, NA, NA, NA, FALSE, NA, NA, NA, NA, TRUE, NA, …
+$ release_date   &lt;chr&gt; "2017", NA, NA, NA, NA, "2026", NA, NA, NA, NA, "2020",…
+$ genre          &lt;chr&gt; "Oceanus Folk", NA, NA, NA, NA, "Lo-Fi Electronica", NA…
+$ notable        &lt;lgl&gt; TRUE, NA, NA, NA, NA, TRUE, NA, NA, NA, NA, TRUE, NA, N…
+$ id             &lt;int&gt; 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 1…
+$ written_date   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "2020", NA, NA,…
+$ stage_name     &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ notoriety_date &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</code></pre>
+</div>
+</div>
+<p>The nodes dataset contains 17,412 entries, each representing an entity within the music network and categorized under the Node Type column as “Person”, “Song”, or “RecordLabel”. Each node includes relevant attributes based on its type—for example, songs have fields such as single, release_date, genre, and notable, while people may have stage_name and notoriety_date. The presence of missing values (NA) in many fields indicates that certain attributes are only applicable to specific node types.</p>
 
 
+</section>
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

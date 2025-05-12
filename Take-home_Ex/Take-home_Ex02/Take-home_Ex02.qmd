@@ -1,6 +1,76 @@
 ---
-title: "Take-home_Ex02"
-format: html
+title: "Sailor Shift: Rise and Resonance"
+author: "Linsen Lu"
+execute: 
+  eval: true
+  echo: true
+  warning: false
 ---
 
-xxx2
+## Getting Start
+
+### **Installing and loading the required libraries**
+
+```{R}
+pacman::p_load(igraph, tidygraph, ggraph, 
+               visNetwork, lubridate, clock,
+               tidyverse, graphlayouts, 
+               concaveman, ggforce, jsonlite, dplyr)
+```
+
+### **Importing data**
+
+```{R}
+t_data <- fromJSON("data/MC1_graph.json")
+```
+
+## 1. Introduction
+
+Sailor Shift is one of the most influential figures in the development of “Oceans Folk” music. From her humble beginnings as a singer on Oceanus Island to her current status as a global superstar, she has grown to represent not only her own personal success, but has also propelled this niche genre into the world. This project uses data analysis and visualization to delve deeper into her network of collaborations, musical influences, and her importance in the overall music ecosystem. We will reveal how she has influenced others and been shaped by the zeitgeist, and further reflect on what her rise reveals about the new generation of musicians.
+
+## 2. Data processing
+
+### 2.1. Reviewing the imported data
+
+```{R}
+glimpse(t_data)
+```
+
+The imported network graph data consists of 17,412 nodes and 37,857 edges. Nodes represent entities such as people, songs, albums, and record labels, each containing attributes like name, genre, and release year. Edges are directed and describe various relationship types—including “PerformerOf,” “ComposerOf,” and “RecordedBy”—with corresponding `source`, `target`, and `Edge Type` fields.
+
+### 2.2. Capturing Edges and Nodes
+
+```{R}
+nodes <- t_data$nodes
+
+edges <- t_data$links
+```
+
+### 2.3. Get closer to data
+
+#### 2.3.1. Edges
+
+![](Pics/Edges.png){width="298"}
+
+```{R}
+glimpse(edges)
+```
+
+```{R}
+length(unique(edges$`Edge Type`))
+
+unique(edges$`Edge Type`)
+
+```
+
+The edges dataset contains 37,857 records and 4 fields to represent the various relationships between entities in the network. Each edge contains the node IDs (source and target) of the starting and ending points, as well as 12 Edge Types describing the nature of the relationship, such as “PerformerOf”, ‘ComposerOf’ or “RecordedBy”. Meanwhile, the key field is used to distinguish between multiple connections between the same node pair, but all values are currently 0, indicating that only unique connections exist between most node pairs.
+
+#### 2.3.2. Nodes
+
+![](Pics/Nodes.jpg){width="542"}
+
+```{R}
+glimpse(nodes)
+```
+
+The nodes dataset contains 17,412 entries, each representing an entity within the music network and categorized under the Node Type column as "Person", "Song", or "RecordLabel". Each node includes relevant attributes based on its type—for example, songs have fields such as single, release_date, genre, and notable, while people may have stage_name and notoriety_date. The presence of missing values (NA) in many fields indicates that certain attributes are only applicable to specific node types.
