@@ -7,6 +7,8 @@ format: html
 
 I‘d like to provide my personal thoughts to our friend **Zhang Jinghan**'s work.
 
+Link: <https://isss608-visualanalytics.netlify.app/take-home_ex/take-home_ex01/take-home_ex01>
+
 ## Getting start
 
 ### **Installing and loading the required libraries**
