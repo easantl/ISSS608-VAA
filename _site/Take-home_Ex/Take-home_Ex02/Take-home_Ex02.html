@@ -213,9 +213,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">1. Introduction</a></li>
   <li><a href="#data-processing" id="toc-data-processing" class="nav-link" data-scroll-target="#data-processing">2. Data processing</a>
   <ul class="collapse">
-  <li><a href="#reviewing-the-imported-data" id="toc-reviewing-the-imported-data" class="nav-link" data-scroll-target="#reviewing-the-imported-data">2.1. Reviewing the imported data</a></li>
-  <li><a href="#capturing-edges-and-nodes" id="toc-capturing-edges-and-nodes" class="nav-link" data-scroll-target="#capturing-edges-and-nodes">2.2. Capturing Edges and Nodes</a></li>
-  <li><a href="#get-closer-to-data" id="toc-get-closer-to-data" class="nav-link" data-scroll-target="#get-closer-to-data">2.3. Get closer to data</a></li>
+  <li><a href="#capturing-edges-and-nodes" id="toc-capturing-edges-and-nodes" class="nav-link" data-scroll-target="#capturing-edges-and-nodes">2.1. Capturing Edges and Nodes</a></li>
+  <li><a href="#get-closer-to-data" id="toc-get-closer-to-data" class="nav-link" data-scroll-target="#get-closer-to-data">2.2. Get closer to data</a></li>
+  <li><a href="#deal-with-na-values" id="toc-deal-with-na-values" class="nav-link" data-scroll-target="#deal-with-na-values">2.3. Deal with NA values</a></li>
+  </ul></li>
+  <li><a href="#sailor-shifts-career-connections" id="toc-sailor-shifts-career-connections" class="nav-link" data-scroll-target="#sailor-shifts-career-connections">3. Sailor Shift’s Career Connections</a>
+  <ul class="collapse">
+  <li><a href="#the-contributors-who-shaped-the-modern-sailor-shift" id="toc-the-contributors-who-shaped-the-modern-sailor-shift" class="nav-link" data-scroll-target="#the-contributors-who-shaped-the-modern-sailor-shift">3.1. The contributors who shaped the modern Sailor Shift</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -272,52 +276,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="data-processing" class="level2">
 <h2 class="anchored" data-anchor-id="data-processing">2. Data processing</h2>
-<section id="reviewing-the-imported-data" class="level3">
-<h3 class="anchored" data-anchor-id="reviewing-the-imported-data">2.1. Reviewing the imported data</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(t_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>List of 5
- $ directed  : logi TRUE
- $ multigraph: logi TRUE
- $ graph     :List of 2
-  ..$ node_default: Named list()
-  ..$ edge_default: Named list()
- $ nodes     :'data.frame': 17412 obs. of  10 variables:
-  ..$ Node Type     : chr [1:17412] "Song" "Person" "Person" "Person" ...
-  ..$ name          : chr [1:17412] "Breaking These Chains" "Carlos Duffy" "Min Qin" "Xiuying Xie" ...
-  ..$ single        : logi [1:17412] TRUE NA NA NA NA FALSE ...
-  ..$ release_date  : chr [1:17412] "2017" NA NA NA ...
-  ..$ genre         : chr [1:17412] "Oceanus Folk" NA NA NA ...
-  ..$ notable       : logi [1:17412] TRUE NA NA NA NA TRUE ...
-  ..$ id            : int [1:17412] 0 1 2 3 4 5 6 7 8 9 ...
-  ..$ written_date  : chr [1:17412] NA NA NA NA ...
-  ..$ stage_name    : chr [1:17412] NA NA NA NA ...
-  ..$ notoriety_date: chr [1:17412] NA NA NA NA ...
- $ links     :'data.frame': 37857 obs. of  4 variables:
-  ..$ Edge Type: chr [1:37857] "InterpolatesFrom" "RecordedBy" "PerformerOf" "ComposerOf" ...
-  ..$ source   : int [1:37857] 0 0 1 1 2 2 3 5 5 5 ...
-  ..$ target   : int [1:37857] 1841 4 0 16180 0 16180 0 5088 14332 11677 ...
-  ..$ key      : int [1:37857] 0 0 0 0 0 0 0 0 0 0 ...</code></pre>
-</div>
-</div>
-<p>The imported network graph data consists of 17,412 nodes and 37,857 edges. Nodes represent entities such as people, songs, albums, and record labels, each containing attributes like name, genre, and release year. Edges are directed and describe various relationship types—including “PerformerOf,” “ComposerOf,” and “RecordedBy”—with corresponding <code>source</code>, <code>target</code>, and <code>Edge Type</code> fields.</p>
-</section>
 <section id="capturing-edges-and-nodes" class="level3">
-<h3 class="anchored" data-anchor-id="capturing-edges-and-nodes">2.2. Capturing Edges and Nodes</h3>
+<h3 class="anchored" data-anchor-id="capturing-edges-and-nodes">2.1. Capturing Edges and Nodes</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>nodes <span class="ot">&lt;-</span> t_data<span class="sc">$</span>nodes</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>edges <span class="ot">&lt;-</span> t_data<span class="sc">$</span>links</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>nodes <span class="ot">&lt;-</span> t_data<span class="sc">$</span>nodes</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>edges <span class="ot">&lt;-</span> t_data<span class="sc">$</span>links</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="get-closer-to-data" class="level3">
-<h3 class="anchored" data-anchor-id="get-closer-to-data">2.3. Get closer to data</h3>
+<h3 class="anchored" data-anchor-id="get-closer-to-data">2.2. Get closer to data</h3>
 <section id="edges" class="level4">
-<h4 class="anchored" data-anchor-id="edges">2.3.1. Edges</h4>
+<h4 class="anchored" data-anchor-id="edges">2.2.1. Edges</h4>
 <p><img src="Pics/Edges.png" class="img-fluid" width="298"></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(edges)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(edges)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 37,857
 Columns: 4
@@ -328,11 +301,11 @@ $ key         &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(edges<span class="sc">$</span><span class="st">`</span><span class="at">Edge Type</span><span class="st">`</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(edges<span class="sc">$</span><span class="st">`</span><span class="at">Edge Type</span><span class="st">`</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 12</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(edges<span class="sc">$</span><span class="st">`</span><span class="at">Edge Type</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(edges<span class="sc">$</span><span class="st">`</span><span class="at">Edge Type</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "InterpolatesFrom"   "RecordedBy"         "PerformerOf"       
  [4] "ComposerOf"         "ProducerOf"         "InStyleOf"         
@@ -340,13 +313,13 @@ $ key         &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 [10] "MemberOf"           "LyricistOf"         "DirectlySamples"   </code></pre>
 </div>
 </div>
-<p>The edges dataset contains 37,857 records and 4 fields to represent the various relationships between entities in the network. Each edge contains the node IDs (source and target) of the starting and ending points, as well as 12 Edge Types describing the nature of the relationship, such as “PerformerOf”, ‘ComposerOf’ or “RecordedBy”. Meanwhile, the key field is used to distinguish between multiple connections between the same node pair, but all values are currently 0, indicating that only unique connections exist between most node pairs.</p>
+<p>The edges dataset contains 37,857 records and 4 fields to represent the various relationships between entities in the network. Each edge contains the node IDs (source and target) of the starting and ending points, as well as 12 Edge Types describing the nature of the relationship, such as “PerformerOf”, ‘ComposerOf’ or “RecordedBy”. Meanwhile, the key field is used to distinguish between multiple connections between the same node pair.</p>
 </section>
 <section id="nodes" class="level4">
-<h4 class="anchored" data-anchor-id="nodes">2.3.2. Nodes</h4>
+<h4 class="anchored" data-anchor-id="nodes">2.2.2. Nodes</h4>
 <p><img src="Pics/Nodes.jpg" class="img-fluid" width="542"></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(nodes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(nodes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 17,412
 Columns: 10
@@ -363,9 +336,51 @@ $ notoriety_date &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 </div>
 </div>
 <p>The nodes dataset contains 17,412 entries, each representing an entity within the music network and categorized under the Node Type column as “Person”, “Song”, or “RecordLabel”. Each node includes relevant attributes based on its type—for example, songs have fields such as single, release_date, genre, and notable, while people may have stage_name and notoriety_date. The presence of missing values (NA) in many fields indicates that certain attributes are only applicable to specific node types.</p>
-
-
 </section>
+</section>
+<section id="deal-with-na-values" class="level3">
+<h3 class="anchored" data-anchor-id="deal-with-na-values">2.3. Deal with NA values</h3>
+<p>The function tbl_graph() cannot process with NA values, with the error message: At rinterface_extra.c:82 : The value nan is not representable as an integer. Invalid value”. Thus, it’s necessary for us to check and deal with those NA values to ensure they will not affect our analysis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>nodes <span class="sc">%&gt;%</span> <span class="fu">summarise_all</span>(<span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Node Type name single release_date genre notable id written_date stage_name
+1         0    0  13797        12801 12801   12801  0        15957      16889
+  notoriety_date
+1          16763</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>edges <span class="sc">%&gt;%</span> <span class="fu">summarise_all</span>(<span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Edge Type source target key
+1         0      0      0   0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>nodes <span class="sc">%&gt;%</span> <span class="fu">summarise_all</span>(<span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.nan</span>(.)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Node Type name single release_date genre notable id written_date stage_name
+1         0    0      0            0     0       0  0            0          0
+  notoriety_date
+1              0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>edges <span class="sc">%&gt;%</span> <span class="fu">summarise_all</span>(<span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.nan</span>(.)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Edge Type source target key
+1         0      0      0   0</code></pre>
+</div>
+</div>
+<p>As observed from the outcome above, there’s no missing value in edges, but quite a lot of missing values in nodes. However, luckily, there’s no missing ‘ID’ and ‘Name’, which will not affect the analysis.</p>
+</section>
+</section>
+<section id="sailor-shifts-career-connections" class="level2">
+<h2 class="anchored" data-anchor-id="sailor-shifts-career-connections">3. Sailor Shift’s Career Connections</h2>
+<section id="the-contributors-who-shaped-the-modern-sailor-shift" class="level3">
+<h3 class="anchored" data-anchor-id="the-contributors-who-shaped-the-modern-sailor-shift">3.1. The contributors who shaped the modern Sailor Shift</h3>
+<p>A singer’s journey to fame is never a solitary one. Sailor has been accompanied by many — fellow singers, producers, instrumentalists, composers, and others who helped shape her path.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>c_nodes <span class="ot">&lt;-</span> nodes <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Node Type</span><span class="st">`</span>, name, id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
 </section>
 </section>
 
