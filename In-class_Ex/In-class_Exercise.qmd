@@ -1,6 +1,13 @@
 ---
-title: "In-class_Exercise"
+title: "In-class_Exercise week5"
 format: html
+author: "Linsen Lu"
+execute: 
+  eval: true
+  echo: true
+  warning: false
 ---
 
-***Please view my in-class exercises on www.linsen.com***
+```{R}
+pacman ::p_load(tidyverse, jsonlite, SmartEDA, tydygraph, ggraph)
+```

@@ -21,7 +21,8 @@ pacman::p_load(igraph, tidygraph, ggraph,
 ### **Importing data**
 
 ```{R}
-t_data <- fromJSON("data/MC1_graph.json")
+t_data <- fromJSON("data/MC1_graph.json",
+                   simplifyDataFrame = TRUE)
 ```
 
 ## 1. Introduction
@@ -30,13 +31,38 @@ Sailor Shift is one of the most influential figures in the development of “Oce
 
 ## 2. Data processing
 
-### 2.1. Capturing Edges and Nodes
+### 2.1. Extracting Edges and Nodes
 
 ```{R}
-nodes <- t_data$nodes
+nodes_tbl <- as_tibble(t_data$nodes)
 
-edges <- t_data$links
+edges_tbl <- as_tibble(t_data$links) %>%
+  rename(from = source, to = target)
 ```
+
+### 2.2. Tidying nodes data frame
+
+```{R}
+edges_tbl <- edges_tbl
+
+node_index<- nodes_tbl %>%
+  mutate(index = row_number(),
+         id = as.character(id))
+
+edges_tbl <- edges_tbl %>%
+  mutate(from = as.character(from),
+         to = as.character(to)) %>%
+  left_join(node_index %>%
+              select(id,
+                     from_index = index),
+            by = c("from" = "id")) %>%
+  left_join(node_index %>%
+              select(id,
+                     to_index = index),
+            by = c("to" = "id"))
+```
+
+
 
 ### 2.2. Get closer to data
 
@@ -45,13 +71,13 @@ edges <- t_data$links
 ![](Pics/Edges.png){width="298"}
 
 ```{R}
-glimpse(edges)
+glimpse(edges_tbl)
 ```
 
 ```{R}
-length(unique(edges$`Edge Type`))
+length(unique(edges_tbl$`Edge Type`))
 
-unique(edges$`Edge Type`)
+unique(edges_tbl$`Edge Type`)
 
 ```
 
@@ -62,7 +88,7 @@ The edges dataset contains 37,857 records and 4 fields to represent the various 
 ![](Pics/Nodes.jpg){width="542"}
 
 ```{R}
-glimpse(nodes)
+glimpse(nodes_tbl)
 ```
 The nodes dataset contains 17,412 entries, each representing an entity within the music network and categorized under the Node Type column as "Person", "Song", or "RecordLabel". Each node includes relevant attributes based on its type—for example, songs have fields such as single, release_date, genre, and notable, while people may have stage_name and notoriety_date. The presence of missing values (NA) in many fields indicates that certain attributes are only applicable to specific node types.
 
@@ -71,16 +97,16 @@ The nodes dataset contains 17,412 entries, each representing an entity within th
 The function tbl_graph() cannot process with NA values, with the error message: At rinterface_extra.c:82 : The value nan is not representable as an integer. Invalid value". Thus, it's necessary for us to check and deal with those NA values to ensure they will not affect our analysis.
 
 ```{R}
-nodes %>% summarise_all(~ sum(is.na(.)))
+nodes_tbl %>% summarise_all(~ sum(is.na(.)))
 
-edges %>% summarise_all(~ sum(is.na(.)))
+edges_tbl %>% summarise_all(~ sum(is.na(.)))
 
-nodes %>% summarise_all(~ sum(is.nan(.)))
+nodes_tbl %>% summarise_all(~ sum(is.nan(.)))
 
-edges %>% summarise_all(~ sum(is.nan(.)))
+edges_tbl %>% summarise_all(~ sum(is.nan(.)))
 
 ```
-As observed from the outcome above, there's no missing value in edges, but quite a lot of missing values in nodes. However, luckily, there's no missing 'ID' and 'Name', which will not affect the analysis.
+As observed from the outcome above, there's no missing value in edges, but quite a lot of NA values in nodes. However, luckily, there's no missing 'ID' and 'Name', which will not affect the analysis.
 
 
 ## 3. Sailor Shift’s Career Connections
@@ -90,14 +116,66 @@ As observed from the outcome above, there's no missing value in edges, but quite
 A singer’s journey to fame is never a solitary one. Sailor has been accompanied by many — fellow singers, producers, instrumentalists, composers, and others who helped shape her path.
 
 ```{R}
-c_nodes <- nodes %>%
-  select(`Node Type`, name, id)
+sailor_id <- node_index %>%
+  filter(name == "Sailor Shift") %>%
+  pull(index) %>%
+  as.character()
 
+edges_to_sailor <- edges_tbl %>%
+  filter(to_index == sailor_id)
+
+influencers <- edges_to_sailor %>%
+  left_join(node_index, by = c("from_index" = "index"))
+
+influencer_summary <- influencers %>%
+  filter(`Node Type` == "Person" )
+
+
+influencer_summary
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{R}
+graph_t <- tbl_graph(nodes = nodes_tbl,
+                   edges = edges_tbl %>%
+                     select(from = from_index,
+                            to = to_index,
+                            "Edge Type"),
+                   directed = TRUE)
 
 
 
 ```
 
+
+
+
+
+```{R}
+
+
+```
 
 
 

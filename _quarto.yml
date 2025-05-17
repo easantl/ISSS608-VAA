@@ -17,9 +17,12 @@ website:
             href: "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.qmd"     
           - text: "Hands-on Exercise 5"
             href: "Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05x.qmd"
-            
-      - href: "In-class_Ex/In-class_Exercise.qmd"
-        text: In-class Exercise
+
+      - text: "In-class Exercise"
+        menu: 
+          - text: "In-class Exercise 5"
+            href: "In-class_Ex/Week 5/In-class_Ex05.qmd"            
+
       
       - text: "Take-home Exercise"
         menu: 
