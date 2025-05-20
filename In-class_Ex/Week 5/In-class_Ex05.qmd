@@ -20,11 +20,13 @@ kg <- fromJSON("data/MC1_graph.json")
 ```
 
 ### Inspect structure
+
 ```{R}
 str(kg, max.level = 1)
 ```
 
 ### Extract and inspect
+
 ```{R}
 nodes_tbl <- as_tibble(kg$nodes)
 
@@ -32,17 +34,18 @@ edges_tbl <- as_tibble(kg$links)
 ```
 
 ## Initial EDA
+
 ```{R}
 ggplot(data = edges_tbl, 
        aes(y = `Edge Type`)) +
   geom_bar()
 ```
+
 ```{R}
 id_map <- tibble(id = nodes_tbl$id,
                  index = seq_len(
                    nrow(nodes_tbl)))
 ```
-
 
 ```{R}
 esges_tbl <- edges_tbl %>%
@@ -52,13 +55,10 @@ esges_tbl <- edges_tbl %>%
   rename(to = index)
 ```
 
-
-
 ```{R}
 edges_tbl <- edges_tbl %>%
   filter(!is.na(source), is.na(target))
 ```
-
 
 ```{R}
 graph <- tbl_graph(nodes = nodes_tbl,
@@ -66,11 +66,9 @@ graph <- tbl_graph(nodes = nodes_tbl,
                    directed = kg$directed)
 ```
 
-
 ```{R}
 set.seed(1234)
 ```
-
 
 ```{R}
 #| eval: false
@@ -91,7 +89,6 @@ graph_memberof <- graph %>%
   filter(edges_tbl$`Edge Type` == "MemberOf")
 ```
 
-
 ```{R}
 used_node_indices <- graph_memberof %>%
   activate(edges) %>%
@@ -100,7 +97,3 @@ used_node_indices <- graph_memberof %>%
   unlist() %>%
   unique()
 ```
-
-
-
-

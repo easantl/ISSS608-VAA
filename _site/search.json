@@ -642,5 +642,54 @@
     "title": "In-class_Exercise week5",
     "section": "Initial EDA",
     "text": "Initial EDA\n\nggplot(data = edges_tbl, \n       aes(y = `Edge Type`)) +\n  geom_bar()\n\n\n\n\n\n\n\n\n\nid_map &lt;- tibble(id = nodes_tbl$id,\n                 index = seq_len(\n                   nrow(nodes_tbl)))\n\n\nesges_tbl &lt;- edges_tbl %&gt;%\n  left_join(id_map, by = c(\"source\" = \"id\")) %&gt;%\n  rename(from = index) %&gt;%\n  left_join(id_map, by = c(\"target\" = \"id\")) %&gt;%\n  rename(to = index)\n\n\nedges_tbl &lt;- edges_tbl %&gt;%\n  filter(!is.na(source), is.na(target))\n\n\ngraph &lt;- tbl_graph(nodes = nodes_tbl,\n                   edges = edges_tbl,\n                   directed = kg$directed)\n\n\nset.seed(1234)\n\n\nggraph(graph, layout = \"fr\") +\n  geom_edge_link(alpha = 0.3,\n                 colour = \"gray\") +\n  geom_node_point(aes(color = `Node Type`),\n                  size = 4) +\n  geom_node_text(aes(label = name),\n                 repel = TRUE,\n                 size = 2.5) +\n  theme_void()\n\n\ngraph_memberof &lt;- graph %&gt;%\n  activate(edges) %&gt;%\n  filter(edges_tbl$`Edge Type` == \"MemberOf\")\n\n\nused_node_indices &lt;- graph_memberof %&gt;%\n  activate(edges) %&gt;%\n  as_tibble() %&gt;%\n  select(from, to) %&gt;%\n  unlist() %&gt;%\n  unique()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html",
+    "href": "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html",
+    "title": "Hands-on_Ex06",
+    "section": "",
+    "text": "pacman::p_load(scales, viridis, lubridate, ggthemes,\n               gridExtra, readxl, knitr, data.table,\n               CGPfunctions, ggHoriPlot, tidyverse)\n\n\n\n\n\nattacks &lt;- read_csv(\"data/eventlog.csv\")\n\n\n\n\n\nkable(head(attacks))\n\n\n\n\ntimestamp\nsource_country\ntz\n\n\n\n\n2015-03-12 15:59:16\nCN\nAsia/Shanghai\n\n\n2015-03-12 16:00:48\nFR\nEurope/Paris\n\n\n2015-03-12 16:02:26\nCN\nAsia/Shanghai\n\n\n2015-03-12 16:02:38\nUS\nAmerica/Chicago\n\n\n2015-03-12 16:03:22\nCN\nAsia/Shanghai\n\n\n2015-03-12 16:03:45\nCN\nAsia/Shanghai"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html#getting-started",
+    "href": "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html#getting-started",
+    "title": "Hands-on_Ex06",
+    "section": "",
+    "text": "pacman::p_load(scales, viridis, lubridate, ggthemes,\n               gridExtra, readxl, knitr, data.table,\n               CGPfunctions, ggHoriPlot, tidyverse)\n\n\n\n\n\nattacks &lt;- read_csv(\"data/eventlog.csv\")\n\n\n\n\n\nkable(head(attacks))\n\n\n\n\ntimestamp\nsource_country\ntz\n\n\n\n\n2015-03-12 15:59:16\nCN\nAsia/Shanghai\n\n\n2015-03-12 16:00:48\nFR\nEurope/Paris\n\n\n2015-03-12 16:02:26\nCN\nAsia/Shanghai\n\n\n2015-03-12 16:02:38\nUS\nAmerica/Chicago\n\n\n2015-03-12 16:03:22\nCN\nAsia/Shanghai\n\n\n2015-03-12 16:03:45\nCN\nAsia/Shanghai"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html#data-preparation",
+    "href": "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html#data-preparation",
+    "title": "Hands-on_Ex06",
+    "section": "Data Preparation",
+    "text": "Data Preparation\n\nStep 1: Deriving weekday and hour of day fields\n\nmake_hr_wkday &lt;- function(ts, sc, tz) {\n  real_times &lt;- ymd_hms(ts, \n                        tz = tz[1], \n                        quiet = TRUE)\n  dt &lt;- data.table(source_country = sc,\n                   wkday = weekdays(real_times),\n                   hour = hour(real_times))\n  return(dt)\n  }\n\n\n\nStep 2: Deriving the attacks tibble data frame\n\nwkday_levels &lt;- c('Saturday', 'Friday', \n                  'Thursday', 'Wednesday', \n                  'Tuesday', 'Monday', \n                  'Sunday')\n\nattacks &lt;- attacks %&gt;%\n  group_by(tz) %&gt;%\n  do(make_hr_wkday(.$timestamp, \n                   .$source_country, \n                   .$tz)) %&gt;% \n  ungroup() %&gt;% \n  mutate(wkday = factor(\n    wkday, levels = wkday_levels),\n    hour  = factor(\n      hour, levels = 0:23))\n\n\nkable(head(attacks))\n\n\n\n\ntz\nsource_country\nwkday\nhour\n\n\n\n\nAfrica/Cairo\nBG\nSaturday\n20\n\n\nAfrica/Cairo\nTW\nSunday\n6\n\n\nAfrica/Cairo\nTW\nSunday\n8\n\n\nAfrica/Cairo\nCN\nSunday\n11\n\n\nAfrica/Cairo\nUS\nSunday\n15\n\n\nAfrica/Cairo\nCA\nMonday\n11"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html#building-the-calendar-heatmaps",
+    "href": "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html#building-the-calendar-heatmaps",
+    "title": "Hands-on_Ex06",
+    "section": "Building the Calendar Heatmaps",
+    "text": "Building the Calendar Heatmaps\n\ngrouped &lt;- attacks %&gt;% \n  count(wkday, hour) %&gt;% \n  ungroup() %&gt;%\n  na.omit()\n\nggplot(grouped, \n       aes(hour, \n           wkday, \n           fill = n)) + \ngeom_tile(color = \"white\", \n          size = 0.1) + \ntheme_tufte(base_family = \"Helvetica\") + \ncoord_equal() +\nscale_fill_gradient(name = \"# of attacks\",\n                    low = \"sky blue\", \n                    high = \"dark blue\") +\nlabs(x = NULL, \n     y = NULL, \n     title = \"Attacks by weekday and time of day\") +\ntheme(axis.ticks = element_blank(),\n      plot.title = element_text(hjust = 0.5),\n      legend.title = element_text(size = 8),\n      legend.text = element_text(size = 6) )"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html#building-multiple-calendar-heatmaps",
+    "href": "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html#building-multiple-calendar-heatmaps",
+    "title": "Hands-on_Ex06",
+    "section": "Building Multiple Calendar Heatmaps",
+    "text": "Building Multiple Calendar Heatmaps\n\nStep 1: Deriving attack by country object\n\nattacks_by_country &lt;- count(\n  attacks, source_country) %&gt;%\n  mutate(percent = percent(n/sum(n))) %&gt;%\n  arrange(desc(n))\n\n\n\nStep 2: Preparing the tidy data frame\n\ntop4 &lt;- attacks_by_country$source_country[1:4]\ntop4_attacks &lt;- attacks %&gt;%\n  filter(source_country %in% top4) %&gt;%\n  count(source_country, wkday, hour) %&gt;%\n  ungroup() %&gt;%\n  mutate(source_country = factor(\n    source_country, levels = top4)) %&gt;%\n  na.omit()\n\n\n\nStep 3: Plotting the Multiple Calender Heatmap by using ggplot2 package\n\nggplot(top4_attacks, \n       aes(hour, \n           wkday, \n           fill = n)) + \n  geom_tile(color = \"white\", \n          size = 0.1) + \n  theme_tufte(base_family = \"Helvetica\") + \n  coord_equal() +\n  scale_fill_gradient(name = \"# of attacks\",\n                    low = \"sky blue\", \n                    high = \"dark blue\") +\n  facet_wrap(~source_country, ncol = 2) +\n  labs(x = NULL, y = NULL, \n     title = \"Attacks on top 4 countries by weekday and time of day\") +\n  theme(axis.ticks = element_blank(),\n        axis.text.x = element_text(size = 7),\n        plot.title = element_text(hjust = 0.5),\n        legend.title = element_text(size = 8),\n        legend.text = element_text(size = 6) )"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html#plotting-cycle-plot",
+    "href": "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html#plotting-cycle-plot",
+    "title": "Hands-on_Ex06",
+    "section": "Plotting Cycle Plot",
+    "text": "Plotting Cycle Plot\n\nStep 1: Data Import\n\nair &lt;- read_excel(\"data/arrivals_by_air.xlsx\")\n\n\n\nStep 2: Deriving month and year fields\n\nair$month &lt;- factor(month(air$`Month-Year`), \n                    levels=1:12, \n                    labels=month.abb, \n                    ordered=TRUE) \nair$year &lt;- year(ymd(air$`Month-Year`))\n\n\n\nStep 3: Extracting the target country\n\nVietnam &lt;- air %&gt;% \n  select(`Vietnam`, \n         month, \n         year) %&gt;%\n  filter(year &gt;= 2010)\n\n\n\nStep 4: Computing year average arrivals by month\n\nhline.data &lt;- Vietnam %&gt;% \n  group_by(month) %&gt;%\n  summarise(avgvalue = mean(`Vietnam`))\n\n\n\nStep 5: Plotting the cycle plot\n\nggplot() + \n  geom_line(data=Vietnam,\n            aes(x=year, \n                y=`Vietnam`, \n                group=month), \n            colour=\"black\") +\n  geom_hline(aes(yintercept=avgvalue), \n             data=hline.data, \n             linetype=6, \n             colour=\"red\", \n             size=0.5) + \n  facet_grid(~month) +\n  labs(axis.text.x = element_blank(),\n       title = \"Visitor arrivals from Vietnam by air, Jan 2010-Dec 2019\") +\n  xlab(\"\") +\n  ylab(\"No. of Visitors\") +\n  theme_tufte(base_family = \"Helvetica\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html#plotting-slopegraph",
+    "href": "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html#plotting-slopegraph",
+    "title": "Hands-on_Ex06",
+    "section": "Plotting Slopegraph",
+    "text": "Plotting Slopegraph\n\nStep 1: Data Import\n\nrice &lt;- read_csv(\"data/rice.csv\")\n\n\n\nStep 2: Plotting the slopegraph\n\nrice %&gt;% \n  mutate(Year = factor(Year)) %&gt;%\n  filter(Year %in% c(1961, 1980)) %&gt;%\n  newggslopegraph(Year, Yield, Country,\n                Title = \"Rice Yield of Top 11 Asian Counties\",\n                SubTitle = \"1961-1980\",\n                Caption = \"Prepared by: Dr. Kam Tin Seong\")"
   }
 ]
