@@ -62,8 +62,6 @@ edges_tbl <- edges_tbl %>%
             by = c("to" = "id"))
 ```
 
-
-
 ### 2.2. Get closer to data
 
 #### 2.2.1. Edges
@@ -90,6 +88,7 @@ The edges dataset contains 37,857 records and 4 fields to represent the various 
 ```{R}
 glimpse(nodes_tbl)
 ```
+
 The nodes dataset contains 17,412 entries, each representing an entity within the music network and categorized under the Node Type column as "Person", "Song", or "RecordLabel". Each node includes relevant attributes based on its type—for example, songs have fields such as single, release_date, genre, and notable, while people may have stage_name and notoriety_date. The presence of missing values (NA) in many fields indicates that certain attributes are only applicable to specific node types.
 
 ### 2.3. Deal with NA values
@@ -106,8 +105,8 @@ nodes_tbl %>% summarise_all(~ sum(is.nan(.)))
 edges_tbl %>% summarise_all(~ sum(is.nan(.)))
 
 ```
-As observed from the outcome above, there's no missing value in edges, but quite a lot of NA values in nodes. However, luckily, there's no missing 'ID' and 'Name', which will not affect the analysis.
 
+As observed from the outcome above, there's no missing value in edges, but quite a lot of NA values in nodes. However, luckily, there's no missing 'ID' and 'Name', which will not affect the analysis.
 
 ## 3. Sailor Shift’s Career Connections
 
@@ -135,27 +134,6 @@ influencer_summary
 
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ```{R}
 graph_t <- tbl_graph(nodes = nodes_tbl,
                    edges = edges_tbl %>%
@@ -168,40 +146,10 @@ graph_t <- tbl_graph(nodes = nodes_tbl,
 
 ```
 
-
-
-
-
 ```{R}
 
 
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ```{R}
 

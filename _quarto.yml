@@ -33,7 +33,7 @@ website:
           - text: "Take-home Exercise 1 Phase_2"
             href: "Take-home_Ex/Take-home_Ex01/Phase_2/Take-home_Ex01_Phase2.qmd"             
           - text: "Take-home Exercise 2"
-            href: "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.qmd"
+            href: "Take-home_Ex/Take-home_Ex02/Take-home_Ex02a.qmd"
           - text: "Take-home Exercise 3"
             href: "Take-home_Ex/Take-home_Ex03/Take-home_Ex03.qmd"
 
