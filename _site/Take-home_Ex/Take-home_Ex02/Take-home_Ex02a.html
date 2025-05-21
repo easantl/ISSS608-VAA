@@ -242,6 +242,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#sailor-shifts-career-connections" id="toc-sailor-shifts-career-connections" class="nav-link" data-scroll-target="#sailor-shifts-career-connections">5. Sailor Shift’s Career Connections</a>
   <ul class="collapse">
   <li><a href="#the-contributors-who-shaped-the-modern-sailor-shift" id="toc-the-contributors-who-shaped-the-modern-sailor-shift" class="nav-link" data-scroll-target="#the-contributors-who-shaped-the-modern-sailor-shift">5.1. The contributors who shaped the modern Sailor Shift</a></li>
+  <li><a href="#who-did-sailor-shift-influenced" id="toc-who-did-sailor-shift-influenced" class="nav-link" data-scroll-target="#who-did-sailor-shift-influenced">5.2. Who did Sailor Shift influenced</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -518,8 +519,6 @@ $ notoriety_date &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 <section id="the-contributors-who-shaped-the-modern-sailor-shift" class="level3">
 <h3 class="anchored" data-anchor-id="the-contributors-who-shaped-the-modern-sailor-shift">5.1. The contributors who shaped the modern Sailor Shift</h3>
 <p>A singer’s journey to fame is never a solitary one. Sailor has been accompanied by many — fellow singers, producers, instrumentalists, composers, and others who helped shape her path.</p>
-<section id="who-influenced-sailors-works" class="level4">
-<h4 class="anchored" data-anchor-id="who-influenced-sailors-works">5.1.1 Who influenced Sailor’s Works?</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sailor Shift's Index</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>sailor_idx <span class="ot">&lt;-</span> <span class="fu">which</span>(nodes_tbl<span class="sc">$</span>name <span class="sc">==</span> <span class="st">"Sailor Shift"</span>)</span>
@@ -560,7 +559,7 @@ $ notoriety_date &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 <span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>.row)</span>
 <span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
-<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(graph_influence, <span class="at">layout =</span> <span class="st">"fr"</span>) <span class="sc">+</span></span>
+<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(graph_influence, <span class="at">layout =</span> <span class="st">"nicely"</span>) <span class="sc">+</span></span>
 <span id="cb26-41"><a href="#cb26-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Edge Type</span><span class="st">`</span>),</span>
 <span id="cb26-42"><a href="#cb26-42" aria-hidden="true" tabindex="-1"></a>                 <span class="at">arrow    =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="dv">4</span>, <span class="st">"pt"</span>), <span class="at">type =</span> <span class="st">"closed"</span>),</span>
 <span id="cb26-43"><a href="#cb26-43" aria-hidden="true" tabindex="-1"></a>                 <span class="at">end_cap  =</span> <span class="fu">circle</span>(<span class="dv">3</span>, <span class="st">"pt"</span>),</span>
@@ -580,7 +579,7 @@ $ notoriety_date &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 <span id="cb26-57"><a href="#cb26-57" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Person"</span>      <span class="ot">=</span> <span class="st">"#377EB8"</span>,</span>
 <span id="cb26-58"><a href="#cb26-58" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Album"</span>       <span class="ot">=</span> <span class="st">"#E41A1C"</span>,</span>
 <span id="cb26-59"><a href="#cb26-59" aria-hidden="true" tabindex="-1"></a>    <span class="st">"RecordLabel"</span> <span class="ot">=</span> <span class="st">"#4DAF4A"</span></span>
-<span id="cb26-60"><a href="#cb26-60" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">name =</span> <span class="st">"Node Type"</span>) <span class="sc">+</span></span>
+<span id="cb26-60"><a href="#cb26-60" aria-hidden="true" tabindex="-1"></a>    ), <span class="at">name =</span> <span class="st">"Node Type"</span>) <span class="sc">+</span></span>
 <span id="cb26-61"><a href="#cb26-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
 <span id="cb26-62"><a href="#cb26-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
 <span id="cb26-63"><a href="#cb26-63" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"right"</span>,</span>
@@ -596,9 +595,102 @@ $ notoriety_date &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 </div>
 </div>
 </div>
-
-
+<p>This network diagram places Sailor Shift at its center and reveals the diverse teams behind each album. By mapping the ComposerOf, ProducerOf and LyricistOf relationships, it clearly shows which composers, producers, and record labels have shaped her work. From the visualization, it’s clear that Ewan MacRae has had the greatest influence on her discography: he not only composed Oceanbound alone but also teamed up with Freya Lindholm and Astrid Nørgaard to co-create Coral Beats, leaving a significant mark on two albums—far more than any other contributor.</p>
 </section>
+<section id="who-did-sailor-shift-influenced" class="level3">
+<h3 class="anchored" data-anchor-id="who-did-sailor-shift-influenced">5.2. Who did Sailor Shift influenced</h3>
+<p>Throughout Sailor’s career, not only has Sailor received influences from others, but her work has begun to inspire others, extending her creative reach beyond her immediate circle.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sailor's works</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>layer1_targets <span class="ot">&lt;-</span> graph <span class="sc">%&gt;%</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">activate</span>(edges) <span class="sc">%&gt;%</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">Edge Type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"PerformerOf"</span>, from <span class="sc">==</span> sailor_idx) <span class="sc">%&gt;%</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(to)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Works influenced by Silor's works</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>influence_types <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"DirectlySamples"</span>, <span class="st">"InStyleOf"</span>,</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"LyricalReferenceTo"</span>, <span class="st">"InterpolatesFrom"</span>)</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>layer2_targets <span class="ot">&lt;-</span> graph <span class="sc">%&gt;%</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">activate</span>(edges) <span class="sc">%&gt;%</span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">Edge Type</span><span class="st">`</span> <span class="sc">%in%</span> influence_types,</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>         from <span class="sc">%in%</span> layer1_targets) <span class="sc">%&gt;%</span></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(to)</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Creators of those influenced works</span></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>creator_types <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"ComposerOf"</span>, <span class="st">"ProducerOf"</span>, <span class="st">"LyricistOf"</span>)</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>graph_sub <span class="ot">&lt;-</span> graph <span class="sc">%&gt;%</span></span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">activate</span>(edges) <span class="sc">%&gt;%</span></span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>    (<span class="st">`</span><span class="at">Edge Type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"PerformerOf"</span> <span class="sc">&amp;</span> from <span class="sc">==</span> sailor_idx) <span class="sc">|</span></span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>    (<span class="st">`</span><span class="at">Edge Type</span><span class="st">`</span> <span class="sc">%in%</span> influence_types <span class="sc">&amp;</span> from <span class="sc">%in%</span> layer1_targets) <span class="sc">|</span></span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>    (<span class="st">`</span><span class="at">Edge Type</span><span class="st">`</span> <span class="sc">%in%</span> creator_types <span class="sc">&amp;</span> to <span class="sc">%in%</span> layer2_targets)</span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a>used_nodes <span class="ot">&lt;-</span> graph_sub <span class="sc">%&gt;%</span></span>
+<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">activate</span>(edges) <span class="sc">%&gt;%</span></span>
+<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(from, to) <span class="sc">%&gt;%</span></span>
+<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unlist</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>()</span>
+<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a>graph_sub <span class="ot">&lt;-</span> graph_sub <span class="sc">%&gt;%</span></span>
+<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">activate</span>(nodes) <span class="sc">%&gt;%</span></span>
+<span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">.row =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(.row <span class="sc">%in%</span> used_nodes) <span class="sc">%&gt;%</span></span>
+<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>.row)</span>
+<span id="cb27-45"><a href="#cb27-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-46"><a href="#cb27-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-47"><a href="#cb27-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-48"><a href="#cb27-48" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(graph_sub, <span class="at">layout =</span> <span class="st">"fr"</span>) <span class="sc">+</span></span>
+<span id="cb27-49"><a href="#cb27-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Edge Type</span><span class="st">`</span>),</span>
+<span id="cb27-50"><a href="#cb27-50" aria-hidden="true" tabindex="-1"></a>                 <span class="at">arrow      =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="dv">3</span>, <span class="st">"pt"</span>), <span class="at">type =</span> <span class="st">"closed"</span>),</span>
+<span id="cb27-51"><a href="#cb27-51" aria-hidden="true" tabindex="-1"></a>                 <span class="at">end_cap    =</span> <span class="fu">circle</span>(<span class="fl">2.5</span>, <span class="st">"pt"</span>),</span>
+<span id="cb27-52"><a href="#cb27-52" aria-hidden="true" tabindex="-1"></a>                 <span class="at">start_cap  =</span> <span class="fu">circle</span>(<span class="fl">2.5</span>, <span class="st">"pt"</span>),</span>
+<span id="cb27-53"><a href="#cb27-53" aria-hidden="true" tabindex="-1"></a>                 <span class="at">width      =</span> <span class="fl">0.6</span>,</span>
+<span id="cb27-54"><a href="#cb27-54" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha      =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb27-55"><a href="#cb27-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Node Type</span><span class="st">`</span>), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb27-56"><a href="#cb27-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> name), <span class="at">repel =</span> <span class="cn">TRUE</span>, <span class="at">size =</span> <span class="fl">2.5</span>, <span class="at">max.overlaps =</span> <span class="cn">Inf</span>) <span class="sc">+</span></span>
+<span id="cb27-57"><a href="#cb27-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_edge_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb27-58"><a href="#cb27-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">PerformerOf        =</span> <span class="st">"#8DD3C7"</span>,</span>
+<span id="cb27-59"><a href="#cb27-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">DirectlySamples    =</span> <span class="st">"#FB8072"</span>,</span>
+<span id="cb27-60"><a href="#cb27-60" aria-hidden="true" tabindex="-1"></a>    <span class="at">InStyleOf          =</span> <span class="st">"#80B1D3"</span>,</span>
+<span id="cb27-61"><a href="#cb27-61" aria-hidden="true" tabindex="-1"></a>    <span class="at">LyricalReferenceTo =</span> <span class="st">"#FDB462"</span>,</span>
+<span id="cb27-62"><a href="#cb27-62" aria-hidden="true" tabindex="-1"></a>    <span class="at">InterpolatesFrom   =</span> <span class="st">"#B3DE69"</span>,</span>
+<span id="cb27-63"><a href="#cb27-63" aria-hidden="true" tabindex="-1"></a>    <span class="at">ComposerOf         =</span> <span class="st">"#FCCDE5"</span>,</span>
+<span id="cb27-64"><a href="#cb27-64" aria-hidden="true" tabindex="-1"></a>    <span class="at">ProducerOf         =</span> <span class="st">"#BEBADA"</span>,</span>
+<span id="cb27-65"><a href="#cb27-65" aria-hidden="true" tabindex="-1"></a>    <span class="at">LyricistOf         =</span> <span class="st">"#FFED6F"</span></span>
+<span id="cb27-66"><a href="#cb27-66" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">name =</span> <span class="st">"Relation"</span>) <span class="sc">+</span></span>
+<span id="cb27-67"><a href="#cb27-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb27-68"><a href="#cb27-68" aria-hidden="true" tabindex="-1"></a>    <span class="at">Person       =</span> <span class="st">"#377EB8"</span>,</span>
+<span id="cb27-69"><a href="#cb27-69" aria-hidden="true" tabindex="-1"></a>    <span class="at">Album        =</span> <span class="st">"#E41A1C"</span>,</span>
+<span id="cb27-70"><a href="#cb27-70" aria-hidden="true" tabindex="-1"></a>    <span class="at">Song         =</span> <span class="st">"#4DAF4A"</span>,</span>
+<span id="cb27-71"><a href="#cb27-71" aria-hidden="true" tabindex="-1"></a>    <span class="at">RecordLabel  =</span> <span class="st">"#984EA3"</span>,</span>
+<span id="cb27-72"><a href="#cb27-72" aria-hidden="true" tabindex="-1"></a>    <span class="at">MusicalGroup =</span> <span class="st">"#FF7F00"</span></span>
+<span id="cb27-73"><a href="#cb27-73" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">name =</span> <span class="st">"Node Type"</span>) <span class="sc">+</span></span>
+<span id="cb27-74"><a href="#cb27-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb27-75"><a href="#cb27-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb27-76"><a href="#cb27-76" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"right"</span>,</span>
+<span id="cb27-77"><a href="#cb27-77" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title    =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
+<span id="cb27-78"><a href="#cb27-78" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text     =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>)</span>
+<span id="cb27-79"><a href="#cb27-79" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex02a_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This visualization adopts a four-layer peeling approach: at the very center sits Sailor Shift (blue), surrounded by her own recordings and lyric-penned tracks (red and green). The third ring maps the songs that directly sample, stylistically echo, lyrically reference, or interpolate her work (green), and the outermost layer identifies the composers, producers, and lyricists (blue) behind those derivative pieces. By counting connection frequencies, Wei Zhao stands out as the most heavily influenced creator—appearing under two separate derivative tracks—making them the single individual most shaped by Sailor Shift’s musical legacy.</p>
+
+
 </section>
 </section>
 

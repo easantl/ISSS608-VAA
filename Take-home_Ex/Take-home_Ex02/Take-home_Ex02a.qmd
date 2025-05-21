@@ -196,9 +196,6 @@ ggraph(graph_memberof,
 
 A singer’s journey to fame is never a solitary one. Sailor has been accompanied by many — fellow singers, producers, instrumentalists, composers, and others who helped shape her path.
 
-#### 5.1.1 Who influenced Sailor's Works?
-
-
 ```{R}
 
 # Sailor Shift's Index
@@ -240,7 +237,7 @@ graph_influence <- graph_influence %>%
   select(-.row)
 
 # Plot
-ggraph(graph_influence, layout = "fr") +
+ggraph(graph_influence, layout = "nicely") +
   geom_edge_link(aes(color = `Edge Type`),
                  arrow    = arrow(length = unit(4, "pt"), type = "closed"),
                  end_cap  = circle(3, "pt"),
@@ -260,7 +257,7 @@ ggraph(graph_influence, layout = "fr") +
     "Person"      = "#377EB8",
     "Album"       = "#E41A1C",
     "RecordLabel" = "#4DAF4A"
-  ), name = "Node Type") +
+    ), name = "Node Type") +
   theme_void() +
   theme(
     legend.position = "right",
@@ -271,24 +268,97 @@ ggraph(graph_influence, layout = "fr") +
 
 ```
 
+This network diagram places Sailor Shift at its center and reveals the diverse teams behind each album. By mapping the ComposerOf, ProducerOf and LyricistOf relationships, it clearly shows which composers, producers, and record labels have shaped her work. From the visualization, it’s clear that Ewan MacRae has had the greatest influence on her discography: he not only composed Oceanbound alone but also teamed up with Freya Lindholm and Astrid Nørgaard to co-create Coral Beats, leaving a significant mark on two albums—far more than any other contributor.
+
+### 5.2. Who did Sailor Shift influenced
+
+Throughout Sailor's career, not only has Sailor received influences from others, but her work has begun to inspire others, extending her creative reach beyond her immediate circle.
+
+```{R}
 
 
 
+# Sailor's works
+layer1_targets <- graph %>%
+  activate(edges) %>%
+  as_tibble() %>%
+  filter(`Edge Type` == "PerformerOf", from == sailor_idx) %>%
+  pull(to)
+
+# Works influenced by Silor's works
+influence_types <- c("DirectlySamples", "InStyleOf",
+                     "LyricalReferenceTo", "InterpolatesFrom")
+
+layer2_targets <- graph %>%
+  activate(edges) %>%
+  as_tibble() %>%
+  filter(`Edge Type` %in% influence_types,
+         from %in% layer1_targets) %>%
+  pull(to)
+
+# Creators of those influenced works
+creator_types <- c("ComposerOf", "ProducerOf", "LyricistOf")
+
+
+graph_sub <- graph %>%
+  activate(edges) %>%
+  filter(
+    (`Edge Type` == "PerformerOf" & from == sailor_idx) |
+    (`Edge Type` %in% influence_types & from %in% layer1_targets) |
+    (`Edge Type` %in% creator_types & to %in% layer2_targets)
+  )
+
+
+used_nodes <- graph_sub %>%
+  activate(edges) %>%
+  as_tibble() %>%
+  select(from, to) %>%
+  unlist() %>%
+  unique()
+
+
+graph_sub <- graph_sub %>%
+  activate(nodes) %>%
+  mutate(.row = row_number()) %>%
+  filter(.row %in% used_nodes) %>%
+  select(-.row)
 
 
 
+ggraph(graph_sub, layout = "fr") +
+  geom_edge_link(aes(color = `Edge Type`),
+                 arrow      = arrow(length = unit(3, "pt"), type = "closed"),
+                 end_cap    = circle(2.5, "pt"),
+                 start_cap  = circle(2.5, "pt"),
+                 width      = 0.6,
+                 alpha      = 0.7) +
+  geom_node_point(aes(color = `Node Type`), size = 3) +
+  geom_node_text(aes(label = name), repel = TRUE, size = 2.5, max.overlaps = Inf) +
+  scale_edge_colour_manual(values = c(
+    PerformerOf        = "#8DD3C7",
+    DirectlySamples    = "#FB8072",
+    InStyleOf          = "#80B1D3",
+    LyricalReferenceTo = "#FDB462",
+    InterpolatesFrom   = "#B3DE69",
+    ComposerOf         = "#FCCDE5",
+    ProducerOf         = "#BEBADA",
+    LyricistOf         = "#FFED6F"
+  ), name = "Relation") +
+  scale_color_manual(values = c(
+    Person       = "#377EB8",
+    Album        = "#E41A1C",
+    Song         = "#4DAF4A",
+    RecordLabel  = "#984EA3",
+    MusicalGroup = "#FF7F00"
+  ), name = "Node Type") +
+  theme_void() +
+  theme(
+    legend.position = "right",
+    legend.title    = element_text(size = 10),
+    legend.text     = element_text(size = 8)
+  )
 
 
+```
 
-
-
-
-
-
-
-
-
-
-
-
-
+This visualization adopts a four-layer peeling approach: at the very center sits Sailor Shift (blue), surrounded by her own recordings and lyric-penned tracks (red and green). The third ring maps the songs that directly sample, stylistically echo, lyrically reference, or interpolate her work (green), and the outermost layer identifies the composers, producers, and lyricists (blue) behind those derivative pieces. By counting connection frequencies, Wei Zhao stands out as the most heavily influenced creator—appearing under two separate derivative tracks—making them the single individual most shaped by Sailor Shift’s musical legacy.
