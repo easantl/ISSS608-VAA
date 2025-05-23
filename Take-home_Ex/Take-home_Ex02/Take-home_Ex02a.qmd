@@ -200,7 +200,9 @@ A singer’s journey to fame is never a solitary one. Sailor has been accompanie
 
 # Sailor Shift's Index
 sailor_idx <- which(nodes_tbl$name == "Sailor Shift")
+```
 
+```{R}
 # Sailor Shift's works'Index
 perf_edges <- graph %>%
   activate(edges) %>%
@@ -209,35 +211,43 @@ perf_edges <- graph %>%
 
 sailor_works_idx <- perf_edges %>% pull(to) %>% unique()
 
-focus_idx <- unique(c(sailor_idx, sailor_works_idx))
+focus_idx1 <- unique(c(sailor_idx, sailor_works_idx))
+```
 
+```{R}
 # Keep Edges that 'influence' Sailor Shift's works
-influence_types <- c("ComposerOf", "ProducerOf", "LyricistOf", "CoverOf")
+influence_types1 <- c("ComposerOf", "ProducerOf", "LyricistOf", "CoverOf")
 
-graph_influence <- graph %>%
+graph_influence1 <- graph %>%
   activate(edges) %>%
   filter(
-    `Edge Type` %in% influence_types,
-    to %in% focus_idx
+    `Edge Type` %in% influence_types1,
+    to %in% focus_idx1
   )
+```
 
+```{R}
 # Extract Nodes 
-used_node_indices <- graph_influence %>%
+used_node_indices1 <- graph_influence1 %>%
   activate(edges) %>%
   as_tibble() %>%
   select(from, to) %>%
   unlist() %>%
   unique()
+```
 
+```{R}
 # Keep Nodes
-graph_influence <- graph_influence %>%
+graph_influence1 <- graph_influence1 %>%
   activate(nodes) %>%
   mutate(.row = row_number()) %>%
-  filter(.row %in% used_node_indices) %>%
+  filter(.row %in% used_node_indices1) %>%
   select(-.row)
+```
 
+```{R}
 # Plot
-ggraph(graph_influence, layout = "nicely") +
+ggraph(graph_influence1, layout = "fr") +
   geom_edge_link(aes(color = `Edge Type`),
                  arrow    = arrow(length = unit(4, "pt"), type = "closed"),
                  end_cap  = circle(3, "pt"),
@@ -275,41 +285,39 @@ This network diagram places Sailor Shift at its center and reveals the diverse t
 Throughout Sailor's career, not only has Sailor received influences from others, but her work has begun to inspire others, extending her creative reach beyond her immediate circle.
 
 ```{R}
-
-
-
 # Sailor's works
-layer1_targets <- graph %>%
-  activate(edges) %>%
-  as_tibble() %>%
-  filter(`Edge Type` == "PerformerOf", from == sailor_idx) %>%
+layer1_targets <- perf_edges %>%
   pull(to)
+```
 
+```{R}
 # Works influenced by Silor's works
-influence_types <- c("DirectlySamples", "InStyleOf",
+influence_types2 <- c("DirectlySamples", "InStyleOf",
                      "LyricalReferenceTo", "InterpolatesFrom")
 
 layer2_targets <- graph %>%
   activate(edges) %>%
   as_tibble() %>%
-  filter(`Edge Type` %in% influence_types,
+  filter(`Edge Type` %in% influence_types2,
          from %in% layer1_targets) %>%
   pull(to)
+```
 
+```{R}
 # Creators of those influenced works
 creator_types <- c("ComposerOf", "ProducerOf", "LyricistOf")
 
 
-graph_sub <- graph %>%
+graph_sub2 <- graph %>%
   activate(edges) %>%
   filter(
     (`Edge Type` == "PerformerOf" & from == sailor_idx) |
-    (`Edge Type` %in% influence_types & from %in% layer1_targets) |
+    (`Edge Type` %in% influence_types2 & from %in% layer1_targets) |
     (`Edge Type` %in% creator_types & to %in% layer2_targets)
   )
 
 
-used_nodes <- graph_sub %>%
+used_nodes2 <- graph_sub2 %>%
   activate(edges) %>%
   as_tibble() %>%
   select(from, to) %>%
@@ -317,15 +325,15 @@ used_nodes <- graph_sub %>%
   unique()
 
 
-graph_sub <- graph_sub %>%
+graph_sub2 <- graph_sub2 %>%
   activate(nodes) %>%
   mutate(.row = row_number()) %>%
-  filter(.row %in% used_nodes) %>%
+  filter(.row %in% used_nodes2) %>%
   select(-.row)
 
 
 
-ggraph(graph_sub, layout = "fr") +
+ggraph(graph_sub2, layout = "fr") +
   geom_edge_link(aes(color = `Edge Type`),
                  arrow      = arrow(length = unit(3, "pt"), type = "closed"),
                  end_cap    = circle(2.5, "pt"),
@@ -362,3 +370,106 @@ ggraph(graph_sub, layout = "fr") +
 ```
 
 This visualization adopts a four-layer peeling approach: at the very center sits Sailor Shift (blue), surrounded by her own recordings and lyric-penned tracks (red and green). The third ring maps the songs that directly sample, stylistically echo, lyrically reference, or interpolate her work (green), and the outermost layer identifies the composers, producers, and lyricists (blue) behind those derivative pieces. By counting connection frequencies, Wei Zhao stands out as the most heavily influenced creator—appearing under two separate derivative tracks—making them the single individual most shaped by Sailor Shift’s musical legacy.
+
+### 5.3. Sailor Shift‘s influence to the Oceanus Folk community
+
+```{R}
+# Sailor's Index
+sailor_idx <- which(nodes_tbl$name == "Sailor Shift")
+```
+
+```{R}
+# Sailor's works
+creative_edge_types <- c("PerformerOf")
+
+perf_edges <- graph %>%
+  activate(edges) %>%
+  as_tibble() %>%
+  filter(`Edge Type` %in% creative_edge_types, from == sailor_idx)
+
+sailor_works_idx <- perf_edges %>% pull(to) %>% unique()
+
+
+```
+
+```{R}
+nodes_tbl[sailor_works_idx, ]
+```
+
+```{R}
+# Oceanus Folk Community works
+oceanus_works_idx <- nodes_tbl %>%
+  mutate(idx = row_number()) %>%
+  filter(genre == "Oceanus Folk") %>%
+  pull(idx)
+```
+
+```{R}
+# Combine all nodes
+focus_idx <- unique(c(sailor_works_idx, oceanus_works_idx))
+```
+
+```{R}
+nodes_tbl[focus_idx, ]
+```
+
+```{R}
+# Influence Types
+
+influence_types3 <- c(
+  "DirectlySamples",
+  "InStyleOf",
+  "LyricalReferenceTo",
+  "InterpolatesFrom",
+  "CoverOf"
+)
+```
+
+```{R}
+# Filter Edges
+graph_3 <- graph %>%
+  activate(edges) %>%
+  filter(`Edge Type` %in% influence_types3 )
+```
+
+```{R}
+# Extracting Nodes
+
+
+used_node_indices3 <- graph_3 %>%
+  activate(edges) %>%
+  as_tibble() %>%
+  select(from, to) %>%
+  unlist() %>%
+  unique()
+```
+
+```{R}
+# Keep Nodes
+
+graph_3 <- graph_3 %>%
+  activate(nodes) %>%
+  mutate(row_id = row_number()) %>%
+  filter(row_id %in% focus_idx) %>%
+  select(-row_id)  # optional cleanup
+```
+
+```{R}
+# Add label
+graph_3 <- graph_3 %>%
+  activate(nodes) %>%
+  mutate(is_sailor_work = ifelse(name %in% nodes_tbl$name[sailor_works_idx], 
+                                 "Sailor's Work", "Other"))
+
+```
+
+```{R}
+# Ploting
+
+ggraph(graph_3, layout = "fr") +
+  geom_edge_link(alpha = 0.5, colour = "gray") +
+  geom_node_point(aes(color = is_sailor_work), size = 1.5) +
+  theme_void()
+```
+
+Sailor Shift has influenced collaborators in the Oceanus Folk community primarily through indirect inspiration. Her works, though few in number, are embedded across different parts of the network, suggesting they have been referenced or sampled by multiple creators. While she doesn’t appear to collaborate repeatedly with specific individuals, her influence spans across stylistic clusters, indicating a broad and decentralized artistic impact
