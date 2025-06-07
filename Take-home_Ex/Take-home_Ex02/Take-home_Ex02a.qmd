@@ -1,6 +1,7 @@
 ---
 title: "Sailor Shift: Rise and Resonance"
 author: "Linsen Lu"
+format: docx
 execute: 
   eval: true
   echo: true
