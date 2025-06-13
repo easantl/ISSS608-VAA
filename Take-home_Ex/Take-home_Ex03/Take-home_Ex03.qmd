@@ -1,161 +1,216 @@
 ---
-title: "Take-home_Ex03"
+title: "Sailor Shift Career Explorer"
 format: html
+execute:
+  context: server
 ---
 
 ```{R}
-pacman::p_load(igraph, tidygraph, ggraph, 
-               visNetwork, lubridate, clock,
-               tidyverse, graphlayouts, 
-               concaveman, ggforce, jsonlite, dplyr,tidyverse, jsonlite,
-               tidygraph, ggraph,ggplot2,SmartEDA,igraph,visNetwork,DiagrammeR)
-```
+library(shiny)
+library(pacman)
+p_load(tidygraph, visNetwork, jsonlite, dplyr, rlang, igraph)
 
-```{R}
-kg <- fromJSON("data/MC1_graph.json",
-                   simplifyDataFrame = TRUE)
-```
 
-```{R}
-nodes_tbl <- as_tibble(kg$nodes)
-edges_tbl <- as_tibble(kg$links) 
-```
 
-```{R}
-id_map <- tibble(id = nodes_tbl$id,  #Retrieve the ID column of each row node
-                 index = seq_len(
-                   nrow(nodes_tbl)))  #Generate a line number sequence from 1 to n
-```
+kg        <- fromJSON("data/MC1_graph.json", simplifyDataFrame = TRUE)
+nodes_df  <- as_tibble(kg$nodes)
+edges_df  <- as_tibble(kg$links)
 
-```{R}
-edges_tbl <- edges_tbl %>%
-  left_join(id_map, by = c("source" = "id")) %>%  # source id → from index
-  rename(from = index) %>% 
-  left_join(id_map, by = c("target" = "id")) %>%  # target id → to index
-  rename(to = index)
-```
 
-```{R}
-edges_tbl <- edges_tbl %>%
+id_map   <- tibble(id = nodes_df$id, index = seq_len(nrow(nodes_df)))
+edges_df <- edges_df %>%
+  left_join(id_map, by = c("source" = "id")) %>% rename(from = index) %>%
+  left_join(id_map, by = c("target" = "id")) %>% rename(to   = index) %>%
   filter(!is.na(from), !is.na(to))
-```
 
-```{R}
-graph <- tbl_graph(nodes = nodes_tbl, 
-                   edges = edges_tbl, 
-                   directed = kg$directed)
-```
 
-```{R}
-set.seed(1234)
-```
-
-```{R}
-ggraph(graph, layout = "fr") +
-  geom_edge_link(alpha = 0.3, 
-                 colour = "gray") +
-  geom_node_point(aes(color = `Node Type`), 
-                  size = 4) +
-  geom_node_text(aes(label = name), 
-                 repel = TRUE, 
-                 size = 2.5) +
-  theme_void()
-```
-
-```{R}
-extract_subnetwork <- function(graph, node_name, 
-                               distance = NULL, 
-                               direction = c("all", "in", "out"),
-                               edge_types = NULL,
-                               node_types = NULL) {
-  direction <- match.arg(direction)
-  node <- which(V(graph)$name == node_name)
-  if (length(node) == 0) stop("Node name not found in graph.")
-  distance <- ifelse(is.null(distance), length(graph), distance)
-
-  mode <- switch(direction,
-                 all = "all",
-                 `in` = "in",
-                 out = "out")
-
-  igraph_subgraph <- induced_subgraph(graph, vids = ego(graph, node, order = distance, mode = mode)[[1]])
-
-  nodes_df <- igraph::as_data_frame(igraph_subgraph, what = "vertices")
-  edges_df <- igraph::as_data_frame(igraph_subgraph, what = "edges")
-
-  if (!is.null(edge_types)) {
-    edges_df <- edges_df %>% dplyr::filter(`Edge Type` %in% edge_types)
-  }
-
-  if (!is.null(node_types)) {
-    nodes_df <- nodes_df %>% dplyr::filter(`Node Type` %in% node_types)
-  }
-
-  used_node_ids <- unique(c(edges_df$from, edges_df$to))
-  nodes_df <- nodes_df %>% dplyr::filter(name %in% used_node_ids)
-
-  tidygraph::tbl_graph(nodes = nodes_df, edges = edges_df, directed = igraph::is_directed(graph))
-}
-```
-
-```{R}
-subgraph_in <- extract_subnetwork(
-  graph, 
-  node_name = "Sailor Shift", 
-  distance = 5, 
-  direction = "out"
+graph_tbl <- tbl_graph(
+  nodes    = nodes_df,
+  edges    = edges_df,
+  directed = kg$directed
 )
 
-subgraph_igraph <- as.igraph(subgraph_in)
 
-nodes_all <- igraph::as_data_frame(subgraph_igraph, what = "vertices")
-edges_all <- igraph::as_data_frame(subgraph_igraph, what = "edges")
+sailor_idx <- which(nodes_df$name == "Sailor Shift")
 
-sailor_id <- nodes_all$name[nodes_all$name == "Sailor Shift"]
-edges_1st <- edges_all %>% filter(from == "Sailor Shift")
 
-valid_targets <- edges_1st %>%
-  left_join(nodes_all, by = c("to" = "name")) %>%
-  filter(`Node Type` %in% c("MusicalGroup", "Song", "Album","RecordLabel")) %>%
-  pull(to)
 
-valid_node_ids <- unique(c("Sailor Shift", valid_targets))
-edges_vn <- edges_all %>% 
-  filter(from %in% valid_node_ids | to %in% valid_node_ids)
 
-used_nodes <- unique(c(edges_vn$from, edges_vn$to))
-nodes_vn <- nodes_all %>%
-  filter(name %in% used_nodes) %>%
-  mutate(id = name, label = name, group = `Node Type`)
+extract_subgraph <- function(graph, expr) {
+  g_sub <- graph %>%
+    activate(edges) %>%
+    filter(!!enquo(expr))
+  used  <- g_sub %>%
+    activate(edges) %>%
+    as_tibble() %>%
+    select(from, to) %>%
+    unlist() %>%
+    unique()
+  g_sub %>%
+    activate(nodes) %>%
+    mutate(.row = row_number()) %>%
+    filter(.row %in% used) %>%
+    select(-.row)
+}
 
-edges_vn <- edges_vn %>%
-  mutate(
-    label = `Edge Type`, 
-    title = paste0("Edge Type: ", `Edge Type`)  
+
+get_influence <- function(types) {
+  works <- graph_tbl %>%
+    activate(edges) %>% as_tibble() %>%
+    filter(`Edge Type` == "PerformerOf", from == sailor_idx) %>%
+    pull(to) %>% unique()
+  focus <- unique(c(sailor_idx, works))
+  extract_subgraph(
+    graph_tbl,
+    (`Edge Type` %in% types) & (to %in% focus)
   )
-```
+}
 
-```{R}
-visNetwork(nodes_vn, edges_vn, height = "800px", width = "100%") %>%
-  visEdges(
-    arrows = "to",
-    font = list(
-      size = 12,         
-      align = "middle", 
-      color = "black"    
-    )
-  ) %>%  
-  visOptions(
-    highlightNearest = list(enabled = TRUE, degree = 4, hover = TRUE),
-    nodesIdSelection = TRUE,
-    selectedBy = "group"
+
+
+get_collab <- function(depth) {
+  ig    <- as.igraph(graph_tbl)
+  dists <- distances(ig, v = sailor_idx, to = V(ig), mode = "all")
+  valid <- which(dists <= depth)
+  extract_subgraph(
+    graph_tbl,
+    (`Edge Type` %in% c("PerformerOf","ComposerOf","ProducerOf","LyricistOf","CoverOf")) &
+      (from %in% valid & to %in% valid)
+  )
+}
+
+
+
+get_community <- function(depth = 1) {
+
+  folk_idx <- graph_tbl %>%
+    activate(nodes) %>%
+    mutate(.row = row_number()) %>%
+    as_tibble() %>%
+    filter(genre == "Oceanus Folk") %>%
+    pull(.row)
+  
+
+  base_sub <- extract_subgraph(
+    graph_tbl,
+    (`Edge Type` == "PerformerOf") &
+      (from == sailor_idx & to %in% folk_idx)
+  )
+  if (depth == 1) return(base_sub)
+  
+
+  creative_types <- c("ComposerOf","ProducerOf","LyricistOf")
+  work_ids <- base_sub %>%
+    activate(nodes) %>%
+    as_tibble() %>%
+    mutate(.row = row_number()) %>%
+    filter(`Node Type` %in% c("Album","Song")) %>%
+    pull(.row)
+  
+  creative_sub <- extract_subgraph(
+    graph_tbl,
+    (`Edge Type` %in% creative_types) & (to %in% work_ids)
+  )
+  
+
+  edges_all <- bind_rows(
+    base_sub   %>% activate(edges) %>% as_tibble(),
+    creative_sub %>% activate(edges) %>% as_tibble()
+  )
+  nodes_all <- bind_rows(
+    base_sub   %>% activate(nodes) %>% as_tibble(),
+    creative_sub %>% activate(nodes) %>% as_tibble()
   ) %>%
-  visLegend() %>%
-  visLayout(randomSeed = 1234) %>%
-  visInteraction(navigationButtons = TRUE)
+    distinct(name, .keep_all = TRUE) %>%
+    mutate(.row = row_number())
+  
+  tbl_graph(nodes = nodes_all, edges = edges_all, directed = kg$directed)
+}
+
+
+
+ui <- fluidPage(
+  titlePanel("Sailor Shift Career Explorer"),
+  sidebarLayout(
+    sidebarPanel(
+      radioButtons("view", "Select View:：",
+                   c("Influence"   = "influence",
+                     "Collaboration"   = "collab",
+                     "Community"   = "community")
+      ),
+      conditionalPanel("input.view=='influence'",
+                       checkboxGroupInput("inf_types", "Influence Type：",
+                                          choices  = c("ComposerOf","ProducerOf","LyricistOf","CoverOf"),
+                                          selected = c("ComposerOf","ProducerOf")
+                       )
+      ),
+      conditionalPanel("input.view=='collab'",
+                       numericInput("depth", "Depth:",
+                                    value = 1, min = 1, max = 3
+                       )
+      ),
+      conditionalPanel("input.view=='community'",
+                       numericInput("com_depth", "Depth：",
+                                    value = 1, min = 1, max = 2
+                       )
+      ),
+      helpText("Click nodes for details")
+    ),
+    mainPanel(
+      visNetworkOutput("network", height = "700px")
+    )
+  )
+)
+
+
+server <- function(input, output, session) {
+
+  sub_tbl <- reactive({
+    switch(input$view,
+           "influence" = get_influence(input$inf_types),
+           "collab"    = get_collab(input$depth),
+           "community" = get_community(input$com_depth)
+    )
+  })
+  
+
+  output$network <- renderVisNetwork({
+    tblg <- sub_tbl()
+    vn   <- toVisNetworkData(tblg)
+    
+    # nodes: id, label, group
+    nodes_v <- vn$nodes %>%
+      rename(name = label) %>%
+      mutate(
+        id    = as.character(id),
+        label = name,
+        group = as.character(`Node Type`)
+      )
+    
+    # edges: from, to, label, title
+    edges_v <- vn$edges %>%
+      mutate(
+        label = as.character(`Edge Type`),
+        title = paste0("Edge Type: ", label)
+      )
+    
+    visNetwork(nodes_v, edges_v, height = "700px", width = "100%") %>%
+      visEdges(arrows = "to") %>%
+      visOptions(
+        highlightNearest = list(enabled = TRUE, degree = 1, hover = TRUE),
+        nodesIdSelection = TRUE,
+        selectedBy       = "group"
+      ) %>%
+      visLegend() %>%
+      visLayout(randomSeed = 2025) %>%
+      visInteraction(navigationButtons = TRUE)
+  })
+}
+
+
+
+shinyApp(ui, server)
 ```
 
 
-```{R}
 
-```

@@ -3,7 +3,7 @@
 
 library(shiny)
 library(pacman)
-p_load(tidygraph, visNetwork, jsonlite, dplyr, rlang)
+p_load(tidygraph, visNetwork, jsonlite, dplyr, rlang, igraph)
 
 # 1. Data Loading and Preprocessing
 kg        <- fromJSON("MC1_graph.json", simplifyDataFrame = TRUE)
@@ -143,7 +143,7 @@ ui <- fluidPage(
                                     value = 1, min = 1, max = 2
                        )
       ),
-      helpText("点击节点查看详情")
+      helpText("Click nodes for details")
     ),
     mainPanel(
       visNetworkOutput("network", height = "700px")
