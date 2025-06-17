@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Linsen Lu">
 
-<title>Sailor Shift Career Explorer – ISSS608-VAA</title>
+<title>Takehome_Ex03: Storyboard – ISSS608-VAA</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -218,21 +184,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation">Motivation</a></li>
+  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">Methodology</a></li>
+  <li><a href="#storyboard" id="toc-storyboard" class="nav-link" data-scroll-target="#storyboard">Storyboard</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Sailor Shift Career Explorer</h1>
+<h1 class="title">Takehome_Ex03: Storyboard</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Linsen Lu </p>
+          </div>
+  </div>
     
   
     
@@ -243,228 +224,78 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pacman)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">p_load</span>(tidygraph, visNetwork, jsonlite, dplyr, rlang, igraph)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>kg        <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="st">"data/MC1_graph.json"</span>, <span class="at">simplifyDataFrame =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>nodes_df  <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(kg<span class="sc">$</span>nodes)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>edges_df  <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(kg<span class="sc">$</span>links)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>id_map   <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">id =</span> nodes_df<span class="sc">$</span>id, <span class="at">index =</span> <span class="fu">seq_len</span>(<span class="fu">nrow</span>(nodes_df)))</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>edges_df <span class="ot">&lt;-</span> edges_df <span class="sc">%&gt;%</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(id_map, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"source"</span> <span class="ot">=</span> <span class="st">"id"</span>)) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">from =</span> index) <span class="sc">%&gt;%</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(id_map, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"target"</span> <span class="ot">=</span> <span class="st">"id"</span>)) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">to   =</span> index) <span class="sc">%&gt;%</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(from), <span class="sc">!</span><span class="fu">is.na</span>(to))</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>graph_tbl <span class="ot">&lt;-</span> <span class="fu">tbl_graph</span>(</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">nodes    =</span> nodes_df,</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">edges    =</span> edges_df,</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">directed =</span> kg<span class="sc">$</span>directed</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>sailor_idx <span class="ot">&lt;-</span> <span class="fu">which</span>(nodes_df<span class="sc">$</span>name <span class="sc">==</span> <span class="st">"Sailor Shift"</span>)</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>extract_subgraph <span class="ot">&lt;-</span> <span class="cf">function</span>(graph, expr) {</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  g_sub <span class="ot">&lt;-</span> graph <span class="sc">%&gt;%</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">activate</span>(edges) <span class="sc">%&gt;%</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!!</span><span class="fu">enquo</span>(expr))</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  used  <span class="ot">&lt;-</span> g_sub <span class="sc">%&gt;%</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">activate</span>(edges) <span class="sc">%&gt;%</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(from, to) <span class="sc">%&gt;%</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unlist</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unique</span>()</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>  g_sub <span class="sc">%&gt;%</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    <span class="fu">activate</span>(nodes) <span class="sc">%&gt;%</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">.row =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(.row <span class="sc">%in%</span> used) <span class="sc">%&gt;%</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>.row)</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>get_influence <span class="ot">&lt;-</span> <span class="cf">function</span>(types) {</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>  works <span class="ot">&lt;-</span> graph_tbl <span class="sc">%&gt;%</span></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>    <span class="fu">activate</span>(edges) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="st">`</span><span class="at">Edge Type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"PerformerOf"</span>, from <span class="sc">==</span> sailor_idx) <span class="sc">%&gt;%</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(to) <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>  focus <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">c</span>(sailor_idx, works))</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_subgraph</span>(</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>    graph_tbl,</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>    (<span class="st">`</span><span class="at">Edge Type</span><span class="st">`</span> <span class="sc">%in%</span> types) <span class="sc">&amp;</span> (to <span class="sc">%in%</span> focus)</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>get_collab <span class="ot">&lt;-</span> <span class="cf">function</span>(depth) {</span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>  ig    <span class="ot">&lt;-</span> <span class="fu">as.igraph</span>(graph_tbl)</span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>  dists <span class="ot">&lt;-</span> <span class="fu">distances</span>(ig, <span class="at">v =</span> sailor_idx, <span class="at">to =</span> <span class="fu">V</span>(ig), <span class="at">mode =</span> <span class="st">"all"</span>)</span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>  valid <span class="ot">&lt;-</span> <span class="fu">which</span>(dists <span class="sc">&lt;=</span> depth)</span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_subgraph</span>(</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>    graph_tbl,</span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>    (<span class="st">`</span><span class="at">Edge Type</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"PerformerOf"</span>,<span class="st">"ComposerOf"</span>,<span class="st">"ProducerOf"</span>,<span class="st">"LyricistOf"</span>,<span class="st">"CoverOf"</span>)) <span class="sc">&amp;</span></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>      (from <span class="sc">%in%</span> valid <span class="sc">&amp;</span> to <span class="sc">%in%</span> valid)</span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>get_community <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">depth =</span> <span class="dv">1</span>) {</span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>  folk_idx <span class="ot">&lt;-</span> graph_tbl <span class="sc">%&gt;%</span></span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>    <span class="fu">activate</span>(nodes) <span class="sc">%&gt;%</span></span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">.row =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(genre <span class="sc">==</span> <span class="st">"Oceanus Folk"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(.row)</span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>  base_sub <span class="ot">&lt;-</span> <span class="fu">extract_subgraph</span>(</span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>    graph_tbl,</span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>    (<span class="st">`</span><span class="at">Edge Type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"PerformerOf"</span>) <span class="sc">&amp;</span></span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>      (from <span class="sc">==</span> sailor_idx <span class="sc">&amp;</span> to <span class="sc">%in%</span> folk_idx)</span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (depth <span class="sc">==</span> <span class="dv">1</span>) <span class="fu">return</span>(base_sub)</span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>  creative_types <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"ComposerOf"</span>,<span class="st">"ProducerOf"</span>,<span class="st">"LyricistOf"</span>)</span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>  work_ids <span class="ot">&lt;-</span> base_sub <span class="sc">%&gt;%</span></span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>    <span class="fu">activate</span>(nodes) <span class="sc">%&gt;%</span></span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">.row =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="st">`</span><span class="at">Node Type</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Album"</span>,<span class="st">"Song"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(.row)</span>
-<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>  creative_sub <span class="ot">&lt;-</span> <span class="fu">extract_subgraph</span>(</span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>    graph_tbl,</span>
-<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>    (<span class="st">`</span><span class="at">Edge Type</span><span class="st">`</span> <span class="sc">%in%</span> creative_types) <span class="sc">&amp;</span> (to <span class="sc">%in%</span> work_ids)</span>
-<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>  edges_all <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
-<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>    base_sub   <span class="sc">%&gt;%</span> <span class="fu">activate</span>(edges) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>(),</span>
-<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>    creative_sub <span class="sc">%&gt;%</span> <span class="fu">activate</span>(edges) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
-<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>  nodes_all <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
-<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>    base_sub   <span class="sc">%&gt;%</span> <span class="fu">activate</span>(nodes) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>(),</span>
-<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>    creative_sub <span class="sc">%&gt;%</span> <span class="fu">activate</span>(nodes) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
-<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>    <span class="fu">distinct</span>(name, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">.row =</span> <span class="fu">row_number</span>())</span>
-<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_graph</span>(<span class="at">nodes =</span> nodes_all, <span class="at">edges =</span> edges_all, <span class="at">directed =</span> kg<span class="sc">$</span>directed)</span>
-<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>  <span class="fu">titlePanel</span>(<span class="st">"Sailor Shift Career Explorer"</span>),</span>
-<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sidebarLayout</span>(</span>
-<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sidebarPanel</span>(</span>
-<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a>      <span class="fu">radioButtons</span>(<span class="st">"view"</span>, <span class="st">"Select View:："</span>,</span>
-<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">c</span>(<span class="st">"Influence"</span>   <span class="ot">=</span> <span class="st">"influence"</span>,</span>
-<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Collaboration"</span>   <span class="ot">=</span> <span class="st">"collab"</span>,</span>
-<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Community"</span>   <span class="ot">=</span> <span class="st">"community"</span>)</span>
-<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>      ),</span>
-<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a>      <span class="fu">conditionalPanel</span>(<span class="st">"input.view=='influence'"</span>,</span>
-<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">checkboxGroupInput</span>(<span class="st">"inf_types"</span>, <span class="st">"Influence Type："</span>,</span>
-<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>                                          <span class="at">choices  =</span> <span class="fu">c</span>(<span class="st">"ComposerOf"</span>,<span class="st">"ProducerOf"</span>,<span class="st">"LyricistOf"</span>,<span class="st">"CoverOf"</span>),</span>
-<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>                                          <span class="at">selected =</span> <span class="fu">c</span>(<span class="st">"ComposerOf"</span>,<span class="st">"ProducerOf"</span>)</span>
-<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a>                       )</span>
-<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>      ),</span>
-<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>      <span class="fu">conditionalPanel</span>(<span class="st">"input.view=='collab'"</span>,</span>
-<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">numericInput</span>(<span class="st">"depth"</span>, <span class="st">"Depth:"</span>,</span>
-<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">value =</span> <span class="dv">1</span>, <span class="at">min =</span> <span class="dv">1</span>, <span class="at">max =</span> <span class="dv">3</span></span>
-<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>                       )</span>
-<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>      ),</span>
-<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>      <span class="fu">conditionalPanel</span>(<span class="st">"input.view=='community'"</span>,</span>
-<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">numericInput</span>(<span class="st">"com_depth"</span>, <span class="st">"Depth："</span>,</span>
-<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">value =</span> <span class="dv">1</span>, <span class="at">min =</span> <span class="dv">1</span>, <span class="at">max =</span> <span class="dv">2</span></span>
-<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a>                       )</span>
-<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a>      ),</span>
-<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>      <span class="fu">helpText</span>(<span class="st">"Click nodes for details"</span>)</span>
-<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mainPanel</span>(</span>
-<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a>      <span class="fu">visNetworkOutput</span>(<span class="st">"network"</span>, <span class="at">height =</span> <span class="st">"700px"</span>)</span>
-<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a>  sub_tbl <span class="ot">&lt;-</span> <span class="fu">reactive</span>({</span>
-<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a>    <span class="cf">switch</span>(input<span class="sc">$</span>view,</span>
-<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a>           <span class="st">"influence"</span> <span class="ot">=</span> <span class="fu">get_influence</span>(input<span class="sc">$</span>inf_types),</span>
-<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a>           <span class="st">"collab"</span>    <span class="ot">=</span> <span class="fu">get_collab</span>(input<span class="sc">$</span>depth),</span>
-<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a>           <span class="st">"community"</span> <span class="ot">=</span> <span class="fu">get_community</span>(input<span class="sc">$</span>com_depth)</span>
-<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>network <span class="ot">&lt;-</span> <span class="fu">renderVisNetwork</span>({</span>
-<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a>    tblg <span class="ot">&lt;-</span> <span class="fu">sub_tbl</span>()</span>
-<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a>    vn   <span class="ot">&lt;-</span> <span class="fu">toVisNetworkData</span>(tblg)</span>
-<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a>    <span class="co"># nodes: id, label, group</span></span>
-<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a>    nodes_v <span class="ot">&lt;-</span> vn<span class="sc">$</span>nodes <span class="sc">%&gt;%</span></span>
-<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a>      <span class="fu">rename</span>(<span class="at">name =</span> label) <span class="sc">%&gt;%</span></span>
-<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(</span>
-<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a>        <span class="at">id    =</span> <span class="fu">as.character</span>(id),</span>
-<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a>        <span class="at">label =</span> name,</span>
-<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a>        <span class="at">group =</span> <span class="fu">as.character</span>(<span class="st">`</span><span class="at">Node Type</span><span class="st">`</span>)</span>
-<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a>    <span class="co"># edges: from, to, label, title</span></span>
-<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a>    edges_v <span class="ot">&lt;-</span> vn<span class="sc">$</span>edges <span class="sc">%&gt;%</span></span>
-<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(</span>
-<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a>        <span class="at">label =</span> <span class="fu">as.character</span>(<span class="st">`</span><span class="at">Edge Type</span><span class="st">`</span>),</span>
-<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="fu">paste0</span>(<span class="st">"Edge Type: "</span>, label)</span>
-<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a>    <span class="fu">visNetwork</span>(nodes_v, edges_v, <span class="at">height =</span> <span class="st">"700px"</span>, <span class="at">width =</span> <span class="st">"100%"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a>      <span class="fu">visEdges</span>(<span class="at">arrows =</span> <span class="st">"to"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a>      <span class="fu">visOptions</span>(</span>
-<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a>        <span class="at">highlightNearest =</span> <span class="fu">list</span>(<span class="at">enabled =</span> <span class="cn">TRUE</span>, <span class="at">degree =</span> <span class="dv">1</span>, <span class="at">hover =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a>        <span class="at">nodesIdSelection =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a>        <span class="at">selectedBy       =</span> <span class="st">"group"</span></span>
-<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">%&gt;%</span></span>
-<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a>      <span class="fu">visLegend</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a>      <span class="fu">visLayout</span>(<span class="at">randomSeed =</span> <span class="dv">2025</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a>      <span class="fu">visInteraction</span>(<span class="at">navigationButtons =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Listening on http://127.0.0.1:7424</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>The music industry is constantly evolving, with emerging genres and artists reshaping cultural landscapes. One notable example is the rise of “Oceanus Folk,” a genre popularized by the artist Sailor Shift. Understanding her influence requires examining musical trends, collaboration networks, and the genre’s transformation over time.</p>
+<p>Hence, there is a need for analytical tools that allow users to explore Sailor Shift’s career, collaborations, and legacy within the broader Oceanus Folk community. In this project, we propose a data-driven approach using visualizations to uncover key patterns in her artistic journey and forecast future genre developments.</p>
+</section>
+<section id="motivation" class="level2">
+<h2 class="anchored" data-anchor-id="motivation">Motivation</h2>
+<p>Oceanus Folk began as a niche genre tied to the cultural identity of the small island nation of Oceanus. Its unexpected global emergence—catalyzed by Sailor Shift’s meteoric career—offers a rare opportunity to examine the interplay between individual stardom, genre influence, and collaborative networks in music. Understanding how a genre spreads and evolves offers insight not only into musical trends but also into networked cultural transmission.</p>
+</section>
+<section id="methodology" class="level2">
+<h2 class="anchored" data-anchor-id="methodology">Methodology</h2>
+<p>To understand the evolution and influence of Oceanus Folk, particularly through the career of Sailor Shift, our team adopted a modular, data-driven approach. The methodology consists of four key components:</p>
+<ul>
+<li><p><strong>Network Construction</strong>: We parsed a JSON-based music knowledge graph into a tidygraph structure, identifying key node types (artists, songs, albums) and edge relationships (e.g., collaboration, influence). This provided the foundational structure for our visual analytics.</p></li>
+<li><p><strong>Career Profiling</strong>: We traced Sailor Shift’s career over time using timeline and slopegraph visualizations to reveal genre transitions and key milestones. This helped surface patterns in her collaborations and viral growth.</p></li>
+<li><p><strong>Influence Analysis</strong>: We extracted subgraphs to study how Sailor influenced and was influenced by others. By filtering specific edge types (e.g., <em>coverof</em>, <em>interpolatesfrom</em>), we mapped both direct and indirect genre diffusion and constructed genre-level Sankey diagrams and network timelines.</p></li>
+<li><p><strong>Rising Star Detection</strong>: Using centrality, clustering, and influence scores, we developed a model to highlight rising artists. We compared their early trajectories with Sailor’s to predict future Oceanus Folk influencers.</p></li>
+</ul>
+</section>
+<section id="storyboard" class="level2">
+<h2 class="anchored" data-anchor-id="storyboard">Storyboard</h2>
+<p>Our storyboard is structured into multiple interactive modules. Each module is specifically designed to address a key question that users may have about the Oceanus Folk music community, enabling them to explore Sailor Shift’s influence and the genre’s evolution from various perspectives. These proposed modules together will create a comprehensive, user-driven exploration platform, enabling a deep dive into the artistic and cultural dynamics of the Oceanus Folk genre.</p>
+<p><strong>Section 1</strong></p>
+<div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><img src="Take-home_Ex03_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="p1.png" class="img-fluid quarto-figure quarto-figure-left figure-img" style="width:83.0%"></p>
 </figure>
 </div>
+<p>The purpose of this module is to explore the individuals who have influenced Sailor Shift throughout her career. The visualization places Sailor at the center, with various edge types connecting her to other artists who may have had an impact on her work. When the user drags Sailor’s node, the connected nodes move along with it. Visually, the extent to which other nodes follow Sailor’s movement may offer an intuitive sense of the strength of their influence on her.</p>
+<p><strong>Section 2</strong></p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="p2.png" class="img-fluid quarto-figure quarto-figure-left figure-img" style="width:83.0%"></p>
+</figure>
 </div>
+<p>The purpose of this module is to examine the individuals and groups that Sailor Shift has influenced through collaboration. The visualization centers on Sailor’s network of creative partnerships, showing how her musical contributions have potentially shaped the work of other artists, albums, groups, and record labels.</p>
+<p>By selecting the “Collaboration” view, users can explore Sailor’s direct and indirect collaborators across multiple layers of connection, adjustable by depth. In this example, the depth is set to 2, allowing users to see not only Sailor’s immediate collaborators but also their subsequent partnerships—offering insight into the ripple effects of her influence.</p>
+<p><strong>Section 3</strong></p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="p3.png" class="img-fluid quarto-figure quarto-figure-left figure-img" style="width:83.0%"></p>
+</figure>
 </div>
+<p>The purpose of this module is to explore how Sailor Shift’s influence has extended beyond her immediate circle and into the broader Oceanus Folk community. By selecting the “Community” view, users can examine how artists who have collaborated with Sailor went on to influence or work with others, creating a ripple effect across the network.</p>
+<p>In this visualization, Sailor is connected to a cluster of albums and songs through performance edges, indicating her direct involvement. These works, in turn, link to other artists and musical projects—revealing layers of indirect influence. The network is depth-adjustable, and here set to 2, allowing users to trace not only Sailor’s collaborations but also the extended web of creative activity that stems from them.</p>
+<p><strong>Section 4</strong></p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="p4.png" class="img-fluid quarto-figure quarto-figure-left figure-img" style="width:83.0%"></p>
+</figure>
+</div>
+<p><strong>Select Year:</strong> Users can select the year using the slider on the left, so the slope chart at the right side will highlight Oceanus Folk’s ranking in the specific year. On hover, it reveals rank, album/song counts, and growth rate.</p>
+<p><strong>Section 5</strong></p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="p5.png" class="img-fluid quarto-figure quarto-figure-left figure-img" style="width:83.0%"></p>
+</figure>
+</div>
+<p><strong>Select Top n Influence Genres:</strong> This control allows users to define how many top genres to display, ranked by their level of influence on Oceanus Folk.</p>
+<p><strong>Select Influence Type:</strong> Users can customize what constitutes “influence,” including collaborations, direct references, covers, and more. Select Year Range: Adjusts the analysis period, letting users explore how genre influence patterns shift over time.</p>
+<p><strong>Section 6</strong></p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="p6.png" class="img-fluid quarto-figure quarto-figure-left figure-img" style="width:83.0%"></p>
+</figure>
+</div>
+<p><strong>Select Year Range:</strong> Defines the temporal scope for tracing influence relationships involving Oceanus Folk.</p>
+<p><strong>Select Influence Type:</strong> Lets users refine the nature of influence to explore, such as cover versions, lyrical references, or collaboration.</p>
+<p><strong>Select Genre:</strong> By default, the chart displays both genres influencing Oceanus Folk and those influenced by it. Users can filter to focus on specific interaction directions or highlight the most impacted genres.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

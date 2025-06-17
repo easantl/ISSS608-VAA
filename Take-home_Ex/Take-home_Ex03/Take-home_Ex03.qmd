@@ -1,216 +1,81 @@
 ---
-title: "Sailor Shift Career Explorer"
+title: "Takehome_Ex03: Storyboard"
 format: html
-execute:
-  context: server
+author: "Linsen Lu"
+execute: 
+  eval: true
+  echo: true
+  warning: false
 ---
 
-```{R}
-library(shiny)
-library(pacman)
-p_load(tidygraph, visNetwork, jsonlite, dplyr, rlang, igraph)
+## Introduction
 
+The music industry is constantly evolving, with emerging genres and artists reshaping cultural landscapes. One notable example is the rise of “Oceanus Folk,” a genre popularized by the artist Sailor Shift. Understanding her influence requires examining musical trends, collaboration networks, and the genre’s transformation over time.
 
+Hence, there is a need for analytical tools that allow users to explore Sailor Shift’s career, collaborations, and legacy within the broader Oceanus Folk community. In this project, we propose a data-driven approach using visualizations to uncover key patterns in her artistic journey and forecast future genre developments.
 
-kg        <- fromJSON("data/MC1_graph.json", simplifyDataFrame = TRUE)
-nodes_df  <- as_tibble(kg$nodes)
-edges_df  <- as_tibble(kg$links)
+## Motivation
 
+Oceanus Folk began as a niche genre tied to the cultural identity of the small island nation of Oceanus. Its unexpected global emergence—catalyzed by Sailor Shift’s meteoric career—offers a rare opportunity to examine the interplay between individual stardom, genre influence, and collaborative networks in music. Understanding how a genre spreads and evolves offers insight not only into musical trends but also into networked cultural transmission.
 
-id_map   <- tibble(id = nodes_df$id, index = seq_len(nrow(nodes_df)))
-edges_df <- edges_df %>%
-  left_join(id_map, by = c("source" = "id")) %>% rename(from = index) %>%
-  left_join(id_map, by = c("target" = "id")) %>% rename(to   = index) %>%
-  filter(!is.na(from), !is.na(to))
+## Methodology
 
+To understand the evolution and influence of Oceanus Folk, particularly through the career of Sailor Shift, our team adopted a modular, data-driven approach. The methodology consists of four key components:
 
-graph_tbl <- tbl_graph(
-  nodes    = nodes_df,
-  edges    = edges_df,
-  directed = kg$directed
-)
+-   **Network Construction**: We parsed a JSON-based music knowledge graph into a tidygraph structure, identifying key node types (artists, songs, albums) and edge relationships (e.g., collaboration, influence). This provided the foundational structure for our visual analytics.
 
+-   **Career Profiling**: We traced Sailor Shift’s career over time using timeline and slopegraph visualizations to reveal genre transitions and key milestones. This helped surface patterns in her collaborations and viral growth.
 
-sailor_idx <- which(nodes_df$name == "Sailor Shift")
+-   **Influence Analysis**: We extracted subgraphs to study how Sailor influenced and was influenced by others. By filtering specific edge types (e.g., *coverof*, *interpolatesfrom*), we mapped both direct and indirect genre diffusion and constructed genre-level Sankey diagrams and network timelines.
 
+-   **Rising Star Detection**: Using centrality, clustering, and influence scores, we developed a model to highlight rising artists. We compared their early trajectories with Sailor's to predict future Oceanus Folk influencers.
 
+## Storyboard
 
+Our storyboard is structured into multiple interactive modules. Each module is specifically designed to address a key question that users may have about the Oceanus Folk music community, enabling them to explore Sailor Shift’s influence and the genre’s evolution from various perspectives. These proposed modules together will create a comprehensive, user-driven exploration platform, enabling a deep dive into the artistic and cultural dynamics of the Oceanus Folk genre.
 
-extract_subgraph <- function(graph, expr) {
-  g_sub <- graph %>%
-    activate(edges) %>%
-    filter(!!enquo(expr))
-  used  <- g_sub %>%
-    activate(edges) %>%
-    as_tibble() %>%
-    select(from, to) %>%
-    unlist() %>%
-    unique()
-  g_sub %>%
-    activate(nodes) %>%
-    mutate(.row = row_number()) %>%
-    filter(.row %in% used) %>%
-    select(-.row)
-}
+**Section 1**
 
+![](p1.png){fig-align="left" width="83%"}
 
-get_influence <- function(types) {
-  works <- graph_tbl %>%
-    activate(edges) %>% as_tibble() %>%
-    filter(`Edge Type` == "PerformerOf", from == sailor_idx) %>%
-    pull(to) %>% unique()
-  focus <- unique(c(sailor_idx, works))
-  extract_subgraph(
-    graph_tbl,
-    (`Edge Type` %in% types) & (to %in% focus)
-  )
-}
+The purpose of this module is to explore the individuals who have influenced Sailor Shift throughout her career. The visualization places Sailor at the center, with various edge types connecting her to other artists who may have had an impact on her work. When the user drags Sailor’s node, the connected nodes move along with it. Visually, the extent to which other nodes follow Sailor’s movement may offer an intuitive sense of the strength of their influence on her.
 
+**Section 2**
 
+![](p2.png){fig-align="left" width="83%"}
 
-get_collab <- function(depth) {
-  ig    <- as.igraph(graph_tbl)
-  dists <- distances(ig, v = sailor_idx, to = V(ig), mode = "all")
-  valid <- which(dists <= depth)
-  extract_subgraph(
-    graph_tbl,
-    (`Edge Type` %in% c("PerformerOf","ComposerOf","ProducerOf","LyricistOf","CoverOf")) &
-      (from %in% valid & to %in% valid)
-  )
-}
+The purpose of this module is to examine the individuals and groups that Sailor Shift has influenced through collaboration. The visualization centers on Sailor’s network of creative partnerships, showing how her musical contributions have potentially shaped the work of other artists, albums, groups, and record labels.
 
+By selecting the “Collaboration” view, users can explore Sailor’s direct and indirect collaborators across multiple layers of connection, adjustable by depth. In this example, the depth is set to 2, allowing users to see not only Sailor’s immediate collaborators but also their subsequent partnerships—offering insight into the ripple effects of her influence.
 
+**Section 3**
 
-get_community <- function(depth = 1) {
+![](p3.png){fig-align="left" width="83%"}
 
-  folk_idx <- graph_tbl %>%
-    activate(nodes) %>%
-    mutate(.row = row_number()) %>%
-    as_tibble() %>%
-    filter(genre == "Oceanus Folk") %>%
-    pull(.row)
-  
+The purpose of this module is to explore how Sailor Shift’s influence has extended beyond her immediate circle and into the broader Oceanus Folk community. By selecting the “Community” view, users can examine how artists who have collaborated with Sailor went on to influence or work with others, creating a ripple effect across the network.
 
-  base_sub <- extract_subgraph(
-    graph_tbl,
-    (`Edge Type` == "PerformerOf") &
-      (from == sailor_idx & to %in% folk_idx)
-  )
-  if (depth == 1) return(base_sub)
-  
+In this visualization, Sailor is connected to a cluster of albums and songs through performance edges, indicating her direct involvement. These works, in turn, link to other artists and musical projects—revealing layers of indirect influence. The network is depth-adjustable, and here set to 2, allowing users to trace not only Sailor’s collaborations but also the extended web of creative activity that stems from them.
 
-  creative_types <- c("ComposerOf","ProducerOf","LyricistOf")
-  work_ids <- base_sub %>%
-    activate(nodes) %>%
-    as_tibble() %>%
-    mutate(.row = row_number()) %>%
-    filter(`Node Type` %in% c("Album","Song")) %>%
-    pull(.row)
-  
-  creative_sub <- extract_subgraph(
-    graph_tbl,
-    (`Edge Type` %in% creative_types) & (to %in% work_ids)
-  )
-  
+**Section 4**
 
-  edges_all <- bind_rows(
-    base_sub   %>% activate(edges) %>% as_tibble(),
-    creative_sub %>% activate(edges) %>% as_tibble()
-  )
-  nodes_all <- bind_rows(
-    base_sub   %>% activate(nodes) %>% as_tibble(),
-    creative_sub %>% activate(nodes) %>% as_tibble()
-  ) %>%
-    distinct(name, .keep_all = TRUE) %>%
-    mutate(.row = row_number())
-  
-  tbl_graph(nodes = nodes_all, edges = edges_all, directed = kg$directed)
-}
+![](p4.png){fig-align="left" width="83%"}
 
+**Select Year:** Users can select the year using the slider on the left, so the slope chart at the right side will highlight Oceanus Folk's ranking in the specific year. On hover, it reveals rank, album/song counts, and growth rate.
 
+**Section 5**
 
-ui <- fluidPage(
-  titlePanel("Sailor Shift Career Explorer"),
-  sidebarLayout(
-    sidebarPanel(
-      radioButtons("view", "Select View:：",
-                   c("Influence"   = "influence",
-                     "Collaboration"   = "collab",
-                     "Community"   = "community")
-      ),
-      conditionalPanel("input.view=='influence'",
-                       checkboxGroupInput("inf_types", "Influence Type：",
-                                          choices  = c("ComposerOf","ProducerOf","LyricistOf","CoverOf"),
-                                          selected = c("ComposerOf","ProducerOf")
-                       )
-      ),
-      conditionalPanel("input.view=='collab'",
-                       numericInput("depth", "Depth:",
-                                    value = 1, min = 1, max = 3
-                       )
-      ),
-      conditionalPanel("input.view=='community'",
-                       numericInput("com_depth", "Depth：",
-                                    value = 1, min = 1, max = 2
-                       )
-      ),
-      helpText("Click nodes for details")
-    ),
-    mainPanel(
-      visNetworkOutput("network", height = "700px")
-    )
-  )
-)
+![](p5.png){fig-align="left" width="83%"}
 
+**Select Top n Influence Genres:** This control allows users to define how many top genres to display, ranked by their level of influence on Oceanus Folk.
 
-server <- function(input, output, session) {
+**Select Influence Type:** Users can customize what constitutes “influence,” including collaborations, direct references, covers, and more. Select Year Range: Adjusts the analysis period, letting users explore how genre influence patterns shift over time.
 
-  sub_tbl <- reactive({
-    switch(input$view,
-           "influence" = get_influence(input$inf_types),
-           "collab"    = get_collab(input$depth),
-           "community" = get_community(input$com_depth)
-    )
-  })
-  
+**Section 6**
 
-  output$network <- renderVisNetwork({
-    tblg <- sub_tbl()
-    vn   <- toVisNetworkData(tblg)
-    
-    # nodes: id, label, group
-    nodes_v <- vn$nodes %>%
-      rename(name = label) %>%
-      mutate(
-        id    = as.character(id),
-        label = name,
-        group = as.character(`Node Type`)
-      )
-    
-    # edges: from, to, label, title
-    edges_v <- vn$edges %>%
-      mutate(
-        label = as.character(`Edge Type`),
-        title = paste0("Edge Type: ", label)
-      )
-    
-    visNetwork(nodes_v, edges_v, height = "700px", width = "100%") %>%
-      visEdges(arrows = "to") %>%
-      visOptions(
-        highlightNearest = list(enabled = TRUE, degree = 1, hover = TRUE),
-        nodesIdSelection = TRUE,
-        selectedBy       = "group"
-      ) %>%
-      visLegend() %>%
-      visLayout(randomSeed = 2025) %>%
-      visInteraction(navigationButtons = TRUE)
-  })
-}
+![](p6.png){fig-align="left" width="83%"}
 
+**Select Year Range:** Defines the temporal scope for tracing influence relationships involving Oceanus Folk.
 
+**Select Influence Type:** Lets users refine the nature of influence to explore, such as cover versions, lyrical references, or collaboration.
 
-shinyApp(ui, server)
-```
-
-
-
+**Select Genre:** By default, the chart displays both genres influencing Oceanus Folk and those influenced by it. Users can filter to focus on specific interaction directions or highlight the most impacted genres.
