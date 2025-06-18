@@ -79,3 +79,25 @@ In this visualization, Sailor is connected to a cluster of albums and songs thro
 **Select Influence Type:** Lets users refine the nature of influence to explore, such as cover versions, lyrical references, or collaboration.
 
 **Select Genre:** By default, the chart displays both genres influencing Oceanus Folk and those influenced by it. Users can filter to focus on specific interaction directions or highlight the most impacted genres.
+
+**Section 7**
+
+![](p7.png){fig-align="left" width="83%"}
+
+This module allows users to visually explore selected Top 3 Rising Stars’ contribution, specifically through roles such as Composer, Lyricist, and Producer. The graph highlights relationships between artists and their creative outputs (songs and albums).
+
+**Section 8**
+
+![](p8.png){fig-align="left" width="83%"}
+
+This module is designed to explore how an individual artist’s work influences and is influenced by others, through musical relationships such as sampling, covering, lyrical referencing, etc.
+
+It’s built around one artist at a time and visualizes the network of musical references tied to the works they have performed.
+
+**Section 9**
+
+![](p9.png){fig-align="left" width="83%"}
+
+This module aims to showcase the song catalog of the next top 3 rising stars, highlighting the number and variety of songs they’ve performed.
+
+It visualizes direct artist-to-song relationships, not broader influence. It’s ideal for understanding what each artist has worked on, not how that work connects to others.
