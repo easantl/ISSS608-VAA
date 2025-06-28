@@ -30,7 +30,8 @@ website:
         menu: 
           - text: "In-class Exercise 5"
             href: "In-class_Ex/Week 5/In-class_Ex05.qmd"            
-
+          - text: "In-class Exercise 10"
+            href: "In-class_Ex/Week 10/In-class_Ex10.qmd"   
       
       - text: "Take-home Exercise"
         menu: 
